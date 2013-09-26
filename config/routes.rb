@@ -1,4 +1,9 @@
 Moneko::Application.routes.draw do
+  get "offers/index"
+  get "offers/new"
+  get "offers/create"
+  get "offers/delete"
+  get "offers/edit"
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
