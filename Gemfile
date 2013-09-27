@@ -11,9 +11,10 @@ gem 'sass-rails', '~> 4.0.0'
 
 # Use haml
 gem 'haml'
-
-# Use twitter bootstrap
-gem "twitter-bootstrap-rails"
+group :assets do
+  # Use twitter bootstrap
+  gem "twitter-bootstrap-rails"
+end
 
 # Use less
 gem "less-rails"
