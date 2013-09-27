@@ -15,6 +15,10 @@ gem 'haml'
 # Use twitter bootstrap
 gem "twitter-bootstrap-rails"
 
+# Use less
+gem "less-rails"
+gem "therubyracer"
+
 # Use Uglifier as compressor for JavaScript assets
 gem 'uglifier', '>= 1.3.0'
 
