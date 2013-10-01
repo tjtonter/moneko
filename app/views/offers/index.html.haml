@@ -1,0 +1,14 @@
+%table.table.table-striped
+  %thead
+    %tr
+      %th Työnumero
+      %th Kohde
+      %th Uusi tilaus
+  %tbody
+    = @offers.each do |offer|
+      %tr
+        %td offer.customer
+        %td offer.target
+        %td offer.updated_at
+
+%p= link_to "Luo uusi tarjous", offers_new_path
