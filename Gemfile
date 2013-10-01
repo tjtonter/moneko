@@ -7,14 +7,14 @@ gem 'rails', '4.0.0'
 gem 'sqlite3'
 
 # Use SCSS for stylesheets
-gem 'sass-rails', '~> 4.0.0'
+# gem 'sass-rails', '~> 4.0.0'
 
 # Use haml
 gem 'haml'
 group :assets do
-  # Use twitter bootstrap
-  gem "twitter-bootstrap-rails"
 end
+# Use twitter bootstrap
+gem "twitter-bootstrap-rails"
 
 # Use less
 gem "less-rails"
