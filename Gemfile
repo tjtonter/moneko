@@ -12,6 +12,7 @@ gem 'sqlite3'
 # Use haml
 gem 'haml'
 group :assets do
+  gem 'sass-rails'
 end
 # Use twitter bootstrap
 gem "twitter-bootstrap-rails"
