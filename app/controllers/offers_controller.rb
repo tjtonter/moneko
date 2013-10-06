@@ -8,6 +8,13 @@ class OffersController < ApplicationController
   end
 
   def create
+    @offer = Offer.new(params[:offer])
+
+    if @offer.save
+      redirect_to @offer
+    else
+      render 'new'
+    end
   end
 
   def delete
