@@ -1,1 +1,22 @@
-%h2 Luo uusi tarjous
+= form_for :offer do |f|
+  %legend Luo uusi tarjous
+  = f.label :customer, "Asiakkaan nimi ja osoite"
+  = f.text_area :customer, :class => "span6"
+
+  = f.label :target, "Työkohde"
+  = f.text_field :target, :class => "span6"
+
+  = f.label :contents, "Tarjouksen sisältö"
+  = f.text_area :contents, :class => "span6"
+
+  = f.label :execution, "Työn suoritus"
+  = f.text_area :execution, :class => "span6"
+
+  = f.label :delivery, "Toimitusaika"
+  = f.text_area :delivery, :class => "span6"
+
+  = f.label :charge, "Palvelumaksu"
+  = f.text_area :charge, :class => "span6"
+
+  %br
+  = f.submit "Luo tarjous", :class => "btn btn-primary"
