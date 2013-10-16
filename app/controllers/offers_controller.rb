@@ -19,6 +19,12 @@ class OffersController < ApplicationController
 
   def show
     @offer = Offer.find(params[:id])
+
+    respond_to do |format|
+      format.html
+      format.pdf 
+    end
+
   end
 
   def delete

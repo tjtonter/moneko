@@ -9,6 +9,10 @@ gem 'sqlite3'
 # Use SCSS for stylesheets
 # gem 'sass-rails', '~> 4.0.0'
 
+# Prawn PDF
+gem 'prawn'
+gem 'prawn-rails'
+
 # Use haml
 gem 'haml'
 group :assets do
