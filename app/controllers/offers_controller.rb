@@ -1,18 +1,28 @@
 class OffersController < ApplicationController
   class OfferReport < Prawn::Document
     def initialize(options = {})
-      super(:top_margin => 140, :bottom_margin => 100)
+      super(:top_margin => 100, :bottom_margin => 100)
     end
-    def to_pdf
-      100.times do 
-        text "Hello world!"
-      end
-      text "Hello again!"
+    def to_pdf(offer)
+      text offer.customer
+      move_down 20
+      table([["moi", "joo"], ["hei", "joo"]])
 
       canvas do
         repeat(:all) do
-          draw_text "Raimo Saariaho", :at => [bounds.left+10, bounds.top-20]
-          draw_text "MONEKO", :at => [bounds.left+10, bounds.top-50], :style => :bold, :color => "#ff0000" 
+          draw_text "Raimo Saariaho", :at => [10, bounds.top-20]
+          draw_text "PALVELUTARJOUS", :at => [400, bounds.top-20]
+          draw_text "Luottamuksellinen", :at => [400, bounds.top-45]
+          font_size 10
+          draw_text "Moneko oy", :at => [10, 50]
+          draw_text "Y-tunnus: 123456-Y", :at => [10, 35]
+          fill_color "fb8900"
+          draw_text "MONEKO",
+            :at => [10, bounds.top-50],
+            :style => :bold, 
+            :size => 20
+          move_down 90
+          stroke_horizontal_rule
         end
       end
       render
@@ -43,7 +53,7 @@ class OffersController < ApplicationController
       format.html
       format.pdf do
         pdf = OfferReport.new
-        send_data pdf.to_pdf, filename: "hello.pdf", type: "application/pdf", disposition: "inline"
+        send_data pdf.to_pdf(@offer), filename: "hello.pdf", type: "application/pdf", disposition: "inline"
       end
     end
   end
