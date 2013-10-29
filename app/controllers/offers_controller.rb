@@ -1,4 +1,24 @@
 class OffersController < ApplicationController
+  class OfferReport < Prawn::Document
+    def initialize(options = {})
+      super(:top_margin => 140, :bottom_margin => 100)
+    end
+    def to_pdf
+      100.times do 
+        text "Hello world!"
+      end
+      text "Hello again!"
+
+      canvas do
+        repeat(:all) do
+          draw_text "Raimo Saariaho", :at => [bounds.left+10, bounds.top-20]
+          draw_text "MONEKO", :at => [bounds.left+10, bounds.top-50], :style => :bold, :color => "#ff0000" 
+        end
+      end
+      render
+    end
+  end
+
   def index
     @offers = Offer.all
   end
@@ -19,12 +39,13 @@ class OffersController < ApplicationController
 
   def show
     @offer = Offer.find(params[:id])
-
     respond_to do |format|
       format.html
-      format.pdf 
+      format.pdf do
+        pdf = OfferReport.new
+        send_data pdf.to_pdf, filename: "hello.pdf", type: "application/pdf", disposition: "inline"
+      end
     end
-
   end
 
   def delete
