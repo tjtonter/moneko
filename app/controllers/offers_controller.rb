@@ -5,7 +5,7 @@ class OffersController < ApplicationController
       super(:top_margin => 100, :bottom_margin => 100)
     end
     def to_pdf(offer)
-      text offer.customer
+      text offer.customer, :inline_format => true
       move_down 20
       text "TARJOUDUMME SUORITTAMAAN SIIVOUSTA SEURAAVASTI", :style => :bold
       move_down 20
@@ -17,7 +17,7 @@ class OffersController < ApplicationController
       ["Palvelumaksu", offer.charge]
       ]
 #table(data, :column_widths => [150, 400], :cell_style => {:border_width => 0 })
-      table(data) do
+      table(data, :cell_style => { :inline_format => true} ) do
         cells.borders = []
         cells.padding = 5
         column(0).font_style = :bold
