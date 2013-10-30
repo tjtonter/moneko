@@ -1,27 +1,43 @@
 class OffersController < ApplicationController
   class OfferReport < Prawn::Document
+    LEFT = 35
     def initialize(options = {})
       super(:top_margin => 100, :bottom_margin => 100)
     end
     def to_pdf(offer)
       text offer.customer
       move_down 20
-      table([["moi", "joo"], ["hei", "joo"]])
+      text "TARJOUDUMME SUORITTAMAAN SIIVOUSTA SEURAAVASTI", :style => :bold
+      move_down 20
+      data = [
+      ["Kohde", offer.target],
+      ["Tarjouksemme sisältö", offer.contents],
+      ["Työn suoritus", offer.execution],
+      ["Toimitusaika", offer.delivery],
+      ["Palvelumaksu", offer.charge]
+      ]
+#table(data, :column_widths => [150, 400], :cell_style => {:border_width => 0 })
+      table(data) do
+        cells.borders = []
+        cells.padding = 5
+        column(0).font_style = :bold
+      end
 
       canvas do
         repeat(:all) do
-          draw_text "Raimo Saariaho", :at => [10, bounds.top-20]
-          draw_text "PALVELUTARJOUS", :at => [400, bounds.top-20]
+          draw_text "Raimo Saariaho", :at => [LEFT, bounds.top-60]
+          draw_text "PALVELUTARJOUS", :at => [400, bounds.top-30]
           draw_text "Luottamuksellinen", :at => [400, bounds.top-45]
+          draw_text "29.10.2013", :at => [400, bounds.top-60]
           font_size 10
-          draw_text "Moneko oy", :at => [10, 50]
-          draw_text "Y-tunnus: 123456-Y", :at => [10, 35]
+          draw_text "Moneko oy", :at => [LEFT, 50]
+          draw_text "Y-tunnus: 123456-Y", :at => [LEFT, 35]
           fill_color "fb8900"
           draw_text "MONEKO",
-            :at => [10, bounds.top-50],
+            :at => [LEFT, bounds.top-35],
             :style => :bold, 
             :size => 20
-          move_down 90
+          move_down 70
           stroke_horizontal_rule
         end
       end
