@@ -10,7 +10,7 @@
           .container
             = link_to "Moneko", '#', :class => "brand"
             %ul.nav
-              %li= link_to "Tarjoukset", offers_path
+              %li{ :class => ('active' if params[:controller] == controller_name) }= link_to "Tarjoukset", offers_path
               %li= link_to "Työmääräykset", "#"
               %li= link_to "Valmiit", "#"
 
