@@ -1,5 +1,7 @@
 class OffersController < ApplicationController
   class OfferReport < Prawn::Document
+    include  ActionView::Helpers::SanitizeHelper
+
     LEFT = 35
     def initialize(options = {})
       super(:top_margin => 100, :bottom_margin => 100)
@@ -11,12 +13,11 @@ class OffersController < ApplicationController
       move_down 20
       data = [
       ["Kohde", offer.target],
-      ["Tarjouksemme sisältö", offer.contents],
-      ["Työn suoritus", offer.execution],
-      ["Toimitusaika", offer.delivery],
-      ["Palvelumaksu", offer.charge]
+      ["Tarjouksemme sisältö", sanitize(offer.contents, tags: %w(b i u))],
+      ["Työn suoritus", sanitize(offer.execution, tags: %w(b i u))],
+      ["Toimitusaika", sanitize(offer.delivery, tags: %w(b i u))],
+      ["Palvelumaksu", sanitize(offer.charge, tags: %w(b i u))]
       ]
-#table(data, :column_widths => [150, 400], :cell_style => {:border_width => 0 })
       table(data, :cell_style => { :inline_format => true} ) do
         cells.borders = []
         cells.padding = 5

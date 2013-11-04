@@ -1,32 +1,4 @@
-.offerFooter
-  .row
-    .span3
-      %p
-        %b MONEKO OY
-        %br
-        Gyldenintie 10 B
-        %br
-        00200 Helsinki
-    .span3
-      %p 
-        email
-        %br
-        raimo.saariaho@moneko.fi
-    .span3
-      %p
-        puhelin
-        010 286 1200
-        0400 608329
-.offerHeader
-  .row
-    .span8
-      %h4 MONEKO
-    .span3
-      %p 
-        PALVELUTARJOUS
-        %br
-        Luottamuksellinen
-      
+%h2= link_to "Luo PDF", offer_path(@offer, :format => 'pdf')
 %p= simple_format(@offer.customer)
 %br
 .row
