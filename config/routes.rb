@@ -1,6 +1,6 @@
 Moneko::Application.routes.draw do
   devise_for :users
-  resources :offers
+  resources :offers, :users
 
   root to: "offers#index"  
 end
