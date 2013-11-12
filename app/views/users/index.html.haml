@@ -1,0 +1,9 @@
+%h2 Kaikki käyttäjät
+%table.table
+  %tr
+    %th Käyttäjätunnus
+  - @users.each do |user|
+    %tr
+      %td= user.username
+
+= link_to "Uusi käyttäjä", new_user_registration_path

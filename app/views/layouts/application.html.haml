@@ -9,11 +9,12 @@
         .navbar-inner
           .container
             = link_to "Moneko", '#', :class => "brand"
-            %ul.nav
-              %li{ :class => ('active' if params[:controller] == controller_name) }= link_to "Tarjoukset", offers_path
+            %ul.nav.navbar-nav
+              %li{ :class => ('active' if 'offers' == controller_name) }= link_to "Tarjoukset", offers_path
               %li= link_to "Työmääräykset", "#"
               %li= link_to "Valmiit", "#"
-
+            %ul.nav.navbar-nav.navbar-right
+              %li{ :class => ('active' if 'users' == controller_name) }= link_to "Käyttäjät", users_path
       = yield
     = javascript_include_tag "application", "data-turbolinks-track" => true
 
