@@ -2,8 +2,12 @@
 %table.table
   %tr
     %th Käyttäjätunnus
+    %th Nimi
+    %th Sähköpostiosoite
   - @users.each do |user|
     %tr
       %td= user.username
+      %td= user.name
+      %td= user.email
 
 = link_to "Uusi käyttäjä", new_user_registration_path
