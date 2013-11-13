@@ -1,4 +1,5 @@
-%h2= link_to "Luo PDF", offer_path(@offer, :format => 'pdf')
+%h3= link_to "Luo PDF", offer_path(@offer, :format => 'pdf')
+%h3= link_to "Muokkaa", edit_offer_path(@offer)
 %p= simple_format(@offer.customer)
 %br
 .row
