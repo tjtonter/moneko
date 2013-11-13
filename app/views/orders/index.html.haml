@@ -7,6 +7,7 @@
   %tbody
     - @orders.each do |order|
       %tr
-        %td= link_to "Työnumero", order_path(order)
+        %td= link_to order.number, order_path(order)
         %td= order.title
         %td= order.description
+= link_to "Luo työmääräys", new_order_path, :class => "btn btn-primary"

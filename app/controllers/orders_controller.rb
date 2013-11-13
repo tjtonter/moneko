@@ -10,6 +10,7 @@ class OrdersController < ApplicationController
 
   def create
     @order = Order.new(order_params)
+    @order.number = create_number 
     if @order.save
       flash[:notice] = "Uusi työmääräys luotu"
       redirect_to order_path(@order)
@@ -43,4 +44,12 @@ class OrdersController < ApplicationController
     def load_offer_id
       @offer = Offer.find(params[:offer_id]) if params[:offer_id].present?
     end
+    
+    def create_number
+      year = Date.today.year
+      year = year - 2000
+      year = year * 10000
+      year = year + Order.ids.max 
+    end
+
 end

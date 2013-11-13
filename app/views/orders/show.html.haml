@@ -1,8 +1,8 @@
-%h3 Työmääräys 130001
+%h3 Työmääräys #{@order.number}
 .row
   .span9
     .btn-group
-      = link_to "Poista", [@order.offer, @order], :class => "btn", method: :delete
+      = link_to "Poista", @order, :class => "btn", method: :delete
       = link_to "Muokkaa", edit_order_path(@order), :class => "btn"
 .span3
   %h4 Kohde
