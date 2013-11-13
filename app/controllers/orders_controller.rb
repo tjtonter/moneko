@@ -5,23 +5,21 @@ class OrdersController < ApplicationController
   end
 
   def new
-    @offer = Offer.find(params[:offer_id])
+    @order = Order.new
   end
 
   def create
-    @offer = Offer.find(params[:offer_id])
-    @order = @offer.orders.create(order_params)
+    @order = Order.new(order_params)
     if @order.save
       flash[:notice] = "Uusi työmääräys luotu"
-      redirect_to offer_order_path(@offer, @order)
+      redirect_to order_path(@order)
     else
       render "new"
     end
   end
 
   def show
-    @offer = Offer.find(params[:offer_id])
-    @order = @offer.orders.find(params[:id])
+    @order = Order.find(params[:id])
   end
   
   def destroy
@@ -34,6 +32,7 @@ class OrdersController < ApplicationController
   end
 
   def edit
+    @order = Order.find(params[:id])  
   end
 
   private

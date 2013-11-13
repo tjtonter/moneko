@@ -1,0 +1,15 @@
+= form_for @order do |f|
+  %fieldset
+    %legend Työmääräys
+    - if @order.errors.any?
+      - @order.errors.full_messages do |msg|
+        %li= msg
+    = f.label :title
+    = f.text_field :title, :class => "input-xxlarge", 
+      :value => (@offer.present? ? @offer.target : @order.title)
+    %br
+    = f.label :description
+    = f.text_area :description, :class => "input-xxlarge", :rows => 20, 
+      :value => (@offer.present? ? strip_tags(@offer.charge) : @order.description)
+    %br
+    = f.button

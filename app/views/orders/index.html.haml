@@ -7,6 +7,6 @@
   %tbody
     - @orders.each do |order|
       %tr
-        %td= link_to "Työnumero", offer_order_path(order.offer, order)
+        %td= link_to "Työnumero", order_path(order)
         %td= order.title
         %td= order.description
