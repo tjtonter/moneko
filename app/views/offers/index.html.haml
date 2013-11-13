@@ -3,14 +3,12 @@
     %tr
       %th Asiakas
       %th Kohde
-      %th Muokkaa
-      %th Työmääräys
+      %th Päivitetty
   %tbody
     -@offers.each do |offer| 
       %tr
         %td= offer.customer
         %td= link_to offer.target, offer
-        %td= link_to "Muokkaa", edit_offer_path(offer)
-        %td= link_to "Työmääräys", "#"
+        %td= offer.updated_at.to_time
 
 %p= link_to "Luo uusi tarjous", new_offer_path

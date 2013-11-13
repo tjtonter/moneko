@@ -1,0 +1,12 @@
+%table.table.table-striped
+  %thead
+    %tr
+      %th Numero
+      %th Kohde
+      %th Kuvaus
+  %tbody
+    - @orders.each do |order|
+      %tr
+        %td= link_to "Työnumero", offer_order_path(order.offer, order)
+        %td= order.title
+        %td= order.description

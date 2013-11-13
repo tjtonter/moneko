@@ -4,6 +4,7 @@ Moneko::Application.routes.draw do
     resources :orders
   end
 
+  resources :orders, only: [:index]
   resources :users
 
   root to: "offers#index"  

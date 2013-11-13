@@ -1,0 +1,12 @@
+%h3 Työmääräys 130001
+.row
+  .span9
+    .btn-group
+      = link_to "Poista", [@order.offer, @order], :class => "btn", method: :delete
+      = link_to "Muokkaa", edit_offer_order_path(@order.offer, @order), :class => "btn"
+.span3
+  %h4 Kohde
+  %p= @order.title
+.span6
+  %h4 Työkuvaus
+  %p= @order.description
