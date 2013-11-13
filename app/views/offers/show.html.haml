@@ -1,12 +1,20 @@
-%h3= link_to "Luo PDF", offer_path(@offer, :format => 'pdf')
-%h3= link_to "Muokkaa", edit_offer_path(@offer)
+.page-header
+  %h3 Työtarjous
+  %p 
+    Luotu #{@offer.created_at.to_date.strftime("%d.%m.%Y")}
+    %br
+    Muokattu #{@offer.updated_at.to_date.strftime("%d.%m.%Y")}
+  .btn-group
+    %a{:class => "btn btn-success dropdown-toggle", "data-toggle" => "dropdown", :href => "#"}
+      Toiminnot
+      %span.caret
+    %ul.dropdown-menu
+      %li= link_to "Luo PDF", offer_path(@offer, :format => 'pdf')
+      %li= link_to "Muokkaa", edit_offer_path(@offer)
+      %li= link_to "Luo työmääräys", new_offer_order_path(@offer)
+      %li= link_to "Lähetä", "#"
 %p= simple_format(@offer.customer)
 %br
-.row
-  .span5
-    %p
-      %h4 TARJOUDUMME SUORITTAMAAN SIIVOUSTYÖTÄ SEURAAVASTI
-      %br
 .row.entry
   .span4
     %p
