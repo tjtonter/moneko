@@ -54,10 +54,10 @@ class OrdersController < ApplicationController
     end
     
     def create_number
-      year = Date.today.year
+      year = Date.today.year    
       year = year - 2000
       year = year * 10000
-      year = year + Order.ids.max 
+      year = year + (Order.ids.empty? ? 0 : Order.ids.max)
     end
 
 end
