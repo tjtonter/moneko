@@ -1,5 +1,5 @@
 = form_for @offer do |f|
-  %fieldset.span6
+  %fieldset.span8
     %legend Luo uusi tarjous
     - if @offer.errors.any?
       - @offer.errors.full_messages.each do |msg|
@@ -8,10 +8,10 @@
             %button{:type => "button", :class => "close", "data-dismiss" => "alert"} &times;
             %p= msg
     = f.label :customer, "Asiakkaan nimi ja osoite"
-    = f.text_area :customer, :class => "span6"
+    = f.text_area :customer, :rows => 6, :class => "span8"
 
     = f.label :target, "Työkohde"
-    = f.text_field :target, :class => "span6"
+    = f.text_field :target, :class => "span8"
 
     = f.label :contents, "Tarjouksen sisältö"
     = f.text_area :contents, :class => "editor"
