@@ -5,27 +5,27 @@
     = stylesheet_link_tag "application", media: "all", "data-turbolinks-track" => true
     = csrf_meta_tags
     %body
-      .navbar.navbar-fixed-top
-        .navbar-inner
-          .container
-            = link_to "Moneko", '#', :class => "brand"
-            %ul.nav.navbar-nav
-              %li{:class => ('active' if 'offers' == controller_name)}= link_to "Tarjoukset", offers_path
-              %li{:class => ('active' if 'orders' == controller_name)}= link_to "Työmääräykset", orders_path
-            %ul.nav.navbar-nav
-              %li{ :class => ('active' if 'users' == controller_name)}= link_to "Käyttäjät", users_path
-            %ul.nav.navbar-nav.pull-right
-              %li= link_to "Kirjaudu ulos", destroy_user_session_path, :method => :delete 
-            %ul.nav.navbar-nav.pull-right
-              - if user_signed_in?
-                %li= link_to current_user.name, edit_user_registration_path
-              - else
-                %li= link_to 'Kirjaudu', new_user_session_path 
+      .container
+        .navbar.navbar-inverse.navbar-fixed-top
+          .navbar-inner
+            .container
+              = link_to "Moneko", '#', :class => "brand"
+              %ul.nav.navbar-nav
+                %li{:class => ('active' if 'offers' == controller_name)}= link_to "Tarjoukset", offers_path
+                %li{:class => ('active' if 'orders' == controller_name)}= link_to "Työmääräykset", orders_path
+              %ul.nav.navbar-nav
+                %li{ :class => ('active' if 'users' == controller_name)}= link_to "Käyttäjät", users_path
+              %ul.nav.navbar-nav.pull-right
+                - if user_signed_in?
+                  %li= link_to current_user.name, edit_user_registration_path
+                  %li= link_to "Kirjaudu ulos", destroy_user_session_path, :method => :delete 
+                - else
+                  %li= link_to 'Kirjaudu', new_user_session_path 
 
-    - if flash[:notice]
-      .row
-        .span6.offset3
-          .alert.alert-success= flash[:notice]
-    = yield
+        - if flash[:notice]
+          .row
+            .span6.offset3
+              .alert.alert-success= flash[:notice]
+        = yield
     = javascript_include_tag "application", "data-turbolinks-track" => true
 
