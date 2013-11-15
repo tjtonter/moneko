@@ -10,7 +10,7 @@
         .navbar.navbar-inverse.navbar-fixed-top
           .navbar-inner
             .container
-              = link_to "Moneko", '#', :class => "brand"
+              = link_to "Moneko", root_url, :class => "brand"
               %ul.nav.navbar-nav
                 %li{:class => ('active' if 'offers' == controller_name)}= link_to "Tarjoukset", offers_path
                 %li{:class => ('active' if 'orders' == controller_name)}= link_to "Työmääräykset", orders_path
