@@ -5,7 +5,7 @@
       %th Kohde
       %th Päivitetty
   %tbody
-    -@offers.each do |offer| 
+    - @offers.each do |offer| 
       %tr
         %td= offer.customer
         %td= link_to offer.target, offer

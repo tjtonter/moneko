@@ -1,0 +1,6 @@
+= form_for [@user, @report] do |f|
+  %legend Raportin luonti
+  = f.label :started_at
+  = f.date_field:started_at, :id => "datepicker"
+  %br
+  = f.submit

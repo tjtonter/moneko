@@ -84,6 +84,7 @@ GEM
       ttfunk (~> 1.0.2)
     prawn-rails (0.0.2)
       prawn
+    psych (2.0.1)
     rack (1.5.2)
     rack-test (0.6.2)
       rack (>= 1.0)
@@ -160,6 +161,7 @@ DEPENDENCIES
   less-rails
   prawn
   prawn-rails
+  psych
   rails (= 4.0.0)
   sass-rails
   sdoc

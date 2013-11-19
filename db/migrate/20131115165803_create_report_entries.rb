@@ -1,8 +1,8 @@
 class CreateReportEntries < ActiveRecord::Migration
   def change
     create_table :report_entries do |t|
-      t.references :user_id
-      t.references :order_id
+      t.references :user
+      t.references :order
       t.datetime :date
       t.decimal :salary
       t.timestamps

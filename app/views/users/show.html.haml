@@ -1,0 +1,21 @@
+%h3= @user.name
+%img{"class" => "img-rounded"}
+
+%h4 Tuntiraportit
+- if @user.reports.empty?
+  %p Ei yhtään tuntiraporttia
+- else
+  %table.table
+    %thead
+      %tr
+        %th Aika
+        %th Luotu
+        %th Valmis
+    - @user.reports.each do |report|
+      %tbody
+        %tr
+          %td n/a
+          %td report.created_at
+          %td n/a
+
+= link_to "Uusi tuntiraportti", new_user_report_path(current_user), :class => "btn btn-primary"
