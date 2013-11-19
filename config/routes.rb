@@ -3,7 +3,7 @@ Moneko::Application.routes.draw do
   resources :offers
   resources :orders
   resources :users do
-    resources :reports
+    resources :jobs
   end
 
   root to: "offers#index"  
