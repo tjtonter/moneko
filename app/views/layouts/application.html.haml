@@ -7,25 +7,16 @@
     = csrf_meta_tags
     %body
       .container
-        .navbar.navbar-inverse.navbar-fixed-top
-          .navbar-inner
-            .container
-              = link_to "Moneko", root_url, :class => "brand"
-              %ul.nav.navbar-nav
-                %li{:class => ('active' if 'offers' == controller_name)}= link_to "Tarjoukset", offers_path
-                %li{:class => ('active' if 'orders' == controller_name)}= link_to "Työmääräykset", orders_path
-              %ul.nav.navbar-nav
-                %li{ :class => ('active' if 'users' == controller_name)}= link_to "Käyttäjät", users_path
-              %ul.nav.navbar-nav.pull-right
-                - if user_signed_in?
-                  %li= link_to current_user.name, user_path(current_user)
-                  %li= link_to "Kirjaudu ulos", destroy_user_session_path, :method => :delete 
-                - else
-                  %li= link_to 'Kirjaudu', new_user_session_path 
-
-        - if flash[:notice]
-          .row
-            .span6.offset3
-              .alert.alert-success= flash[:notice]
+        = nav_bar :fixed => :top, :brand => "Moneko" do
+          = menu_group do
+            = menu_item "Tarjoukset", offers_path
+            = menu_item "Työmääräykset", orders_path
+            = menu_item "Käyttäjät", users_path
+          = menu_group :pull => :right do
+            - if current_user
+              = menu_item current_user.name, user_path(current_user)
+              = menu_item "Kirjaudu ulos", destroy_user_session_path
+            - else
+              = menu_item "Kirjaudu", new_user_session_path
         = yield
 
