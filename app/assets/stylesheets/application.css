@@ -14,4 +14,4 @@
 
 *= require twitter/bootstrap
 *= require bootstrap_and_overrides
-*= require jquery.ui.all
+*= require jquery.ui.datepicker

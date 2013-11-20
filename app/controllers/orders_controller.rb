@@ -5,7 +5,7 @@ class OrdersController < ApplicationController
   
     respond_to do |format|
       format.html
-      format.json { render json: @orders }
+      format.json { render json: @orders.map { |o| o.number } }
     end
   end
 

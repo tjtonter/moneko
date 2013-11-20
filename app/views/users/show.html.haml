@@ -20,7 +20,7 @@
 
 = form_for [@user, @user.jobs.new], html: {class: "form-inline"} do |f|
   = f.label :order_id, class: "sr-only"
-  = f.text_field :order_id, placeholder: "Työnumero"
+  = f.text_field :order_id, placeholder: "Työnumero", class: "autocomplete"
   = f.label :description, class: "sr-only"
   = f.text_field :description, placeholder: "Kuvaus"
   = f.label :date, class: "sr-only"
