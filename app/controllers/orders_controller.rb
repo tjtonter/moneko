@@ -1,11 +1,11 @@
 class OrdersController < ApplicationController
   before_filter :load_offer_id
   def index
-    @orders = params[:term] ? Order.where('description LIKE (?)', "%#{params[:term]}%") : Order.all
+    @orders = params[:term] ? Order.where('title LIKE (?)', "%#{params[:term]}%") : Order.all
   
     respond_to do |format|
       format.html
-      format.json { render json: @orders.map { |o| o.number } }
+      format.json { render json: @orders.map {|o| o.id} }
     end
   end
 
