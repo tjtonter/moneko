@@ -2,4 +2,6 @@
 # All this logic will automatically be available in application.js.
 # You can use CoffeeScript in this file: http://coffeescript.org/
 $ ->
-  $("#job_order_id").autocomplete(source: "/orders.json")
+  $("#job_description").autocomplete(source: "/orders.json")
+#  $("#job_description").autocomplete(source: ["matti", "teppo", "seppo"])
+  $("#job_date").datepicker()
