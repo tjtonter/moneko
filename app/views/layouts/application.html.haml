@@ -18,5 +18,7 @@
               = menu_item "Kirjaudu ulos", destroy_user_session_path
             - else
               = menu_item "Kirjaudu", new_user_session_path
-        = yield
+      - if flash[:notice]
+        .alert.alert-success= flash[:notice]
+      = yield
 
