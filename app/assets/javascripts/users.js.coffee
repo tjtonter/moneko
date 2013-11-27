@@ -4,4 +4,4 @@
 $ ->
   $("#job_description").autocomplete(source: "/orders.json")
 #  $("#job_description").autocomplete(source: ["matti", "teppo", "seppo"])
-  $("#job_date").datepicker()
+#  $(".date_field").datepicker()

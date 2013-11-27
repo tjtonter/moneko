@@ -8,22 +8,40 @@
   %table.table
     %thead
       %tr
-        %th Aika
-        %th Luotu
-        %th Valmis
+        %th Työnumero
+        %th Työ
+        %th Päivämäärä
+        %th Palkka
+        %th Kesto
+        %th Poista 
     - @user.jobs.each do |job|
       %tbody
         %tr
+          %td= job.order_id
+          %td= link_to job.description, order_path(job.order_id)
+          %td= job.date
           %td n/a
-          %td job.created_at
-          %td n/a
+          %td= job.duration
+          %td= link_to "Poista", user_job_path(@user, job), :method => :delete, 
+            :confirm => "Haluatko varmasti poistaa työn?"
 
-= form_for [@user, @user.jobs.new], html: {class: "form-inline"} do |f|
-  = f.label :order_id, class: "sr-only"
-  = f.text_field :order_id, placeholder: "Työnumero", class: "autocomplete"
-  = f.label :description, class: "sr-only"
-  = f.text_field :description, placeholder: "Kuvaus"
-  = f.label :date, class: "sr-only"
-  = f.datetime_field :date, placeholder: "Päivämäärä"
-  = f.submit
-
+%table.table
+  %thead
+    %tr
+      %th Työnumero
+      %th Työ
+      %th Päivämäärä
+      %th Palkka
+      %th Kesto
+      %th Lisää töihisi
+  - @orders.each do |order|
+    = form_for [@user, @user.jobs.new], html: {class: "form-inline"} do |f|
+      = f.hidden_field :order_id, :value => order.id
+      = f.hidden_field :description, :value => order.title
+      %tr
+        %td= order.id
+        %td= order.title
+        %td= f.date_field :date, :class => "date_field", :value => Time.now 
+        %th n/a
+        %th= f.select :duration, @times, :class => "col-xs-2"
+        %td= f.submit "Lisää" 

@@ -4,7 +4,13 @@ class UsersController < ApplicationController
   end
 
   def show
-      @user = User.find(params[:id])
+    @times = Array.new
+    (0..20).each do |h|
+      @times << ["#{h}", h]
+      @times << ["#{h+0.5}", h+0.5]
+    end
+    @user = User.find(params[:id])
+    @orders = Order.all
   end
 
   private

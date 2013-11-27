@@ -9,6 +9,12 @@ class JobsController < ApplicationController
       redirect_to user_path(current_user)
     end
   end
+
+  def destroy
+    Job.delete(params[:id])
+    flash[:notice] = "Työ poistettu"
+    redirect_to user_path(current_user)
+  end
   private
     def job_params
       params.require(:job).permit(:order_id, :user_id, :duration, :description, :date)
