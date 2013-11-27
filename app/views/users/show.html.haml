@@ -23,25 +23,13 @@
           %td n/a
           %td= job.duration
           %td= link_to "Poista", user_job_path(@user, job), :method => :delete, 
-            :confirm => "Haluatko varmasti poistaa työn?"
+            date: { confirm:  "Haluatko varmasti poistaa työn?" }
 
-%table.table
-  %thead
-    %tr
-      %th Työnumero
-      %th Työ
-      %th Päivämäärä
-      %th Palkka
-      %th Kesto
-      %th Lisää töihisi
-  - @orders.each do |order|
-    = form_for [@user, @user.jobs.new], html: {class: "form-inline"} do |f|
-      = f.hidden_field :order_id, :value => order.id
-      = f.hidden_field :description, :value => order.title
-      %tr
-        %td= order.id
-        %td= order.title
-        %td= f.date_field :date, :class => "date_field", :value => Time.now 
-        %th n/a
-        %th= f.select :duration, @times, :class => "col-xs-2"
-        %td= f.submit "Lisää" 
+- @orders.each do |order|
+  = form_for [@user, @user.jobs.new], html: {class: "form-inline"} do |f|
+    = f.hidden_field :order_id, :value => order.id
+    = order.id
+    = order.title
+    = f.date_field :date 
+    = f.select :duration, @times, :class => "col-xs-2"
+    = f.submit "Lisää" 
