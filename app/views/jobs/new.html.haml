@@ -1,0 +1,4 @@
+= form_for [@user, @user.jobs.new] do |f|
+  = f.hidden_field :description, :value => @order.description
+  = f.date_field :date
+  = f.submit "Luo rivi"

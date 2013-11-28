@@ -1,20 +1,20 @@
 %h3= @user.name
 %img{"class" => "img-rounded"}
 
-%h4 Työt
-- if @user.jobs.empty?
+%h3 Työt
+- if @jobs.empty?
   %p Ei yhtään tehtyjä töitä
 - else
   %table.table
     %thead
       %tr
-        %th Työnumero
-        %th Työ
-        %th Päivämäärä
-        %th Palkka
-        %th Kesto
+        %th= link_to "Työnumero", :sort => "order_id"
+        %th= link_to "Työ", :sort => "description"
+        %th= link_to "Päivämäärä", :sort => "date"
+        %th= link_to "Palkka", "#"
+        %th= link_to "Kesto", :sort => "duration"
         %th Poista 
-    - @user.jobs.each do |job|
+    - @jobs.each do |job|
       %tbody
         %tr
           %td= job.order_id
@@ -25,11 +25,13 @@
           %td= link_to "Poista", user_job_path(@user, job), :method => :delete, 
             date: { confirm:  "Haluatko varmasti poistaa työn?" }
 
-- @orders.each do |order|
-  = form_for [@user, @user.jobs.new], html: {class: "form-inline"} do |f|
-    = f.hidden_field :order_id, :value => order.id
-    = order.id
-    = order.title
-    = f.date_field :date 
-    = f.select :duration, @times, :class => "col-xs-2"
-    = f.submit "Lisää" 
+%h3 Työmääräykset
+.row
+  .list-group.span6
+    - @orders.each do |order|
+      = link_to new_user_job_path(@user, order_id: order.id), :class => "list-group-item order-item", :remote  => true do 
+        %h4.list-group-item-heading
+          = order.title
+          %span.badge= order.id
+        %p.list-group-item-text= order.description
+  #panel-div Tähän lomake

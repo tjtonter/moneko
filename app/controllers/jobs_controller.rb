@@ -11,6 +11,20 @@ class JobsController < ApplicationController
     end
   end
 
+  def new
+    @user = User.find(params[:user_id])
+    @order = Order.find(params[:order_id])
+    respond_to do |format|
+      format.html do 
+        if request.xhr?
+          render 'new', :layout => false
+        else
+          render 'new'
+        end
+      end
+    end
+  end
+
   def destroy
     Job.delete(params[:id])
     flash[:notice] = "Työ poistettu"

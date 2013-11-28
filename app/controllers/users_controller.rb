@@ -10,6 +10,7 @@ class UsersController < ApplicationController
       @times << ["#{h+0.5}", h+0.5]
     end
     @user = User.find(params[:id])
+    @jobs = @user.jobs.order(params[:sort])
     @orders = Order.all
   end
 
