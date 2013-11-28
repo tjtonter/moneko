@@ -4,6 +4,5 @@
 
 $ ->
   $(".order-item").bind "ajax:success", (e, data, status, xhr) ->
-    $("#panel-div").html(xhr.responseText)
-    alert(data.responseText)
+    $("#panel-content").html(xhr.responseText)
 
