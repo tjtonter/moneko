@@ -3,7 +3,8 @@
   %head
     %title Moneko
     = stylesheet_link_tag "application", media: "all", "data-turbolinks-track" => true
-    = javascript_include_tag "application", "data-turbolinks-track" => true
+    //= javascript_include_tag "application", "data-turbolinks-track" => true
+    = javascript_include_tag "application", controller_name
     = csrf_meta_tags
     %body
       .container
@@ -18,7 +19,9 @@
               = menu_item "Kirjaudu ulos", destroy_user_session_path, :method => :delete
             - else
               = menu_item "Kirjaudu", new_user_session_path
-      - if flash[:notice]
-        .alert.alert-success= flash[:notice]
+      .row
+        #errors.span6.offset3
+          - if flash[:notice]
+            .alert.alert-success= flash[:notice]
       = yield
 
