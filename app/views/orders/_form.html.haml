@@ -15,4 +15,9 @@
     = f.label :salary
     = f.text_field :salary, :class => "input-xxlarge"
     %br
-    = f.button
+    - @users.each do |u|
+      = check_box_tag "order[user_ids][]", u.id
+      = u.name
+      %br
+    %br
+    = f.submit

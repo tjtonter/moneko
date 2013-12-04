@@ -11,6 +11,7 @@ class OrdersController < ApplicationController
 
   def new
     @order = Order.new
+    @users = User.all
   end
 
   def create
@@ -48,11 +49,12 @@ class OrdersController < ApplicationController
 
   def edit
     @order = Order.find(params[:id])  
+    @users = User.all
   end
 
   private
     def order_params
-      params.require(:order).permit(:title, :description, :salary)
+      params.require(:order).permit(:title, :description, :salary, :user_ids)
     end
 
     def load_offer_id

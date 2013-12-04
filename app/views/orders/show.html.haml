@@ -1,12 +1,11 @@
-%h3 Työmääräys #{@order.id}
-.row
-  .span9
+%div{class: "panel panel-#{status_to_class(@order.status)}"}
+  .panel-heading
+    %h2
+      = @order.title
+      %span.label.label-primary= @order.id
+  .panel-body= @order.description
+  .panel-footer
     .btn-group
       = link_to "Poista", @order, :class => "btn", method: :delete
       = link_to "Muokkaa", edit_order_path(@order), :class => "btn"
-.span3
-  %h4 Kohde
-  %p= @order.title
-.span6
-  %h4 Työkuvaus
-  %p= @order.description
+

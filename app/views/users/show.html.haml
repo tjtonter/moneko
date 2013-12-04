@@ -28,7 +28,7 @@
 
 %h3 Työmääräykset
 .row
-  .list-group.span6
+  .list-group.span5
     - @orders.each do |order|
       = link_to new_user_job_path(@user, order_id: order.id), :class => "list-group-item order-item", :remote  => true do 
         %h4.list-group-item-heading
@@ -36,4 +36,4 @@
           %span{class: "label label-#{status_to_class(order.status)}"}= order.id
         %p.list-group-item-text= order.description
   // Here comes the new job form
-  .panel.panel-primary.span6#panel-content
+  .panel.panel-primary.span5#panel-content

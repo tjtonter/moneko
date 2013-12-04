@@ -1,6 +1,9 @@
 class Order < ActiveRecord::Base
   STATUSES = ["waiting", "active", "complete", "billed"]
   belongs_to :offer
+  has_many :tasks
+  has_many :users, :through => :tasks
+  accepts_nested_attributes_for :tasks
 
   validates_presence_of :title, :description, :number
   validates_uniqueness_of :number

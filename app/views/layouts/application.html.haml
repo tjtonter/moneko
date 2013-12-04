@@ -19,9 +19,9 @@
               = menu_item "Kirjaudu ulos", destroy_user_session_path, :method => :delete
             - else
               = menu_item "Kirjaudu", new_user_session_path
-      .row
-        #errors.span6.offset3
-          - if flash[:notice]
-            .alert.alert-success= flash[:notice]
-      = yield
+        .row
+          #errors.span6.offset3
+            - if flash[:notice]
+              .alert.alert-success= flash[:notice]
+        = yield
 
