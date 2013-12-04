@@ -12,4 +12,7 @@
     = f.text_area :description, :class => "input-xxlarge", :rows => 20, 
       :value => (@offer.present? ? strip_tags(@offer.charge) : @order.description)
     %br
+    = f.label :salary
+    = f.text_field :salary, :class => "input-xxlarge"
+    %br
     = f.button

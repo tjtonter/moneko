@@ -51,7 +51,7 @@ class OrdersController < ApplicationController
 
   private
     def order_params
-      params.require(:order).permit(:title, :description)
+      params.require(:order).permit(:title, :description, :salary)
     end
 
     def load_offer_id
