@@ -1,3 +1,13 @@
+.row
+  .span10.offset1
+    .jumbotron
+      %h1 Työmääräykset
+      %p 
+        Tästä näet kaikki luodut työmääräykset ja niiden nykyiset tilat. 
+        Allaolevasta napista voit luoda uuden työmääräyksen. 
+        Luomallesi työmääräykselle annetaan automaattisesti uniikki työnumero, 
+        jonka avulla voit aina viitata ristiriidattomasti samaan työhön.
+      %p= link_to "Luo työmääräys", new_order_path, :class => "btn btn-primary btn-lg", role: "button"
 %table.table.table-striped
   %thead
     %tr
@@ -13,4 +23,3 @@
         %td= link_to order.title, order
         %td= order.description
         %td= I18n.t order.status
-= link_to "Luo työmääräys", new_order_path, :class => "btn btn-primary"

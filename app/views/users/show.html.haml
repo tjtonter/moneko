@@ -33,7 +33,7 @@
       = link_to new_user_job_path(@user, order_id: order.id), :class => "list-group-item order-item", :remote  => true do 
         %h4.list-group-item-heading
           = order.title
-          %span.label.label-primary= order.id
+          %span{class: "label label-#{status_to_class(order.status)}"}= order.id
         %p.list-group-item-text= order.description
   // Here comes the new job form
   .panel.panel-primary.span6#panel-content
