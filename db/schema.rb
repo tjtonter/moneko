@@ -47,7 +47,6 @@ ActiveRecord::Schema.define(version: 20131128130131) do
   add_index "orders", ["offer_id"], name: "index_orders_on_offer_id"
 
   create_table "report_entries", force: true do |t|
-    t.text     "description"
     t.integer  "user_id"
     t.integer  "order_id"
     t.datetime "date"
