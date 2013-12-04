@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20131204070309) do
+ActiveRecord::Schema.define(version: 20131204083102) do
 
   create_table "jobs", force: true do |t|
     t.integer  "order_id"
@@ -43,9 +43,11 @@ ActiveRecord::Schema.define(version: 20131204070309) do
     t.datetime "updated_at"
     t.integer  "number"
     t.decimal  "salary"
+    t.string   "status"
   end
 
   add_index "orders", ["offer_id"], name: "index_orders_on_offer_id"
+  add_index "orders", ["status"], name: "index_orders_on_status"
 
   create_table "report_entries", force: true do |t|
     t.integer  "user_id"

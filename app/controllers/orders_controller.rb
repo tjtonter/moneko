@@ -16,6 +16,7 @@ class OrdersController < ApplicationController
   def create
     @order = Order.new(order_params)
     @order.number = create_number 
+    @order.status = "waiting"
     if @order.save
       flash[:notice] = "Uusi työmääräys luotu"
       redirect_to order_path(@order)

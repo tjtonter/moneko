@@ -207,3 +207,7 @@ fi:
           title: "Otsikko"
     errors:
       <<: *errors
+  waiting: Odottaa
+  active: Aktiivinen
+  complete: Valmis
+  billed: Laskutettu
