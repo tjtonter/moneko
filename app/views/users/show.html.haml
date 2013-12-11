@@ -1,7 +1,7 @@
 %h3= @user.name
 %img{"class" => "img-rounded"}
 
-%h3 Työt
+%h4 Työt
 - if @jobs.empty?
   %p Ei yhtään tehtyjä töitä
 - else
@@ -26,14 +26,12 @@
           %td= link_to "Poista", user_job_path(@user, job), :method => :delete, 
             date: { confirm:  "Haluatko varmasti poistaa työn?" }
 
-%h3 Työmääräykset
+%h4 Viimeisimmät työmääräykset
 .row
-  .list-group.span5
+  #accordion
     - @orders.each do |order|
-      = link_to new_user_job_path(@user, order_id: order.id), :class => "list-group-item order-item", :remote  => true do 
-        %h4.list-group-item-heading
-          = order.title
-          %span{class: "label label-#{status_to_class(order.status)}"}= order.id
-        %p.list-group-item-text= order.description
-  // Here comes the new job form
-  .panel.panel-primary.span5#panel-content
+      %h3
+        %span{:class => "label label-#{status_to_class(order.status)}"}= order.id
+        = order.title
+      %div
+        %p= order.description
