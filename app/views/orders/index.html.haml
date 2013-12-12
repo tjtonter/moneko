@@ -15,6 +15,7 @@
       %th Kohde
       %th Kuvaus
       %th Tila
+      %th Toiminnot
   %tbody
     - @orders.each do |order|
       %tr
@@ -23,3 +24,6 @@
         %td= link_to order.title, order
         %td= order.description
         %td= I18n.t order.status
+        %td
+          = link_to "Muokkaa", edit_order_path(order), :class => "btn btn-mini btn-primary"
+          = link_to "Poista", order_path(order), method: :delete, confirm: "Poistetaanko #{order.title}?", :class => "btn btn-mini btn-danger"

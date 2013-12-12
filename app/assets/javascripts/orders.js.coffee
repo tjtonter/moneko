@@ -5,5 +5,5 @@ pickeroptions = {
   timeFormat: "HH:mm"
   dateFormat: "dd.mm.yy"
 }
-$ ->
-  $(".datetime").datetimepicker(pickeroptions)
+
+$(".datetime").on "click", datetimepicker(pickeroptions)

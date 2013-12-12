@@ -20,16 +20,16 @@ gem 'prawn-rails'
 gem 'haml'
 group :assets do
   gem 'sass-rails'
-  # Use jquery as the JavaScript library
-  gem 'jquery-rails'
-  gem 'jquery-ui-rails'
 end
+# Use jquery as the JavaScript library
+gem 'jquery-rails', '~>2.3.0'
+gem 'jquery-ui-rails'
 # Use twitter bootstrap
-gem "twitter-bootstrap-rails"
+gem 'twitter-bootstrap-rails'
 
 # Use less
-gem "less-rails"
-gem "therubyracer"
+gem 'less-rails'
+gem 'therubyracer'
 
 # Use Uglifier as compressor for JavaScript assets
 gem 'uglifier', '>= 1.3.0'
