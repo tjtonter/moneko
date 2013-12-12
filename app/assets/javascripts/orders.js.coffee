@@ -9,9 +9,8 @@ pickeroptions = {
 $.datepicker.setDefaults( $.datepicker.regional[ "fi" ] )
 
 ready = ->
+  console.log "ready suoritettu"
   $('.datetime').datetimepicker(pickeroptions)
 
-$('document').ready(ready)
-$('document').on('page:load', ready)
-$('document').bind 'page:change', ->
-  Holder.run()
+$(document).ready(ready)
+$(document).on('page:load', ready)
