@@ -24,6 +24,7 @@ end
 # Use jquery as the JavaScript library
 gem 'jquery-rails', '~>2.3.0'
 gem 'jquery-ui-rails'
+gem 'jquery-ui-themes'
 # Use twitter bootstrap
 gem 'twitter-bootstrap-rails'
 

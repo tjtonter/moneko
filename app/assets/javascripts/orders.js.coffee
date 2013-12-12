@@ -6,4 +6,12 @@ pickeroptions = {
   dateFormat: "dd.mm.yy"
 }
 
-$(".datetime").on "click", datetimepicker(pickeroptions)
+$.datepicker.setDefaults( $.datepicker.regional[ "fi" ] )
+
+ready = ->
+  $('.datetime').datetimepicker(pickeroptions)
+
+$('document').ready(ready)
+$('document').on('page:load', ready)
+$('document').bind 'page:change', ->
+  Holder.run()

@@ -24,5 +24,3 @@ params = {
 	left:	false
 	ol:	false
 }
-jQuery -> 
-	$(".editor").jqte(params);

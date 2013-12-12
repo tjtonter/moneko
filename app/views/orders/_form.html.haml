@@ -28,9 +28,10 @@
     %br
     .form-group
       = f.label :users, :class => "span2"
-      - @users.each do |u|
-        = check_box_tag "order[user_ids][]", u.id
-        = u.name
-        %br
+      .span3
+        - @users.each do |u|
+          = check_box_tag "order[user_ids][]", u.id, @order.users.include?(u)
+          = u.name
+          %br
     %br
     = f.submit

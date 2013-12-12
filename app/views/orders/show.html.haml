@@ -1,11 +1,23 @@
 %div{class: "panel panel-#{status_to_class(@order.status)}"}
   .panel-heading
-    %h2
-      = @order.title
-      %span.label.label-primary= @order.id
-  .panel-body= @order.description
+    = @order.title
+  .panel-body
+    .well
+      = @order.description
+      Tila:
+      = I18n.t @order.status
+    .row
+      - @order.users.each do |user|
+        .span3
+          .thumbnail
+            = image_tag "200x200.gif", :alt => "Kuva"
+            .caption
+              %h4= user.name
+    .row
+      .well
+        = l @order.begin_at, :format => :long
   .panel-footer
     .btn-group
-      = link_to "Poista", @order, :class => "btn", method: :delete
-      = link_to "Muokkaa", edit_order_path(@order), :class => "btn"
+      = link_to "Poista", @order, :class => "btn btn-danger", method: :delete
+      = link_to "Muokkaa", edit_order_path(@order), :class => "btn btn-primary"
 
