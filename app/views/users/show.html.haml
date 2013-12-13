@@ -14,8 +14,8 @@
         %th= link_to "Palkka", "#"
         %th= link_to "Kesto", :sort => "duration"
         %th Poista 
-    - @jobs.each do |job|
-      %tbody
+    %tbody
+      - @jobs.each do |job|
         %tr
           %td
             %span.label.label-default= job.order_id
@@ -26,13 +26,19 @@
           %td= link_to "Poista", user_job_path(@user, job), :method => :delete, 
             date: { confirm:  "Haluatko varmasti poistaa työn?" }
 
-%h4 Viimeisimmät työmääräykset
-.row
-  #accordion
-    - @orders.each do |order|
-      %h3
-        %span{:class => "label label-#{status_to_class(order.status)}"}= order.id
-        = order.title
-      %div
-        %p= order.description
-        %p= link_to "Lisää työ", new_user_job_path(current_user.id)
+%h4 Sinun työmääräyksesi
+%table.table
+  %tr
+    %th Työnumero
+    %th Työ
+    %th Alkamispäivä
+    %th Loppumispäivä
+    %th Toiminnot
+  - @user.orders.each do |order|
+    %tr
+      %td
+        %span.label.label-default= order.id
+      %td= order.title
+      %td= l order.begin_at, :format => :long
+      %td= l order.end_at, :format => :long
+      %td= link_to "Lisää", new_user_job_path(@user), :class => "btn btn-mini btn-primary"
