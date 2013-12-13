@@ -1,9 +1,12 @@
 %div{class: "panel panel-#{status_to_class(@order.status)}"}
   .panel-heading
-    = @order.title
+    %h3
+      = @order.id
+      \: #{@order.title}
   .panel-body
     .well
       = @order.description
+    .well
       Tila:
       = I18n.t @order.status
     .row
@@ -13,9 +16,10 @@
             = image_tag "200x200.gif", :alt => "Kuva"
             .caption
               %h4= user.name
-    .row
-      .well
-        = l @order.begin_at, :format => :long
+    .well
+      %b
+        #{l @order.begin_at, :format => :long} -- 
+        #{@order.end_at.nil? ? "" : (l @order.end_at, :format => :long)}
   .panel-footer
     .btn-group
       = link_to "Poista", @order, :class => "btn btn-danger", method: :delete
