@@ -7,15 +7,9 @@
 #  $(this).addClass("active") 
 
 ready = ->
-  $("#accordion").accordion()
-#  $("#panel-content").hide()
-#  $(".order-item").bind "ajax:success", (e, data, status, xhr) ->
-#    $("#panel-content").html(xhr.responseText)
-#    $("#panel-content").slideDown()
-#  $(".order-item").bind "ajax:error", (e, xhr, status, error) ->
-#    $("#panel-content").html(error)
-#
-#  $(".order-item").click(add_class)
-#
+  $('.add-job').on 'ajax:success', (event, data, status, xhr) ->
+    console.log(status)
+    $('#modalcontent').html xhr.responseText
+
 $(document).ready(ready)
 $(document).on('page:load', ready)

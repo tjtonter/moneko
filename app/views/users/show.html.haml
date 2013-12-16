@@ -18,13 +18,13 @@
       - @jobs.each do |job|
         %tr
           %td
-            %span.label.label-default= job.order_id
+            %span{:class => "label label-#{status_to_class(job.order.status)}"}= job.order_id
           %td= link_to job.description, order_path(job.order_id)
-          %td= job.date
+          %td= job.date.nil? ? "" : (l job.date, :format => :long)
           %td= number_to_currency job.salary, :unit => "€"
           %td= job.duration
           %td= link_to "Poista", user_job_path(@user, job), :method => :delete, 
-            date: { confirm:  "Haluatko varmasti poistaa työn?" }
+            data: { confirm:  "Haluatko varmasti poistaa työn?" }, :class => "btn btn-mini btn-danger"
 
 %h4 Sinun työmääräyksesi
 %table.table
@@ -37,8 +37,11 @@
   - @user.orders.each do |order|
     %tr
       %td
-        %span.label.label-default= order.id
+        %span{:class => "label label-#{status_to_class(order.status)}"}= order.id
       %td= order.title
       %td= l order.begin_at, :format => :long
       %td= l order.end_at, :format => :long
-      %td= link_to "Lisää", new_user_job_path(@user), :class => "btn btn-mini btn-primary"
+      %td= link_to "Lisää", new_user_job_path(@user, order_id: order.id), :remote => :true,
+        :class => "btn btn-mini btn-primary add-job", data: {"toggle" => "modal", "target" => "#jobmodal"}
+= render 'shared/modal'
+%button{data: {"toggle" => "modal", "target" => "#jobmodal"}}
