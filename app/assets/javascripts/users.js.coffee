@@ -2,14 +2,16 @@
 # All this logic will automatically be available in application.js.
 # You can use CoffeeScript in this file: http://coffeescript.org/
 
-#add_class = -> 
-#  $(this).siblings().removeClass("active")
-#  $(this).addClass("active") 
+load_jobs = (event, data, status, xhr) ->
+    $('#user_jobs').html xhr.responseText
+    $('#jobmodal').modal('hide')
+
+load_modal = (event, data, status, xhr) -> 
+  $('#modalcontent').html xhr.responseText
+  $('#new_job').on 'ajax:success', load_jobs
 
 ready = ->
-  $('.add-job').on 'ajax:success', (event, data, status, xhr) ->
-    console.log(status)
-    $('#modalcontent').html xhr.responseText
+  $('.add-job').on 'ajax:success', load_modal
 
 $(document).ready(ready)
 $(document).on('page:load', ready)

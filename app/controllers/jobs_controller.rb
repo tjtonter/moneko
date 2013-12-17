@@ -4,7 +4,12 @@ class JobsController < ApplicationController
     @job = @user.jobs.new(job_params)
     @job.description = @job.order.title
     if @job.save
-      redirect_to user_path(current_user)
+      if request.xhr?
+        @jobs = Job.all
+        render partial: 'table'
+      else
+        redirect_to user_path(current_user)
+      end
     else
       flash[:notice] = "Tapahtui virhe"
       redirect_to user_path(current_user)
@@ -32,6 +37,7 @@ class JobsController < ApplicationController
   end
   private
     def job_params
-      params.require(:job).permit(:order_id, :user_id, :duration, :description, :date, :salary)
+      params.require(:job).permit(:order_id, :user_id, :duration, :description, :date, :salary, 
+                                  :begin, :end)
     end
 end

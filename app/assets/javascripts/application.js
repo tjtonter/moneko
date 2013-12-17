@@ -12,8 +12,7 @@
 //
 //= require jquery
 //= require jquery_ujs
-//= require twitter/bootstrap
-//= require jquery.ui.accordion
+//= require twitter/bootstrap/bootstrap-modal
 //= require jquery.ui.datepicker
 //= require turbolinks
 //= require_tree .

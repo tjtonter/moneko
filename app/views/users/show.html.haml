@@ -1,30 +1,8 @@
 %h3= @user.name
 %img{"class" => "img-rounded"}
 
-%h4 Työt
-- if @jobs.empty?
-  %p Ei yhtään tehtyjä töitä
-- else
-  %table.table
-    %thead
-      %tr
-        %th= link_to "Työnumero", :sort => "order_id"
-        %th= link_to "Työ", :sort => "description"
-        %th= link_to "Päivämäärä", :sort => "date"
-        %th= link_to "Palkka", "#"
-        %th= link_to "Kesto", :sort => "duration"
-        %th Poista 
-    %tbody
-      - @jobs.each do |job|
-        %tr
-          %td
-            %span{:class => "label label-#{status_to_class(job.order.status)}"}= job.order_id
-          %td= link_to job.description, order_path(job.order_id)
-          %td= job.date.nil? ? "" : (l job.date, :format => :long)
-          %td= number_to_currency job.salary, :unit => "€"
-          %td= job.duration
-          %td= link_to "Poista", user_job_path(@user, job), :method => :delete, 
-            data: { confirm:  "Haluatko varmasti poistaa työn?" }, :class => "btn btn-mini btn-danger"
+#user_jobs
+  = render 'jobs/table'
 
 %h4 Sinun työmääräyksesi
 %table.table
@@ -43,5 +21,5 @@
       %td= l order.end_at, :format => :long
       %td= link_to "Lisää", new_user_job_path(@user, order_id: order.id), :remote => :true,
         :class => "btn btn-mini btn-primary add-job", data: {"toggle" => "modal", "target" => "#jobmodal"}
+
 = render 'shared/modal'
-%button{data: {"toggle" => "modal", "target" => "#jobmodal"}}

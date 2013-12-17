@@ -1,0 +1,15 @@
+%h4 Tyot
+- if @jobs.empty?
+  %p Ei yhtaan tehtyja toita
+- else
+  %table.table
+    %thead
+      %tr
+        %th= link_to "Työnumero", :sort => "order_id"
+        %th= link_to "Työ", :sort => "description"
+        %th= link_to "Päivämäärä", :sort => "date"
+        %th= link_to "Palkka", "#"
+        %th= link_to "Kesto", :sort => "duration"
+        %th Poista 
+    %tbody
+      = render @jobs

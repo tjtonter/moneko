@@ -202,9 +202,18 @@ fi:
       order:
         one: Työmääräys
         other: Työmääräykset
+      job:
+        one: Työ
+        other: Työt
       attributes:
         order:
           title: "Otsikko"
+        job:
+          date: "Päivämäärä"
+          duration: "Kesto"
+          begin: "Alkoi"
+          end: "Loppui"
+          salary: "Palkka"
     errors:
       <<: *errors
   waiting: Odottaa
