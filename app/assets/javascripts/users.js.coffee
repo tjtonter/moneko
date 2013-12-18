@@ -12,6 +12,7 @@ load_modal = (event, data, status, xhr) ->
 
 ready = ->
   $('.add-job').on 'ajax:success', load_modal
+  $('#calendar').fullCalendar({events: window.location.href + '/jobs.json'})
 
 $(document).ready(ready)
 $(document).on('page:load', ready)

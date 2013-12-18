@@ -1,4 +1,14 @@
 class JobsController < ApplicationController
+  def index
+    user = User.find(params[:user_id])
+    @jobs = user.jobs
+
+    respond_to do |format|
+      format.html
+      format.json { render :json => @jobs.to_json }
+    end
+  end
+
   def create
     @user = User.find(params[:user_id])
     @job = @user.jobs.new(job_params)
