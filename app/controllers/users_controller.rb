@@ -4,11 +4,6 @@ class UsersController < ApplicationController
   end
 
   def show
-    @times = Array.new
-    (0..20).each do |h|
-      @times << ["#{h}", h]
-      @times << ["#{h+0.5}", h+0.5]
-    end
     @user = User.find(params[:id])
     @jobs = @user.jobs.order(params[:sort])
     @orders = Order.all
