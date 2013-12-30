@@ -5,7 +5,7 @@ class JobsController < ApplicationController
 
     respond_to do |format|
       format.html
-      format.json { render :json => @jobs.to_json }
+      format.json { render :json => custom_json(@jobs) }
     end
   end
 
@@ -49,5 +49,16 @@ class JobsController < ApplicationController
     def job_params
       params.require(:job).permit(:order_id, :user_id, :duration, :description, :date, :salary, 
                                   :begin, :end)
+    end
+
+    def custom_json(user)
+      list = user.map do |value|
+        { :id => value.id,
+          :title => value.description,
+          :start => value.order.begin_at,
+          :end => value.order.end_at
+        }
+      end
+      list.as_json
     end
 end
