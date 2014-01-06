@@ -5,7 +5,7 @@ class OrdersController < ApplicationController
   
     respond_to do |format|
       format.html
-      format.json { render json: @orders.map(&:title).as_json }
+      format.json { render json: custom_json(@orders) }
     end
   end
 
@@ -67,5 +67,14 @@ class OrdersController < ApplicationController
       year = year * 10000
       year = year + (Order.ids.empty? ? 0 : Order.ids.max)
     end
-
+    def custom_json(orders)
+      list = orders.map do |value|
+        { :id => value.id,
+          :title => value.title,
+          :start => value.begin_at,
+          :end => value.end_at
+        }
+      end
+      list.as_json
+    end
 end
