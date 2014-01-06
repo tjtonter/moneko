@@ -17,10 +17,13 @@
     %tr
       %td
         %span{:class => "label label-#{status_to_class(order.status)}"}= order.id
-      %td= order.title
+      %td= link_to order.title, order
       %td= l order.begin_at, :format => :long
       %td= l order.end_at, :format => :long
-      %td= link_to "Lisää", new_user_job_path(@user, order_id: order.id), :remote => :true,
+      %td
+        =link_to "Lisää", new_user_job_path(@user, order_id: order.id), :remote => :true,
+        :class => "btn btn-mini btn-primary add-job", data: {"toggle" => "modal", "target" => "#jobmodal"}
+        =link_to "Valmis", new_user_job_path(@user, order_id: order.id), :remote => :true,
         :class => "btn btn-mini btn-primary add-job", data: {"toggle" => "modal", "target" => "#jobmodal"}
 
 = render 'shared/modal'
