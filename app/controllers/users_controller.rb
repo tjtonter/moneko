@@ -5,7 +5,7 @@ class UsersController < ApplicationController
 
   def show
     @user = User.find(params[:id])
-    @jobs = @user.jobs.order(params[:sort])
+    @jobs = @user.jobs.order(params[:sort] + ' ' + params[:direction])
     @orders = Order.all
   end
 

@@ -5,11 +5,11 @@
   %table.table
     %thead
       %tr
-        %th= link_to "Työnumero", :sort => "order_id"
-        %th= link_to "Työ", :sort => "description"
-        %th= link_to "Päivämäärä", :sort => "date"
-        %th= link_to "Palkka", "#"
-        %th= link_to "Kesto", :sort => "duration"
+        %th= sortable "id", "Työnumero" 
+        %th= sortable "description", "Kuvaus"
+        %th= sortable "date", "Päivämäärä"
+        %th= sortable "salary", "Palkka"
+        %th= sortable "duration", "Kesto"
         %th Poista 
     %tbody
       = render @jobs
