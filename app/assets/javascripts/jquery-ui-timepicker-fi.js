@@ -13,8 +13,12 @@
 		currentText: 'Nyt',
 		closeText: 'Sulje',
 		timeFormat: 'HH:mm',
-		amNames: ['ap.', 'AM', 'A'],
+    dateFormat: "dd.mm.yy",
+    amNames: ['ap.', 'AM', 'A'],
 		pmNames: ['ip.', 'PM', 'P'],
+    monthNames: ['Tammikuu', 'Helmikuu', 'Maaliskuu', 'Huhtikuu', 'Toukokuu', 'Kesäkuu',
+'Heinäkuu', 'Elokuu', 'Syyskuu', 'Lokakuu', 'Marraskuu', 'Joulukuu'],
+    dayNamesMin: ['Ma', 'Ti', 'Ke', 'To', 'Pe', 'La', 'Su'],
 		isRTL: false
 	};
 	$.timepicker.setDefaults($.timepicker.regional['fi']);

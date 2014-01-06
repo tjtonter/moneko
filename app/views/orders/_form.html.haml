@@ -1,37 +1,37 @@
-= form_for @order, :html => {:class =>  "form-inline"} do |f|
+= form_for @order do |f|
   %fieldset
     %legend Työmääräys
     - if @order.errors.any?
       - @order.errors.full_messages do |msg|
         %li= msg
-    .form-group
-      = f.label :title, :class => "span2"
+    .form-group.span7
+      = f.label :title
       = f.text_field :title, :class => "input-xxlarge", 
         :value => (@offer.present? ? @offer.target : @order.title)
     %br
-    .form-group
-      = f.label :description, :class => "span2"
-      = f.text_area :description, :class => "input-xxlarge", :rows => 20, 
+    .form-group.span7
+      = f.label :description
+      = f.text_area :description, :class => "input-xxlarge", :rows => 5, 
         :value => (@offer.present? ? strip_tags(@offer.charge) : @order.description)
+    .form-group.span7
+      %div#begin_datetime.span3{:style => "margin-left: 0px;"}
+        = f.label :begin_at
+        = f.text_field :begin_at
+      #end_datetime.span3
+        = f.label :end_at
+        = f.text_field :end_at
     %br
-    .form-group
-      = f.label :begin_at, :class => "span2"
-      = f.text_field :begin_at, :class => "datetime"
-    %br
-    .form-group
-      = f.label :end_at, :class => "span2"
-      = f.text_field :end_at, :class => "datetime"
-    %br
-    .form-group
-      = f.label :salary, :class => "span2"
+    .form-group.span6
+      = f.label :salary
       = f.text_field :salary
     %br
-    .form-group
-      = f.label :users, :class => "span2"
+    .form-group.span6
+      = f.label :users
       .span3
         - @users.each do |u|
           = check_box_tag "order[user_ids][]", u.id, @order.users.include?(u)
           = u.name
           %br
     %br
-    = f.submit
+    .form-group.span6
+      = f.submit
