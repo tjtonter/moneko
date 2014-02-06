@@ -38,11 +38,12 @@ class OrdersController < ApplicationController
 
   def update
     @order = Order.find(params[:id])
-
+    params[:order][:user_ids] ||= []
     if @order.update(order_params)
       flash[:notice] = "Työmääräys päivitetty"
       redirect_to order_path(@order)
     else
+      @users = User.all
       render 'edit'
     end
   end
