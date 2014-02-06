@@ -18,6 +18,6 @@ class UsersController < ApplicationController
       Job.column_names.include?(params[:sort]) ? params[:sort] : "id"
     end
     def sort_direction
-      %[asc desc].include?(params[:direction]) ? params[:direction] : "asc"
+      %w[asc desc].include?(params[:direction]) ? params[:direction] : "asc"
     end
 end
