@@ -4,19 +4,21 @@
 $.datepicker.setDefaults( $.datepicker.regional[ "fi" ] )
 
 ready = ->
-  console.log "ready suoritettu"
-  $('#begin_datetime').datetimepicker(
+  #console.log "ready suoritettu"
+  $('#order_begin_at').datetimepicker(
     {
-      altField: "#order_begin_at"
-      altFieldTimeOnly: false
-      inline: true
+      #altField: "#order_begin_at"
+      #altFieldTimeOnly: false
+      #gotoCurrent: true
+      showAnim: "slideDown"
     }
-  )
-  $('#end_datetime').datetimepicker(
+  ) 
+  $('#order_end_at').datetimepicker(
     {
-      altField: "#order_end_at"
-      altFieldTimeOnly: false
-      inline: true
+      #altField: "#order_end_at"
+      #altFieldTimeOnly: false
+      #gotoCurrent: true
+      showAnim: "slideDown"
     }
   )
 

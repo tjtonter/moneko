@@ -14,12 +14,12 @@
       = f.text_area :description, :class => "input-xxlarge", :rows => 5, 
         :value => (@offer.present? ? strip_tags(@offer.charge) : @order.description)
     .form-group.span7
-      %div#begin_datetime.span3{:style => "margin-left: 0px;"}
+      #begin_datetime.span3{:style => "margin-left: 0px;"}
         = f.label :begin_at
-        = f.text_field :begin_at
+        = f.text_field :begin_at, :value => @order.begin_at.strftime('%d.%m.%Y %H:%M')
       #end_datetime.span3
         = f.label :end_at
-        = f.text_field :end_at, :value => "1.1.2014 22:21"
+        = f.text_field :end_at, :value => @order.end_at.strftime('%d.%m.%Y %H:%M')
     %br
     .form-group.span6
       = f.label :salary
