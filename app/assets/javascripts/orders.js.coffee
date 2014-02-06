@@ -10,6 +10,8 @@ ready = ->
       #altField: "#order_begin_at"
       #altFieldTimeOnly: false
       #gotoCurrent: true
+      dateFormat: "dd.mm.yy"
+      timeFormat: "h:mm"
       showAnim: "slideDown"
     }
   ) 
@@ -18,6 +20,8 @@ ready = ->
       #altField: "#order_end_at"
       #altFieldTimeOnly: false
       #gotoCurrent: true
+      dateFormat: "dd.mm.yy"
+      timeFormat: "h:mm"
       showAnim: "slideDown"
     }
   )

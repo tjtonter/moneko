@@ -13,6 +13,8 @@
 //= require jquery
 //= require jquery_ujs
 //= require twitter/bootstrap/bootstrap-modal
+//= require twitter/bootstrap/bootstrap-tab
 //= require jquery.ui.datepicker
+//= require jquery-ui-timepicker-addon
 //= require turbolinks
-//= require_tree .
+// require_tree .
