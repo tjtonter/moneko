@@ -12,7 +12,19 @@ load_modal = (event, data, status, xhr) ->
 
 ready = ->
   $('.add-job').on 'ajax:success', load_modal
-  $('#user_calendar').fullCalendar({events: window.location + '/tasks.json'})
+  $('#user_calendar').fullCalendar({
+    events: window.location + '/tasks.json'
+    eventClick: (event) -> 
+      if event.url
+        $('#modalcontent').html('Ladataan lomaketta...')
+        $('#jobmodal').modal('show')
+        req = $.ajax({
+          url: event.url
+        })
+        req.done (html) ->
+          $('#modalcontent').html(html)
+      return false
+  })
 
 $(document).ready(ready)
 $(document).on('page:load', ready)
