@@ -2,9 +2,9 @@ module ApplicationHelper
   def status_to_class(status)
     case status
     when "waiting"
-      return "info"
-    when "active"
       return "danger"
+    when "active"
+      return "info"
     when "complete"
       return "success"
     when "billed"
