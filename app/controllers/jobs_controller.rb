@@ -15,8 +15,7 @@ class JobsController < ApplicationController
     @job.description = @job.order.title
     if @job.save
       if request.xhr?
-        @jobs = Job.all
-        render partial: 'table'
+        render @job
       else
         redirect_to user_path(current_user)
       end

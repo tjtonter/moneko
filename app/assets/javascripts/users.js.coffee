@@ -3,8 +3,12 @@
 # You can use CoffeeScript in this file: http://coffeescript.org/
 
 load_jobs = (event, data, status, xhr) ->
-    $('#user_jobs').html xhr.responseText
-    $('#jobmodal').modal('hide')
+  $('#user_jobs').html xhr.responseText
+  $('#jobmodal').modal('hide')
+
+add_job_row = (event, data, status, xhr) ->
+  $('#user_jobs_table tbody:last').append xhr.responseText
+  $('#jobmodal').modal('hide')
 
 load_modal = (event, data, status, xhr) -> 
   $('#modalcontent').html xhr.responseText
@@ -23,6 +27,7 @@ ready = ->
         })
         req.done (html) ->
           $('#modalcontent').html(html)
+          $('#new_job').on 'ajax:success', add_job_row
       return false
   })
 

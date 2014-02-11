@@ -1,15 +1,12 @@
 %h4 Tyot
-- if @jobs.empty?
-  %p Ei yhtaan tehtyja toita
-- else
-  %table.table
-    %thead
-      %tr
-        %th= sortable "id", "Työnumero" 
-        %th= sortable "description", "Kuvaus"
-        %th= sortable "date", "Päivämäärä"
-        %th= sortable "salary", "Palkka"
-        %th= sortable "duration", "Kesto"
-        %th Poista 
-    %tbody
-      = render @jobs
+%table.table#user_jobs_table
+  %thead
+    %tr
+      %th= sortable "id", "Työnumero" 
+      %th= sortable "description", "Kuvaus"
+      %th= sortable "date", "Päivämäärä"
+      %th= sortable "salary", "Palkka"
+      %th= sortable "duration", "Kesto"
+      %th Poista 
+  %tbody
+    = render @jobs
