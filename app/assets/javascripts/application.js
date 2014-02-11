@@ -18,4 +18,5 @@
 //= require jquery.ui.datepicker
 //= require jquery-ui-timepicker-addon
 //= require turbolinks
+//= require fullcalendar.min
 // require_tree .
