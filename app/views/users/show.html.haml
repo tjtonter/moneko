@@ -1,38 +1,35 @@
 %h3= @user.name
 %img{"class" => "img-rounded"}
 
-%ul.nav.nav-tabs#usertabs
-  %li.active= link_to "Koti", "#home", data: { toggle: "tab" }
-  %li= link_to "Kalenteri", "#calendar", data: { toggle: "tab" }
-  %li= link_to "Tuntirekisteri", "#register", data: { toggle: "tab" }
+/%ul.nav.nav-tabs#usertabs
+/  %li.active= link_to "Koti", "#home", data: { toggle: "tab" }
+/  %li= link_to "Kalenteri", "#calendar", data: { toggle: "tab" }
+/  %li= link_to "Tuntirekisteri", "#register", data: { toggle: "tab" }
 
-.tab-content
-  .tab-pane.active#home
-    %p Tässä on henkilön tiedot
-  .tab-pane#register
-    #user_jobs
-      = render 'jobs/table'
-  .tab-pane#calendar
-
-    %h4 Sinun työmääräyksesi
-    %table.table
-      %tr
-        %th Työnumero
-        %th Työ
-        %th Alkamispäivä
-        %th Loppumispäivä
-        %th Toiminnot
-      - @user.orders.each do |order|
-        %tr
-          %td
-            %span{:class => "label label-#{status_to_class(order.status)}"}= order.id
-          %td= link_to order.title, order
-          %td= l order.begin_at, :format => :long
-          %td= l order.end_at, :format => :long
-          %td
-            =link_to "Lisää", new_user_job_path(@user, order_id: order.id), :remote => :true,
-            :class => "btn btn-mini btn-primary add-job", data: {"toggle" => "modal", "target" => "#jobmodal"}
-            =link_to "Valmis", new_user_job_path(@user, order_id: order.id), :remote => :true,
-            :class => "btn btn-mini btn-primary add-job", data: {"toggle" => "modal", "target" => "#jobmodal"}
+%p Tässä on henkilön tiedot
+#user_jobs
+  = render 'jobs/table'
+%h3 Kalenteri
+#user_calendar.span8
+/%h4 Sinun työmääräyksesi
+/%table.table
+/  %tr
+/    %th Työnumero
+/    %th Työ
+/    %th Alkamispäivä
+/    %th Loppumispäivä
+/    %th Toiminnot
+/  - @user.orders.each do |order|
+/    %tr
+/      %td
+/        %span{:class => "label label-#{status_to_class(order.status)}"}= order.id
+/      %td= link_to order.title, order
+/      %td= l order.begin_at, :format => :long
+/      %td= l order.end_at, :format => :long
+/      %td
+/        =link_to "Lisää", new_user_job_path(@user, order_id: order.id), :remote => :true,
+/        :class => "btn btn-mini btn-primary add-job", data: {"toggle" => "modal", "target" => "#jobmodal"}
+/        =link_to "Valmis", new_user_job_path(@user, order_id: order.id), :remote => :true,
+/        :class => "btn btn-mini btn-primary add-job", data: {"toggle" => "modal", "target" => "#jobmodal"}
 
 = render 'shared/modal'
