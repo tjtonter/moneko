@@ -12,6 +12,7 @@
 //
 //= require jquery
 //= require jquery_ujs
+//= require twitter/bootstrap
 //= require twitter/bootstrap/bootstrap-modal
 //= require twitter/bootstrap/bootstrap-tab
 //= require twitter/bootstrap/bootstrap-dropdown
@@ -19,4 +20,4 @@
 //= require jquery-ui-timepicker-addon
 //= require turbolinks
 //= require fullcalendar.min
-// require_tree .
+//= require_tree .

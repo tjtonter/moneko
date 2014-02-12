@@ -8,7 +8,6 @@
       = f.label :title
       = f.text_field :title, :class => "input-xxlarge", 
         :value => (@offer.present? ? @offer.target : @order.title)
-    %br
     .form-group.span7
       = f.label :description
       = f.text_area :description, :class => "input-xxlarge", :rows => 5, 
@@ -20,18 +19,15 @@
       #end_datetime.span3
         = f.label :end_at
         = f.text_field :end_at, :value => @order.end_at.strftime('%d.%m.%Y %H:%M')
-    %br
     .span6
       Työn suorittajat
       %br
       - @users.each do |u|
-        = check_box_tag "order[user_ids][]", u.id, @order.users.include?(u)
-        = u.name
-        %br
-    %br
+        .checkbox
+          = check_box_tag "order[user_ids][]", u.id, @order.users.include?(u)
+          = u.name
     .form-group.span6
       = f.label :salary
       = f.text_field :salary
-    %br
     .span6
       = f.submit :class => "btn btn-primary"

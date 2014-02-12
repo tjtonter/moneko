@@ -2,16 +2,16 @@
   = f.hidden_field :order_id, :value => @order.id
   .form-group
     = f.label :date
-    = f.date_field :date
+    = f.text_field :date
   .form-group
     = f.label :duration
     = f.text_field :duration
   .form-group
     = f.label :begin
-    = f.time_field :begin
+    = f.text_field :begin
   .form-group
     = f.label :end
-    = f.time_field :end
+    = f.text_field :end
   .form-group
     = f.label :salary
     = f.text_field :salary

@@ -20,7 +20,7 @@
     - @orders.each do |order|
       %tr{class: "#{status_to_class(order.status)}"}
         %td
-          %span.label= order.id
+          %span.label.label-info= order.id
         %td= link_to order.title, order
         %td= order.description
         %td= I18n.t order.status

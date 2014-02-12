@@ -29,6 +29,7 @@ ready = ->
           $('#modalcontent').html(html)
           $('#job_duration').spinner
           $('#new_job').on 'ajax:success', add_job_row
+          $('#job_date').datepicker({showOn: 'button', dateFormat: 'dd.mm.yy'})
       return false
   })
 
