@@ -27,6 +27,7 @@ ready = ->
         })
         req.done (html) ->
           $('#modalcontent').html(html)
+          $('#job_duration').spinner
           $('#new_job').on 'ajax:success', add_job_row
       return false
   })

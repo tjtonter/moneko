@@ -15,7 +15,7 @@
 //= require twitter/bootstrap/bootstrap-modal
 //= require twitter/bootstrap/bootstrap-tab
 //= require twitter/bootstrap/bootstrap-dropdown
-//= require jquery.ui.datepicker
+//= require jquery-ui-1.9.2.custom.min
 //= require jquery-ui-timepicker-addon
 //= require turbolinks
 //= require fullcalendar.min

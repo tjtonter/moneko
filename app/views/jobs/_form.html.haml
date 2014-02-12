@@ -1,18 +1,19 @@
-= form_for [@user, @user.jobs.new], remote: true do |f|
+= form_for [@user, @user.jobs.new], remote: true, html: {role: 'form', class: 'form-horizontal'} do |f|
   = f.hidden_field :order_id, :value => @order.id
-  = f.label :date
-  = f.date_field :date
-  %br
-  = f.label :duration
-  = f.text_field :duration
-  %br
-  = f.label :begin
-  = f.time_field :begin
-  %br
-  = f.label :end
-  = f.time_field :end
-  %br
-  = f.label :salary
-  = f.text_field :salary
-  %br
+  .form-group
+    = f.label :date
+    = f.date_field :date
+  .form-group
+    = f.label :duration
+    = f.text_field :duration
+  .form-group
+    = f.label :begin
+    = f.time_field :begin
+  .form-group
+    = f.label :end
+    = f.time_field :end
+  .form-group
+    = f.label :salary
+    = f.text_field :salary
+  
   = f.submit "Luo rivi", :class => "btn btn-success"

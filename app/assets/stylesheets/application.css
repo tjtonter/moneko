@@ -14,6 +14,7 @@
 
 *= require twitter/bootstrap
 *= require bootstrap_and_overrides
-*= require jquery.ui.accordion
+/*= require jquery.ui.accordion
 *= require jquery.ui.datepicker
-*= require jquery-ui/start 
+*/
+*= require jquery-ui-1.10.0.custom
