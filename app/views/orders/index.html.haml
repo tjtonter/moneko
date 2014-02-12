@@ -26,7 +26,7 @@
         %td= I18n.t order.status
         %td
           = link_to "Muokkaa", edit_order_path(order), :class => "btn btn-mini btn-primary"
-          = link_to "Poista", order_path(order), method: :delete, confirm: "Poistetaanko #{order.title}?", 
+          = link_to "Poista", order_path(order), method: :delete, data: {confirm: "Poistetaanko #{order.title}?"}, 
             :class => "btn btn-mini btn-danger" 
           /.dropdown
           /  = link_to "#", data: {toggle: "dropdown"}, :class => "btn btn-primary btn-mini" do
