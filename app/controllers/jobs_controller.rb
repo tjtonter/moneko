@@ -13,6 +13,7 @@ class JobsController < ApplicationController
     @user = User.find(params[:user_id])
     @job = @user.jobs.new(job_params)
     @job.description = @job.order.title
+    @order = @job.order
     if @job.save
       if request.xhr?
         render @job
@@ -20,14 +21,19 @@ class JobsController < ApplicationController
         redirect_to user_path(current_user)
       end
     else
-      flash[:notice] = "Tapahtui virhe"
-      redirect_to user_path(current_user)
+      if request.xhr?
+        render 'new', status: :unprocessable_entity, layout: false
+      else
+        flash[:notice] = "Tapahtui virhe"
+        redirect_to user_path(current_user)
+      end
     end
   end
 
   def new
     @user = User.find(params[:user_id])
     @order = Order.find(params[:order_id])
+    @job = @user.jobs.new
     respond_to do |format|
       format.html do 
         if request.xhr?

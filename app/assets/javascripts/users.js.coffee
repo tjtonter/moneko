@@ -25,12 +25,15 @@ ready = ->
         req = $.ajax({
           url: event.url
         })
-        req.done (html) ->
-          $('#modalcontent').html(html)
-          $('#job_duration').spinner
+        req.done (html) -> # Form has successfully loaded
+          $('#modalcontent').html(html) # Set form as modal content
           $('#new_job').on 'ajax:success', add_job_row
-          $('#job_date').datepicker({showOn: 'button', dateFormat: 'dd.mm.yy'})
-      return false
+          $('#new_job').on 'ajax:error', (event, xhr, status) ->
+            $('#modalcontent').html(xhr.responseText)
+            list = $('.field_with_errors') 
+            list.parent().addClass('error')
+          $('#job_date').datepicker({dateFormat: 'dd.mm.yy'})
+      return false # Calendar does go to event.url
   })
 
 $(document).ready(ready)

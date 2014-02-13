@@ -1,19 +1,26 @@
-= form_for [@user, @user.jobs.new], remote: true, html: {role: 'form', class: 'form-horizontal'} do |f|
-  = f.hidden_field :order_id, :value => @order.id
-  .form-group
-    = f.label :date
-    = f.text_field :date
-  .form-group
-    = f.label :duration
-    = f.text_field :duration
-  .form-group
-    = f.label :begin
-    = f.text_field :begin
-  .form-group
-    = f.label :end
-    = f.text_field :end
-  .form-group
-    = f.label :salary
-    = f.text_field :salary
-  
-  = f.submit "Luo rivi", :class => "btn btn-success"
+= form_for [@user, @job], remote: true, html: {role: 'form'} do |f|
+  %fieldset
+    %legend= @order.title
+    - if @job.errors.any?
+      - @job.errors.full_messages.each do |msg|
+        .alert.alert-error
+          %button.close{data: {dismiss: 'alert'}} &times;
+          = msg
+    = f.hidden_field :order_id, :value => @order.id
+    .control-group
+      = f.label :date, class: 'control-label span2'
+      = f.text_field :date, class: 'form-control'
+    .control-group
+      = f.label :duration, class: 'control-label span2'
+      = f.text_field :duration, class: 'form-control'
+    .control-group
+      = f.label :begin, class: 'control-label span2'
+      = f.text_field :begin, class: 'form-control'
+    .control-group
+      = f.label :end, class: 'control-label span2'
+      = f.text_field :end, class: 'form-control'
+    .control-group
+      = f.label :salary, class: 'control-label span2'
+      = f.text_field :salary, class: 'form-control'
+      .span3.offset2
+        = f.submit "Luo rivi", :class => "btn btn-success"
