@@ -99,7 +99,7 @@ fi:
     format: ! '%{attribute} %{message}'
     messages:
       accepted: täytyy olla hyväksytty
-      blank: ei voi olla sisällötön
+      blank: ei voi olla tyhjä
       confirmation: ei vastaa varmennusta
       empty: ei voi olla tyhjä
       equal_to: täytyy olla yhtä suuri kuin %{count}
