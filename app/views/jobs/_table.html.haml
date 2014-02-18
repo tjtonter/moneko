@@ -1,11 +1,11 @@
 %table.table#user_jobs_table
   %thead
     %tr
-      %th= sortable "id", "Työnumero" 
-      %th= sortable "description", "Kuvaus"
-      %th= sortable "date", "Päivämäärä"
-      %th= sortable "salary", "Palkka"
-      %th= sortable "duration", "Kesto"
+      %th= "Työnumero" 
+      %th= "Kuvaus"
+      %th= "Päivämäärä"
+      %th= "Palkka"
+      %th= "Kesto"
       %th Poista 
   %tbody
     = render @jobs
