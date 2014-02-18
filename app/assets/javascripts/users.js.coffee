@@ -33,7 +33,18 @@ ready = ->
             list = $('.field_with_errors') 
             list.parent().addClass('error')
           $('#job_date').datepicker({dateFormat: 'dd.mm.yy'})
-      return false # Calendar does go to event.url
+      return false # Calendar does no leave page for event.url
+    header: { 
+      left: 'prev,next today'
+      center: 'title'
+      right: 'month,agendaWeek,agendaDay'
+    }
+    #theme: true
+    firstDay: 1
+    weekMode: 'variable'
+    weekNumbers: true
+    allDayText: 'Kokopäivän'
+    formatDate: 'HH:mm'
   })
 
 $(document).ready(ready)

@@ -68,12 +68,13 @@ class JobsController < ApplicationController
                                   :description, :date, :salary, :begin, :end)
     end
 
-    def custom_json(user)
-      list = user.map do |value|
-        { :id => value.id,
-          :title => value.description,
-          :start => value.order.begin_at,
-          :end => value.order.end_at
+    def custom_json(jobs)
+      list = jobs.map do |job|
+        { :id => job.id,
+          :title => job.description,
+          :start => job.order.begin_at.strftime('%Y-%m-%d %H:%m'),
+          :end => job.order.end_at.strftime('%Y-%m-%d %H:%m'),
+          :allDay => (job.order.begin_at.day == job.order.end_at.day ? true : false)
         }
       end
       list.as_json

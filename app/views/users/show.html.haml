@@ -9,11 +9,14 @@
 %p 
   %b Veronumero:
   %br
-  %b Syntymäaika:
-
-%h3 Työt
-= render 'jobs/table'
-%h3 Kalenteri
-#user_calendar.span8
+  %b Syntymäaika
+ 
+.row
+  .span9
+    %h3 Kalenteri
+    #user_calendar
+.row
+  %h3 Työt
+  = render 'jobs/table'
 
 = render 'shared/modal'
