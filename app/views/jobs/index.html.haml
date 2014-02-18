@@ -1,0 +1,8 @@
+%h3 Työt
+= form_tag user_jobs_path(current_user), method: :get do
+  = label_tag :date, "Päivämäärä"
+  = select_tag :date,  options_for_select(@m)
+  
+  %br
+  = submit_tag "Rajaa", name: nil, class: "btn btn-default"
+= render "table"
