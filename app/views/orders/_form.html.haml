@@ -1,33 +1,23 @@
 = form_for @order do |f|
-  %fieldset
+  %fieldset.span6
     %legend Työmääräys
-    - if @order.errors.any?
-      - @order.errors.full_messages do |msg|
-        %li= msg
-    .form-group.span7
-      = f.label :title
-      = f.text_field :title, :class => "input-xxlarge", 
-        :value => (@offer.present? ? @offer.target : @order.title)
-    .form-group.span7
-      = f.label :description
-      = f.text_area :description, :class => "input-xxlarge", :rows => 5, 
-        :value => (@offer.present? ? strip_tags(@offer.charge) : @order.description)
-    .form-group.span7
-      #begin_datetime.span3{:style => "margin-left: 0px;"}
-        = f.label :begin_at
-        = f.text_field :begin_at
-      #end_datetime.span3
-        = f.label :end_at
-        = f.text_field :end_at
-    .span6
-      Työn suorittajat
-      %br
-      - @users.each do |u|
-        .checkbox
-          = check_box_tag "order[user_ids][]", u.id, @order.users.include?(u)
-          = u.name
-    .form-group.span6
-      = f.label :salary
-      = f.text_field :salary
-    .span6
+    = render 'shared/form_errors', object: @order
+    = f.label :title, :class => "control-label"
+    = f.text_field :title, :class => "input-xxlarge" 
+    = f.label :description, :class => "control-label"
+    = f.text_area :description, :class => "input-xxlarge", :rows => 5 
+    = f.label :begin_at, :class => "control-label"
+    = f.text_field :begin_at, value: @order.begin_at.strftime('%d.%m.%Y %H:%m')
+    = f.label :end_at, :class => "control-label"
+    = f.text_field :end_at, value: @order.end_at.strftime('%d.%m.%Y %H:%m')
+    %br
+    Työn suorittajat
+    %br
+    - @users.each do |u|
+      .checkbox
+        = check_box_tag "order[user_ids][]", u.id, @order.users.include?(u)
+        = u.name
+    = f.label :salary, :class => "control-label"
+    = f.text_field :salary
+    .form-actions
       = f.submit :class => "btn btn-primary"

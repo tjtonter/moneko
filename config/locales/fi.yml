@@ -208,6 +208,10 @@ fi:
     attributes:
       order:
         title: "Otsikko"
+        description: "Kuvaus"
+        begin_at: "Alkamisaika"
+        end_at: "Loppumisaika"
+        salary: "Urakkapalkka"
       job:
         date: "Päivämäärä"
         duration: "Kesto"
