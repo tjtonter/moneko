@@ -81,7 +81,11 @@ class JobsController < ApplicationController
     end
     def seasons
       jobs = Job.order(date: :asc)
-      r = jobs.first.date..jobs.last.date
-      r.map {|d| d.day<15 ? d.strftime("%m/%Y/A") : d.strftime("%m/%Y/L")}.uniq
+      if jobs.empty?
+        return []
+      else
+        r = jobs.first.date..jobs.last.date
+        r.map {|d| d.day<15 ? d.strftime("%m/%Y/A") : d.strftime("%m/%Y/L")}.uniq
+      end
     end
 end
