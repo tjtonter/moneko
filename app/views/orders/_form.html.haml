@@ -20,6 +20,9 @@
       = f.text_field :end_at, :class => "form-control", 
         :value => @order.end_at.nil? ? "" : (l @order.end_at, format: :short)
       %p.help-block#end_at__errors
+    .form-group
+      = f.label :status
+      = f.select :status, Order::STATUSES.map { |s| [I18n.t(s), s] }
     %br
     %strong Työn suorittajat
     %br

@@ -73,13 +73,14 @@ class OrdersController < ApplicationController
       year = year + (Order.ids.empty? ? 0 : Order.ids.max)
     end
     def custom_json(orders)
-      list = orders.map do |value|
-        { :id => value.id,
-          :title => value.title,
-          :start => value.begin_at,
-          :end => value.end_at,
-          :allDay => (value.begin_at.to_date != value.end_at.to_date),
-          :url => order_path(value)
+      list = orders.map do |order|
+        { :id => order.id,
+          :title => order.title,
+          :start => order.begin_at,
+          :end => order.end_at,
+          :allDay => (order.begin_at.to_date != order.end_at.to_date),
+          :url => order_path(order),
+          :color => view_context.status_to_color(order.status)
         }
       end
       list.as_json

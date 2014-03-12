@@ -29,6 +29,7 @@ ready = ->
       center: 'title'
       right: 'month,agendaWeek,agendaDay'
     }
+    weekMode: 'variable'
     select: (startDate, endDate, allDay) ->
       $.get((window.location + '/new'),
       {order:{begin_at: datefmt(startDate), end_at: datefmt(endDate)}},

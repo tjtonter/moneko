@@ -11,6 +11,18 @@ module ApplicationHelper
       return "primary"
     end
   end
+  def status_to_color(status)
+    case status
+    when "waiting"
+      return "blue"
+    when "active"
+      return "red"
+    when "complete"
+      return "green"
+    when "billed"
+      return "orange"
+    end
+  end
   def sortable(column, title = nil)
     title ||= column.titleize
     direction = (column == sort_column && sort_direction == "asc") ? "desc" : "asc"
