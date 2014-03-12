@@ -26,9 +26,9 @@ var defaults = {
 		right: 'today prev,next'
 	},
 	weekends: true,
-	weekNumbers: false,
+	weekNumbers: true,
 	weekNumberCalculation: 'iso',
-	weekNumberTitle: 'W',
+	weekNumberTitle: 'Vk',
 	
 	// editing
 	//editable: false,
@@ -55,25 +55,28 @@ var defaults = {
 		day: 'dddd M/d'
 	},
 	timeFormat: { // for event elements
-		'': 'h(:mm)t' // default
+		'': 'hh:mm' // default
 	},
 	
 	// locale
 	isRTL: false,
 	firstDay: 0,
-	monthNames: ['January','February','March','April','May','June','July','August','September','October','November','December'],
-	monthNamesShort: ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'],
-	dayNames: ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'],
-	dayNamesShort: ['Sun','Mon','Tue','Wed','Thu','Fri','Sat'],
+	//monthNames: ['January','February','March','April','May','June','July','August','September','October','November','December'],
+  monthNames: ['Tammikuu', 'Helmikuu','Maaliskuu','Huhtikuu','Toukokuu','Kesäkuu',
+  'Heinäkuu','Elokuu','Syyskuu','Lokakuu','Marraskuu','Joulukuu'],
+	//monthNamesShort: ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'],
+	monthNamesShort: ['Tammi','Helmi','Maalis','Huhti','Touko','Kesä','Heinä','Elo','Syys','Loka','Marras','Joulu'],
+	dayNames: ['Sunnunta','Maanantai','Tiistai','Keskiviikko','Torstai','Perjantai','Lauantai'],
+	dayNamesShort: ['Su','Ma','Ti','Ke','To','Pe','La'],
 	buttonText: {
 		prev: "<span class='fc-text-arrow'>&lsaquo;</span>",
 		next: "<span class='fc-text-arrow'>&rsaquo;</span>",
 		prevYear: "<span class='fc-text-arrow'>&laquo;</span>",
 		nextYear: "<span class='fc-text-arrow'>&raquo;</span>",
-		today: 'today',
-		month: 'month',
-		week: 'week',
-		day: 'day'
+		today: 'tänään',
+		month: 'kuukausi',
+		week: 'viikko',
+		day: 'päivä'
 	},
 	
 	// jquery-ui theming
@@ -2753,13 +2756,13 @@ function AgendaDayView(element, calendar) {
 
 setDefaults({
 	allDaySlot: true,
-	allDayText: 'all-day',
+	allDayText: 'kokopäivä',
 	firstHour: 6,
 	slotMinutes: 30,
 	defaultEventMinutes: 120,
-	axisFormat: 'h(:mm)tt',
+	axisFormat: 'HH:mm',
 	timeFormat: {
-		agenda: 'h:mm{ - h:mm}'
+		agenda: 'HH:mm{ - HH:mm}'
 	},
 	dragOpacity: {
 		agenda: .5
