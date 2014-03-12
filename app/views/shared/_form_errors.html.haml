@@ -1,6 +1,6 @@
 - if object.errors.any?
   %h4.text-error Resurssia ei voi tallentaa
   - object.errors.full_messages.each do |msg|
-    .alert.alert-error
+    .alert.alert-danger
       %button.close{type: "button", data: {dismiss: "alert"}} &times;
       = msg

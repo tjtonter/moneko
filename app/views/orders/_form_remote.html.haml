@@ -1,7 +1,6 @@
-= form_for @order do |f|
+= form_for @order, remote: true do |f|
   %fieldset.span6
     %legend Työmääräys
-    = render 'shared/form_errors', object: @order
     .form-group
       = f.label :title
       = f.text_field :title, :class => "form-control" 
@@ -21,7 +20,7 @@
         :value => @order.end_at.nil? ? "" : (l @order.end_at, format: :short)
       %p.help-block#end_at__errors
     %br
-    %strong Työn suorittajat
+    Työn suorittajat
     %br
     - @users.each do |u|
       .checkbox

@@ -187,8 +187,8 @@ fi:
     am: aamupäivä
     formats:
       default: ! '%A %e. %Bta %Y %H:%M:%S %z'
-      long: ! '%e. %Bta %Y %H.%M'
-      short: ! '%e.%m. %H.%M'
+      long: ! '%e. %Bta %Y %H:%M'
+      short: ! '%d.%m.%Y %H:%M'
     pm: iltapäivä
   # remove these aliases after 'activemodel' and 'activerecord' namespaces are removed from Rails repository
   activemodel:
