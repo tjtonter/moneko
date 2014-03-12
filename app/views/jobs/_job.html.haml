@@ -1,5 +1,5 @@
 %tr{class: "#{status_to_class(job.order.status)}"}
-  %td= job.order_id
+  %td= job.order.number
   %td= link_to job.description, order_path(job.order)
   %td= job.date.nil? ? "" : (l job.date, :format => :long)
   %td= number_to_currency job.salary, :unit => "€"

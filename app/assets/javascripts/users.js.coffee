@@ -11,7 +11,7 @@ ready = ->
         $.get(path, ((data) ->
           $('#modalcontent').html(data)
           $('#modal-title').html('Rekisteröi työ')
-          $('#job_date').datepicker()
+          $('#job_date').datepicker({firstDay: 1})
           $('#slider').slider({
             range: true
             min: 0
