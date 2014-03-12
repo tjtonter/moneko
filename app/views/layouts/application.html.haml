@@ -6,24 +6,11 @@
     = javascript_include_tag "application", "data-turbolinks-track" => true
     = csrf_meta_tags
   %body
+    = render 'shared/navigation'
+              
+    #errors.span6.offset3
+      - if flash[:notice]
+        alert.alert-success= flash[:notice]
     .container
-      = nav_bar :fixed => :top, :brand => "Moneko" do
-        = menu_group do
-          = menu_item "Tarjoukset", offers_path
-          = menu_item "Työmääräykset", orders_path
-          = menu_item "Käyttäjät", users_path
-        = menu_group :pull => :right do
-          - if current_user
-            = drop_down current_user.name do
-              = menu_item "Kalenteri", user_path(current_user)
-              = menu_item "Tuntikirjanpito", user_jobs_path(current_user)
-              = menu_item "Muokkaa tietojasi", edit_user_path(current_user)
-              = menu_item "Kirjaudu ulos", destroy_user_session_path, :method => :delete
-          - else
-            = menu_item "Kirjaudu", new_user_session_path
-      .row
-        #errors.span6.offset3
-          - if flash[:notice]
-            .alert.alert-success= flash[:notice]
       = yield
 

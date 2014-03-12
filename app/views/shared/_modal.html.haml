@@ -1,4 +1,8 @@
-#jobmodal.modal.fade{"tabindex" => -1, :role => "dialog", "aria-labelledby" => "jobmodallabel"}
+#modal.modal.fade{"tabindex" => -1, :role => "dialog", "aria-labelledby" => "jobmodal"}
   .modal-dialog
     .modal-content
+      .modal-header
+        %button{type: "button", class: "close", data: {dismiss: "modal"}, "aria-hidden"=> true}
+          &times;
+        %h4#modal-title          
       .modal-body#modalcontent

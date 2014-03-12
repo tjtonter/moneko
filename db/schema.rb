@@ -53,23 +53,6 @@ ActiveRecord::Schema.define(version: 20131217130257) do
   add_index "orders", ["offer_id"], name: "index_orders_on_offer_id"
   add_index "orders", ["status"], name: "index_orders_on_status"
 
-  create_table "report_entries", force: true do |t|
-    t.integer  "user_id"
-    t.integer  "order_id"
-    t.datetime "date"
-    t.decimal  "salary"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  create_table "reports", force: true do |t|
-    t.integer  "user_id"
-    t.datetime "started_at"
-    t.datetime "ended_at"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
   create_table "tasks", force: true do |t|
     t.integer  "user_id"
     t.integer  "order_id"

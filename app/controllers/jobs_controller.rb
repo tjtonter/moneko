@@ -22,22 +22,16 @@ class JobsController < ApplicationController
   end
 
   def create
-    @user = User.find(params[:user_id])
+    @user = current_user 
     @job = @user.jobs.new(job_params)
     @job.description = @job.order.title
     @order = @job.order
-    if @job.save
-      if request.xhr?
-        render @job
+    respond_to do |format|
+      if @job.save
+        format.json {render json: @job, status: :created, layout: !request.xhr?}
       else
-        redirect_to user_path(current_user)
-      end
-    else
-      if request.xhr?
-        render 'new', status: :unprocessable_entity, layout: false
-      else
-        flash[:notice] = "Tapahtui virhe"
-        redirect_to user_path(current_user)
+        format.json {render json: @job.errors, 
+          status: :unprocessable_entity}
       end
     end
   end

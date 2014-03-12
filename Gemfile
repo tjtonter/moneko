@@ -26,7 +26,10 @@ gem 'jquery-rails', '~>2.3.0'
 gem 'jquery-ui-rails'
 gem 'jquery-ui-themes'
 # Use twitter bootstrap
-gem 'twitter-bootstrap-rails'
+#gem 'bootstrap-sass'
+#group :development do
+#  gem 'rails_layout'
+#end
 
 # Use less
 gem 'less-rails'

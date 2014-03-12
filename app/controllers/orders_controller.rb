@@ -10,19 +10,23 @@ class OrdersController < ApplicationController
   end
 
   def new
-    @order = Order.new
+    @order = Order.new(order_params)    
     @users = User.all
+    if request.xhr?
+      render layout: false
+    end
   end
 
   def create
     @order = Order.new(order_params)
     @order.number = create_number 
     @order.status = "waiting"
-    if @order.save
-      flash[:notice] = "Uusi työmääräys luotu"
-      redirect_to order_path(@order)
-    else
-      render "new"
+    respond_to do |format|
+      if @order.save
+        format.json {render json: @order, status: :created}
+      else
+        format.json {render json: @order.errors, status: :unprocessable_entity, layout: !request.xhr?}
+      end
     end
   end
 
@@ -73,7 +77,9 @@ class OrdersController < ApplicationController
         { :id => value.id,
           :title => value.title,
           :start => value.begin_at,
-          :end => value.end_at
+          :end => value.end_at,
+          :allDay => (value.begin_at.to_date != value.end_at.to_date),
+          :url => order_path(value)
         }
       end
       list.as_json

@@ -8,35 +8,25 @@
         Luomallesi työmääräykselle annetaan automaattisesti uniikki työnumero, 
         jonka avulla voit aina viitata ristiriidattomasti samaan työhön.
       %p= link_to "Luo työmääräys", new_order_path, :class => "btn btn-primary btn-lg", role: "button"
-%table.table.table-striped
-  %thead
-    %tr
-      %th ID 
-      %th Kohde
-      %th Kuvaus
-      %th Tila
-      %th Toiminnot
-  %tbody
-    - @orders.each do |order|
-      %tr{class: "#{status_to_class(order.status)}"}
-        %td
-          %span.label.label-info= order.id
-        %td= link_to order.title, order
-        %td= order.description
-        %td= I18n.t order.status
-        %td
-          = link_to "Muokkaa", edit_order_path(order), :class => "btn btn-mini btn-primary"
-          = link_to "Poista", order_path(order), method: :delete, data: {confirm: "Poistetaanko #{order.title}?"}, 
-            :class => "btn btn-mini btn-danger" 
-          /.dropdown
-          /  = link_to "#", data: {toggle: "dropdown"}, :class => "btn btn-primary btn-mini" do
-          /    Toiminot
-          /    %span.caret
-          /  %ul.dropdown-menu{"role" => "menu", "aria-labelledby" => "dLabel"}
-          /    %li Valmis
-          /    %li Odottaa
-          /    %li Laskutettu
-          /    %li Aktiivinen
-          /= link_to "Valmis", order_path(order, :order => {status: "complete", user_ids: order.user_ids}), method: :patch,
-          /  :class => "btn btn-mini btn-success"
-#calendar.span8.offset2
+/%table.table.table-striped
+/  %thead
+/    %tr
+/      %th ID 
+/      %th Kohde
+/      %th Kuvaus
+/      %th Tila
+/      %th Toiminnot
+/  %tbody
+/    - @orders.each do |order|
+/      %tr{class: "#{status_to_class(order.status)}"}
+/        %td
+/          %span.label.label-info= order.id
+/        %td= link_to order.title, order
+/        %td= order.description
+/        %td= I18n.t order.status
+/        %td
+/          = link_to "Muokkaa", edit_order_path(order), :class => "btn btn-mini btn-primary"
+/          = link_to "Poista", order_path(order), method: :delete, data: {confirm: "Poistetaanko #{order.title}?"}, :class => "btn btn-mini btn-danger" 
+
+#all_orders_cal.span8.offset1
+= render 'shared/modal'
