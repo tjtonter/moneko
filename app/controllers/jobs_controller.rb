@@ -12,7 +12,7 @@ class JobsController < ApplicationController
       end
       @jobs = @user.jobs.where({date: r})
     else
-      @jobs = @user.jobs.all
+      @jobs = @user.jobs.paginate(:page => params[:page], :per_page => 10)
     end
     @m = seasons
     respond_to do |format|

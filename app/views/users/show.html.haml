@@ -1,19 +1,2 @@
-%h3= @user.name
-%img{"class" => "img-rounded"}
-
-/%ul.nav.nav-tabs#usertabs
-/  %li.active= link_to "Koti", "#home", data: { toggle: "tab" }
-/  %li= link_to "Kalenteri", "#calendar", data: { toggle: "tab" }
-/  %li= link_to "Tuntirekisteri", "#register", data: { toggle: "tab" }
-
-%p 
-  %b Veronumero:
-  %br
-  %b Syntymäaika
- 
-.row
-  .span9
-    %h3 Kalenteri
-    #user_calendar
-
+#user_calendar
 = render 'shared/modal'

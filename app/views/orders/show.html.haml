@@ -28,6 +28,10 @@
   #{l @order.begin_at, :format => :long} -- 
   #{l @order.end_at, :format => :long}
 %p
+  %strong Palkka
+  %br
+  = "#{@order.salary} €"
+%p
   %strong Työhön rekiströidyt työmerkinnät
 %table.table.table-striped.table-bordered
   %thead
