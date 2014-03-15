@@ -24,7 +24,8 @@ class TasksController < ApplicationController
         :start => o.begin_at,
         :end => o.end_at,
         :url => new_user_job_path(params[:user_id]) + "?order_id=#{o.id}",
-        :allDay => (o.begin_at.day == o.end_at.day ? false : true)
+        :allDay => (o.begin_at.day == o.end_at.day ? false : true),
+        :color => view_context.status_to_color(o.status) 
       }
     end
     list.as_json

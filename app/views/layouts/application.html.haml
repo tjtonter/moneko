@@ -8,9 +8,12 @@
   %body
     = render 'shared/navigation'
               
-    #errors.span6.offset3
+    #errors.container
       - if flash[:notice]
-        alert.alert-success= flash[:notice]
+        .alert.alert-success
+          %strong Ilmoitus!
+          = flash[:notice]
+          %button.close{ type: "button", data: {dismiss: "alert"}, "aria-hidden" => true} &times;
     .container
       = yield
 

@@ -18,7 +18,8 @@
 		pmNames: ['ip.', 'PM', 'P'],
     monthNames: ['Tammikuu', 'Helmikuu', 'Maaliskuu', 'Huhtikuu', 'Toukokuu', 'Kesäkuu',
 'Heinäkuu', 'Elokuu', 'Syyskuu', 'Lokakuu', 'Marraskuu', 'Joulukuu'],
-    dayNamesMin: ['Ma', 'Ti', 'Ke', 'To', 'Pe', 'La', 'Su'],
+//    dayNamesMin: ['Ma', 'Ti', 'Ke', 'To', 'Pe', 'La', 'Su'],
+    dayNamesMin: ['Su', 'Ma', 'Ti', 'Ke', 'To', 'Pe', 'La'],
 		isRTL: false
 	};
 	$.timepicker.setDefaults($.timepicker.regional['fi']);

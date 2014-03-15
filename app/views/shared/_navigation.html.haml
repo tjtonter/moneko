@@ -14,5 +14,6 @@
               = current_user.name
               %b.caret
               %ul.dropdown-menu
-                %li= link_to "Kalenteri", user_path(current_user)
+                %li= link_to "Oma sivu", user_path(current_user)
+                %li= link_to "Kalenteri", user_tasks_path(current_user)
                 %li= link_to "Työrekisteri", user_jobs_path(current_user)

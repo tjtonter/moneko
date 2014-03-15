@@ -1,12 +1,13 @@
 # Place all the behaviors and hooks related to the matching controller here.
 # All this logic will automatically be available in application.js.
 # You can use CoffeeScript in this file: http://coffeescript.org/
-$.datepicker.setDefaults( $.datepicker.regional[ "fi" ] )
+#$.datepicker.setDefaults( $.datepicker.regional[ "fi" ] )
 dp_options = {
   #altField: "#order_begin_at"
   #altFieldTimeOnly: false
   #gotoCurrent: true
   dateFormat: "dd.mm.yy"
+  firstDay: 1
   timeFormat: "H:mm"
   showAnim: "slideDown"
   stepMinute: 15
@@ -17,8 +18,8 @@ datefmt = (d) ->
   d.getHours() + ":" + d.getMinutes()
 
 ready = ->
-  $('#order_begin_at').datetimepicker(dp_options) 
-  $('#order_end_at').datetimepicker(dp_options)
+  $('#order_begin_at').datetimepicker()
+  $('#order_end_at').datetimepicker()
   $('#all_orders_cal').fullCalendar({
     selectable: true
     selectHelper: true

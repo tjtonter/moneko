@@ -5,4 +5,4 @@
   %td= number_to_currency job.salary, :unit => "€"
   %td= job.duration
   %td= link_to "Poista", user_job_path(@user, job), :method => :delete, 
-    data: { confirm:  "Haluatko varmasti poistaa työn?" }, :class => "btn btn-mini btn-danger"
+    data: { confirm:  "Haluatko varmasti poistaa työn?" }, :class => "btn btn-xs btn-danger"

@@ -14,13 +14,13 @@ module ApplicationHelper
   def status_to_color(status)
     case status
     when "waiting"
-      return "blue"
+      return "#5bc0de"
     when "active"
-      return "red"
+      return "#428bca"
     when "complete"
-      return "green"
+      return "#5cb85c"
     when "billed"
-      return "orange"
+      return "#999"
     end
   end
   def sortable(column, title = nil)
