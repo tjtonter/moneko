@@ -14,6 +14,10 @@
 //= require jquery_ujs
 //= require turbolinks
 //= require bootstrap
+//= require moment
+//= require bootstrap-datetimepicker
+//= require moment/fi
+//= require locales/bootstrap-datetimepicker.fi.js
 //= require_tree .
 
 /* Finnish initialisation for the jQuery UI date picker plugin. */
@@ -39,3 +43,15 @@ jQuery(function($){
     yearSuffix: ''};
   $.datepicker.setDefaults($.datepicker.regional['fi']);
 });
+
+/* Bind all .datetime classes with respective pickers */
+function ready() {
+  $('.datetimeinput').datetimepicker({
+    language: 'fi',
+    minuteStepping: 15
+  });
+  $('.dateinput').datepicker();
+}
+
+$(document).ready(ready);
+$(document).on('page:update', ready);
