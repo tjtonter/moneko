@@ -4,9 +4,13 @@
 #   Ensure the SQLite 3 gem is defined in your Gemfile
 #   gem 'sqlite3'
 development:
-  adapter: sqlite3
-  database: db/development.sqlite3
+  adapter: mysql2
+  encoding: utf8
+  database: monekodb
   pool: 5
+  username: root
+  password: silakka
+#  socket: /var/run/mysqld/mysql.sock
   timeout: 5000
 
 # Warning: The database defined as "test" will be erased and
@@ -19,7 +23,11 @@ test:
   timeout: 5000
 
 production:
-  adapter: sqlite3
-  database: db/production.sqlite3
+  adapter: mysql2
+  encoding: utf8
+  database: monekodb
   pool: 5
+  username: root
+  password: silakka
+#  socket: /var/run/mysqld/mysql.sock
   timeout: 5000
