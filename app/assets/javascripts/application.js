@@ -51,7 +51,10 @@ function ready() {
     minuteStepping: 15,
     format: 'DD.MM.YYYY HH:mm'
   });
-  $('.dateinput').datepicker();
+  $('.dateinput').datetimepicker({
+    language: 'fi',
+    pickTime: false
+  });
 }
 
 $(document).ready(ready);
