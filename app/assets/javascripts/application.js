@@ -48,7 +48,8 @@ jQuery(function($){
 function ready() {
   $('.datetimeinput').datetimepicker({
     language: 'fi',
-    minuteStepping: 15
+    minuteStepping: 15,
+    format: 'DD.MM.YYYY HH:mm'
   });
   $('.dateinput').datepicker();
 }
