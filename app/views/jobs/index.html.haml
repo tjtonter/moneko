@@ -5,17 +5,17 @@
 = form_tag user_jobs_path(current_user), method: :get, id: "job-search" do
   %fieldset
     .form-group
-      = label_tag :year, "Vuosi", class: "col-sm-1"
-      = select_year Date.today, start_year: @this_year, end_year: 2013
+      = label_tag :year, "Vuosi", class: "col-sm-2"
+      = select_year Date.today, start_year: Time.now.year, end_year: 2013
     .form-group
-      = label_tag :month, "Kuukausi", class: "col-sm-1"
+      = label_tag :month, "Kuukausi", class: "col-sm-2"
       = select_month Date.today
     .form-group
-      = radio_button_tag :part, '1..15'
-      = label_tag :part, "1..15", class: "col-sm-1"
+      = radio_button_tag :part, '1..15', checked: true
+      = label_tag :part, "1..15", class: "col-sm-2"
     .form-group
       = radio_button_tag :part , '15..-1'
-      = label_tag :part, "15..", class: "col-sm-1"
+      = label_tag :part, "15..", class: "col-sm-2"
     .form-group
       = submit_tag "Rajaa", name: nil, class: "col-sm-offset-1 btn btn-info btn-sm"
 

@@ -1,19 +1,17 @@
 class JobsController < ApplicationController
   def index
     @user = User.find(params[:user_id])
-    if params.has_key?(:date) && params.has_key?(:part)
+    if params.has_key?(:date) and params.has_key?(:part)
       days = (params[:part] == '1..15') ? [1, 15] : [16, -1] 
       year, month = params[:date][:year], params[:date][:month]
       a = Date.new year.to_i, month.to_i, days[0]
       b = Date.new year.to_i, month.to_i, days[1]
       flash[:notice] = "Näytetään merkinnät ajalta #{l a} .. #{l b}"
-      @jobs = @user.jobs.where({date: a..b})
+      @jobs = @user.jobs.where({date: a..b}).order(date: :asc)
     else
-      @jobs = @user.jobs
+      @jobs = @user.jobs.order(date: :desc)
     end
-    @jobs = @jobs.order(date: :desc).paginate(:page => params[:page], :per_page => 12)
-    #  @jobs = @user.jobs.where({date: r})
-    @this_year = Date.today.year
+    @jobs = @jobs.paginate(:page => params[:page], :per_page => 12)
     respond_to do |format|
       format.html
       format.json { render :json => custom_json(@jobs) }
