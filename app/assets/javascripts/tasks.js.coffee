@@ -23,13 +23,12 @@ ready = ->
               bhour = Math.floor(ui.values[1] / 60)
               bmin = ui.values[1] - bhour * 60
               delta = ui.values[1] - ui.values[0]
-              $("#job_begin").val(ahour+ ":"+amin)
-              $("#job_end").val(bhour+ ":"+bmin)
+              $("#job_begin").val(ahour+ ":"+(if amin == 0 then '00' else amin))
+              $("#job_end").val(bhour+ ":"+(if bmin == 0 then '00' else bmin))
               $("#job_duration").val(delta/60)
           })
           $('#new_job').on('ajax:success', ((e, data, st, xhr) ->
-            console.log(data)
-            modal.modal('hide')
+            $('#modal').modal('hide')
             alert "Uusi työpäivä rekisteröity."
           ))
           
