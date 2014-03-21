@@ -17,8 +17,18 @@
     .form-group
       = f.label :delivery, "Toimitusaika"
       = f.text_area :delivery, :class => "form-control"
-    .form-group
-      = f.label :charge, "Palvelumaksu"
-      = f.text_area :charge, :class => "form-control"
+    %h3 Tarjoukseen sisältyvät palvelut
+    = f.fields_for :services do |service|
+      .service
+        .form-group
+          = service.label :title
+          = service.text_field :title, :class => "form-control"
+        .form-group
+          = service.label :price
+          = service.number_field :price, :class => "form-control"
+        .form-group
+          = service.hidden_field :_destroy
+          = link_to "Poista tämä palvelu", "", class: "btn btn-sm btn-warning destroy_service"
+      
     .form-group
       = f.submit "Luo tarjous", :class => "btn btn-primary"

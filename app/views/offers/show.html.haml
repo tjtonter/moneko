@@ -7,7 +7,7 @@
   .btn-group
     %button{:class => "btn btn-success dropdown-toggle", "data-toggle"=> "dropdown", :href => "#"}
       Toiminnot
-      %span.caret
+      %col-md-.caret
     %ul.dropdown-menu{role: "menu"}
       %li= link_to "Luo PDF", offer_path(@offer, :format => 'pdf')
       %li= link_to "Muokkaa", edit_offer_path(@offer)
@@ -15,33 +15,36 @@
       %li= link_to "Lähetä", "#"
 %p= simple_format(@offer.customer)
 %br
-.row.entry
-  .span3
+.row
+  .col-md-3
     %p
-      %b Työkohde
-  .span7
+      %h4 Työkohde
+  .col-md-7
     %p= @offer.target
 .row.entry
-  .span3
+  .col-md-3
     %p
-      %b Tarjouksemme sisältö 
-  .span7
+      %h4 Tarjouksemme sisältö 
+  .col-md-7
     %p= simple_format(@offer.contents)
 .row.entry
-  .span3
+  .col-md-3
     %p
-      %b Työn suoritus
-  .span7
+      %h4 Työn suoritus
+  .col-md-7
     %p= simple_format(@offer.execution)
 .row.entry
-  .span3
+  .col-md-3
     %p
-      %b Toimitusaika 
-  .span7
+      %h4 Toimitusaika 
+  .col-md-7
     %p= simple_format(@offer.delivery)
 .row
-  .span3
-    %p
-      %b Palvelumaksu
-  .span7
+  .col-md-8 
+    %h4 Palvelut
+    - @offer.services.each do |service|
+      %p
+        %b= service.title
+        %b= number_to_currency service.price
+  .col-md-7
     %p= simple_format(@offer.charge)
