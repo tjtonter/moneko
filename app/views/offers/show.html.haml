@@ -21,30 +21,30 @@
       %h4 Työkohde
   .col-md-7
     %p= @offer.target
-.row.entry
+.row
   .col-md-3
     %p
       %h4 Tarjouksemme sisältö 
   .col-md-7
     %p= simple_format(@offer.contents)
-.row.entry
+.row
   .col-md-3
     %p
       %h4 Työn suoritus
   .col-md-7
     %p= simple_format(@offer.execution)
-.row.entry
+.row
   .col-md-3
     %p
       %h4 Toimitusaika 
   .col-md-7
     %p= simple_format(@offer.delivery)
 .row
-  .col-md-8 
-    %h4 Palvelut
-    - @offer.services.each do |service|
+  %h4 Palvelut
+  - @offer.services.each do |service|
+    .row
       %p
-        %b= service.title
-        %b= number_to_currency service.price
-  .col-md-7
-    %p= simple_format(@offer.charge)
+        .col-md-3
+          %b= service.title
+        .col-md-7
+          %b= number_to_currency service.price
