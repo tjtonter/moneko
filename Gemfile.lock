@@ -164,11 +164,8 @@ DEPENDENCIES
   jquery-ui-rails
   jquery-ui-themes
   less-rails
-<<<<<<< HEAD
-  mysql2
-=======
   momentjs-rails (~> 2.5.0)
->>>>>>> 3117455116180f8afa2fd8ee9f8b53bd6153d05e
+  mysql2
   prawn
   prawn-rails
   psych
