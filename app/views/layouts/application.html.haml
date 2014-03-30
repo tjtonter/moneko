@@ -1,0 +1,19 @@
+!!! 5
+%html
+  %head
+    %title Moneko
+    = stylesheet_link_tag "application", media: "all", "data-turbolinks-track" => true
+    = javascript_include_tag "application", "data-turbolinks-track" => true
+    = csrf_meta_tags
+  %body
+    = render 'shared/navigation'
+              
+    #errors.container
+      - if flash[:notice]
+        .alert.alert-success
+          %strong Ilmoitus!
+          = flash[:notice]
+          %button.close{ type: "button", data: {dismiss: "alert"}, "aria-hidden" => true} &times;
+    .container
+      = yield
+

@@ -1,0 +1,11 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  user_id: 
+  order_id: 
+  task_date: 2013-12-04 11:45:08
+
+two:
+  user_id: 
+  order_id: 
+  task_date: 2013-12-04 11:45:08

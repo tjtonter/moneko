@@ -1,0 +1,13 @@
+%table.table#user_jobs_table
+  %thead
+    %tr
+      %th= "Työnumero" 
+      %th= "Kuvaus"
+      %th= "Päivämäärä"
+      %th= "Palkka"
+      %th= "Kesto"
+      %th Poista 
+      %th Muokkaa 
+  %tbody
+    = render @jobs
+= will_paginate @jobs

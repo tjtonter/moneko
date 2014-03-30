@@ -1,0 +1,41 @@
+= form_for [@user, @job], remote: true, html: {role: 'form', class: 'form-horizontal'} do |f|
+  #job_errors
+  .form-group
+    = f.label :date, class: 'col-sm-2 control-label'
+    .col-sm-8
+      = f.text_field :date, class: 'form-control dateinput'
+      %p.help-block#date_error
+  .form-group
+    = f.label "Aikaväli", class: 'col-sm-2 control-label'
+    .col-sm-8
+      #slider
+      %p.help-block
+        Aseta työn alku ja loppuaika tästä. Kesto, alku ja loppu täytetään automaattisesti.
+  .form-group
+    = f.label :begin, class: 'col-sm-2 control-label'
+    .col-sm-8
+      = f.text_field :begin, class: 'form-control'
+      %p.help-block#begin_error
+  .form-group
+    = f.label :end, class: 'col-sm-2 control-label'
+    .col-sm-8
+      = f.text_field :end, class: 'form-control'
+      %p.help-block#end_error
+  .form-group
+    = f.label :duration, class: 'col-sm-2 control-label'
+    .col-sm-8
+      = f.text_field :duration, class: 'form-control'
+      %p.help-block#duration_error
+  .form-group
+    = f.label :description, class: 'col-sm-2 control-label'
+    .col-sm-8
+      = f.text_area :description, class: 'form-control'
+      %p.help-block#description_error
+  .form-group
+    = f.label :salary, class: 'col-sm-2 control-label'
+    .col-sm-8
+      = f.text_field :salary, class: 'form-control'
+      %p.help-block#salary_error
+  = f.hidden_field :order_id, :value => @order.id
+  .col-sm-offset-2
+    = f.submit "Luo rivi", :class => "btn btn-success"

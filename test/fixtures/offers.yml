@@ -1,0 +1,17 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  customer: MyText
+  target: MyString
+  contents: MyText
+  execution: MyText
+  delivery: MyText
+  charge: MyText
+
+two:
+  customer: MyText
+  target: MyString
+  contents: MyText
+  execution: MyText
+  delivery: MyText
+  charge: MyText
