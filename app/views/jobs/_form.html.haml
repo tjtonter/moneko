@@ -27,6 +27,11 @@
       = f.text_field :duration, class: 'form-control'
       %p.help-block#duration_error
   .form-group
+    = f.label :description, class: 'col-sm-2 control-label'
+    .col-sm-8
+      = f.text_area :description, class: 'form-control'
+      %p.help-block#description_error
+  .form-group
     = f.label :salary, class: 'col-sm-2 control-label'
     .col-sm-8
       = f.text_field :salary, class: 'form-control'
