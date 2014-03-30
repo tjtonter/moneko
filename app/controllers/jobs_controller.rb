@@ -15,13 +15,17 @@ class JobsController < ApplicationController
     respond_to do |format|
       format.html
       format.json { render :json => custom_json(@jobs) }
+      format.pdf do
+        pdf = JobsPdf.new(@user, @jobs, view_context)
+        send_data pdf.render, :filename => @user.username+"-tunnit.pdf",
+          :disposition => "inline"
+      end
     end
   end
 
   def create
     @user = current_user 
     @job = @user.jobs.new(job_params)
-    @job.description = @job.order.title
     @order = @job.order
     respond_to do |format|
       if @job.save

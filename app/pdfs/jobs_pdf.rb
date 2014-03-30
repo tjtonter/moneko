@@ -1,0 +1,31 @@
+class JobsPdf < Prawn::Document
+  def initialize(user, jobs, view)
+    super(:page_layout => :landscape)
+    @view = view
+    text "Työtunti-ilmoitus", size: 30, style: :bold, align: :center
+    text "Nimi:"
+    text user.name, style: :bold
+    move_down 30
+    table(jobs_table(jobs), header: true, cell_style: 
+          {borders: [:top, :bottom]}, width: 720)
+    move_down 30
+    text "Brutto yhteensä", align: :right
+    text @view.number_to_currency(jobs.sum(:salary)), size: 14, style: :bold,
+      align: :right
+  end
+  
+  def jobs_table(jobs)
+    [["Päivämäärä", "Työnumero", "Työ", "Alkoi", "Loppui", "Kesto", "Palkka"]] +
+    jobs.map do |j|
+      [
+        @view.l(j.date), 
+        j.order.number, 
+        j.order.title, 
+        j.begin.strftime("%H:%M"), 
+        j.end.strftime("%H:%M"), 
+        j.duration, 
+        j.salary
+      ]
+    end
+  end
+end
