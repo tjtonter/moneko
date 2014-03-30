@@ -93,7 +93,9 @@ class OffersController < ApplicationController
   end
   private
     def offer_params
-      params.require(:offer).permit(:customer, :target, :contents, :execution, :services, :delivery, :commit,
-                                    services_attributes: [:id, :title, :price, :offer_id, :_destroy])
+      params.require(:offer).permit(:customer, :target, :contents, :execution, 
+                                    :services, :delivery, :commit,
+                                    services_attributes: [:id, :title, :price, 
+                                      :offer_id, :_destroy])
     end
 end
