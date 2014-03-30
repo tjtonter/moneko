@@ -219,6 +219,7 @@ fi:
       job:
         date: "Päivämäärä"
         duration: "Kesto"
+        description: "Kuvaus"
         begin: "Alkoi"
         end: "Loppui"
         salary: "Palkka"
