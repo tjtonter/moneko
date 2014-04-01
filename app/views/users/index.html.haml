@@ -12,11 +12,11 @@
       %td= user.email
       %td
         = link_to "Edellinen", user_jobs_path(user, :pdf,
-          :date => {:year => Date.today.year, :month => Date.today.month}, 
-          :part => (Date.today-15).day.between?(1, 15) ? "1..15" : "16..-1"),
+          :date => {:year => @past.year, :month => @past.month}, 
+          :part => @past.day.between?(1, 15) ? "1..15" : "16..-1"),
           :class => "btn btn-info btn-sm"
         = link_to "Nykyinen", user_jobs_path(user, :pdf,
-          :date => {:year => Date.today.year, :month => Date.today.month}, 
-          :part => Date.today.day.between?(1, 15) ? "1..15" : "16..-1"),
+          :date => {:year => @today.year, :month => @today.month}, 
+          :part => @today.day.between?(1, 15) ? "1..15" : "16..-1"),
           :class => "btn btn-info btn-sm"
 = link_to "Uusi käyttäjä", new_user_registration_path
