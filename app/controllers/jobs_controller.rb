@@ -52,6 +52,27 @@ class JobsController < ApplicationController
     end
   end
 
+  def edit
+    @job = Job.find(params[:id])
+    @user = User.find(params[:user_id])
+    @order = @job.order
+    respond_to do |format|
+      format.html  { render layout: !request.xhr? }
+    end
+  end
+
+  def update
+    @user = current_user
+    @job = Job.find(params[:id])
+    respond_to do |format|
+      if @job.update(job_params)
+        format.json {render json: @job, status: :ok, layout: !request.xhr?}
+      else
+        format.json {render json: @job.errors, status: :unprocessable_entity}
+      end
+    end
+  end
+
   def destroy
     Job.delete(params[:id])
     flash[:notice] = "Työ poistettu"

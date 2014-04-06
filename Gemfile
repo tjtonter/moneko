@@ -7,7 +7,7 @@ gem 'rails', '4.0.0'
 gem 'sqlite3'
 
 # Use mysql for production
-gem 'mysql2'
+#gem 'mysql2'
 
 # Added because missing libyaml
 gem 'psych'

@@ -1,4 +1,4 @@
-%tr{class: "#{status_to_class(job.order.status)}"}
+%tr{class: "#{status_to_class(job.order.status)}", id: job.id}
   %td
     %strong
       = job.order.number
@@ -7,6 +7,9 @@
   %td= job.date.nil? ? "" : (l job.date, :format => :long)
   %td= number_to_currency job.salary, :unit => "€"
   %td= job.duration
-  %td= link_to "Poista", user_job_path(@user, job), :method => :delete, 
-    data: { confirm:  "Haluatko varmasti poistaa työn?" }, :class => "btn btn-xs btn-danger"
-  %td= link_to "Muokkaa", edit_user_job_path(@user, job)
+  %td
+    = link_to "Poista", user_job_path(@user, job), :method => :delete, 
+      data: { confirm:  "Haluatko varmasti poistaa työn?" },
+      :class => "btn btn-xs btn-danger"
+    = link_to "Muokkaa", edit_user_job_path(@user, job), remote: true,
+      class: "btn btn-xs btn-info edit_job", id: "edit_job_#{job.id}"
