@@ -1,12 +1,15 @@
-%tr{class: "#{status_to_class(job.order.status)}"}
-  %td
+%tr{class: "#{status_to_class(job.order.status)}", id: job.id}
+  %td.ordernumber
     %strong
       = job.order.number
     = job.order.title
-  %td= link_to job.description, order_path(job.order)
-  %td= job.date.nil? ? "" : (l job.date, :format => :long)
-  %td= number_to_currency job.salary, :unit => "€"
-  %td= job.duration
-  %td= link_to "Poista", user_job_path(@user, job), :method => :delete, 
-    data: { confirm:  "Haluatko varmasti poistaa työn?" }, :class => "btn btn-xs btn-danger"
-  %td= link_to "Muokkaa", edit_user_job_path(@user, job)
+  %td.description= link_to job.description, order_path(job.order)
+  %td.date= job.date.nil? ? "" : (l job.date, :format => :short)
+  %td.salary= number_to_currency job.salary, :unit => "€"
+  %td.duration= job.duration
+  %td
+    = link_to "Poista", user_job_path(@user, job), :method => :delete, 
+      data: { confirm:  "Haluatko varmasti poistaa työn?" },
+      :class => "btn btn-xs btn-danger"
+    = link_to "Muokkaa", edit_user_job_path(@user, job), remote: true,
+      class: "btn btn-xs btn-info edit_job", id: "job_#{job.id}"

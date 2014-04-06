@@ -45,8 +45,8 @@ jQuery(function($){
   $.datepicker.setDefaults($.datepicker.regional['fi']);
 });
 
-/* Bind all .datetime classes with respective pickers */
 function ready() {
+/* Bind all .datetime classes with respective pickers */
   $('.datetimeinput').datetimepicker({
     language: 'fi',
     minuteStepping: 15,
@@ -55,6 +55,16 @@ function ready() {
   $('.dateinput').datetimepicker({
     language: 'fi',
     pickTime: false
+  });
+/* Bind error handler for all remote forms */
+  $("form[data-remote='true']").on('ajax:error', function(e, xhr, status, error) {
+    var json = $.parseJSON(xhr.responseText);
+    $('.form-group').removeClass('has-error');
+    $('.help-block').html('');
+    return $.each(json, function(k, v) {
+      $('#job_'+k).parents('.form-group').addClass('has-error');
+      $('#'+k+'_error').html(v);
+    });
   });
 }
 
