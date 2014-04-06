@@ -36,6 +36,10 @@ class JobsController < ApplicationController
     end
   end
 
+  def edit
+    @job = Job.find(params[:id])
+    @user = User.find(params[:user_id])
+  end
   def new
     @user = User.find(params[:user_id])
     @order = Order.find(params[:order_id])

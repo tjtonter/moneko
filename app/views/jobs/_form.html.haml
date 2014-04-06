@@ -39,6 +39,6 @@
     .col-sm-8
       = f.text_field :salary, class: 'form-control'
       %p.help-block#salary_error
-  = f.hidden_field :order_id, :value => @order.id
+  = f.hidden_field :order_id, :value => @order.nil? ? "" : @order.id
   .col-sm-offset-2
     = f.submit "Luo rivi", :class => "btn btn-success"
