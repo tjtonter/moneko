@@ -3,7 +3,8 @@
   .form-group
     = f.label :date, class: 'col-sm-2 control-label'
     .col-sm-8
-      = f.text_field :date, class: 'form-control dateinput'
+      = f.text_field :date, class: 'form-control dateinput',
+        value: @job.date.blank? ? "" : @job.date.strftime("%d.%m.%Y")
       %p.help-block#date_error
   .form-group
     = f.label "Aikaväli", class: 'col-sm-2 control-label'
@@ -14,12 +15,14 @@
   .form-group
     = f.label :begin, class: 'col-sm-2 control-label'
     .col-sm-8
-      = f.text_field :begin, class: 'form-control'
+      = f.text_field :begin, class: 'form-control',
+        value: @job.begin.blank? ? "" : @job.begin.strftime("%H:%M")
       %p.help-block#begin_error
   .form-group
     = f.label :end, class: 'col-sm-2 control-label'
     .col-sm-8
-      = f.text_field :end, class: 'form-control'
+      = f.text_field :end, class: 'form-control',
+        value: @job.end.blank? ? "" : @job.end.strftime("%H:%M")
       %p.help-block#end_error
   .form-group
     = f.label :duration, class: 'col-sm-2 control-label'
@@ -36,6 +39,6 @@
     .col-sm-8
       = f.text_field :salary, class: 'form-control'
       %p.help-block#salary_error
-  = f.hidden_field :order_id, :value => @order.id
+  = f.hidden_field :order_id, :value => @order.nil? ? "" : @order.id
   .col-sm-offset-2
     = f.submit "Luo rivi", :class => "btn btn-success"

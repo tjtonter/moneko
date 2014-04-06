@@ -31,16 +31,6 @@ ready = ->
             $('#modal').modal('hide')
             alert "Uusi työpäivä rekisteröity."
           ))
-          
-          $('#new_job').on('ajax:error', ((e, xhr, status, error) ->
-            json = $.parseJSON(xhr.responseText)
-            $('.form-group').removeClass('has-error')
-            $('.help-block').html('')
-            $.each(json, (k, v) ->
-              $('#job_'+k).parents('.form-group').addClass('has-error')
-              $('#'+k+'_error').html(v)
-            )
-          ))
         ))
 
         $('#modal').modal('show')
