@@ -31,8 +31,7 @@ class JobsController < ApplicationController
       if @job.save
         format.json {render json: @job, status: :created, layout: !request.xhr?}
       else
-        format.json {render json: @job.errors, 
-          status: :unprocessable_entity}
+        format.json {render json: @job.errors, status: :unprocessable_entity}
       end
     end
   end
@@ -42,13 +41,7 @@ class JobsController < ApplicationController
     @order = Order.find(params[:order_id])
     @job = @user.jobs.new
     respond_to do |format|
-      format.html do 
-        if request.xhr?
-          render 'new', :layout => false
-        else
-          render 'new'
-        end
-      end
+      format.html { render 'new', layout: !request.xhr? } 
     end
   end
 

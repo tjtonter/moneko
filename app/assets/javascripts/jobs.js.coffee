@@ -30,8 +30,11 @@ ready = ->
     })
     $('#modal-title').html('Muokkaa työtä')
     $('#modal').modal('show')
-    $('edit_job').on('ajax:success', ((e, data, st, xhr) ->
-      console.log("Läpi meni!")
+    $('#edit_'+e.target.id).on('ajax:success', ((e, data, st, xhr) ->
+      console.log "data=" + data
+      $.each(data, ((k,v) ->
+        $('#'+data.id+" td."+k).html(v)
+      ))
     ))
   ))
 
