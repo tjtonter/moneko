@@ -54,7 +54,8 @@ function ready() {
   });
   $('.dateinput').datetimepicker({
     language: 'fi',
-    pickTime: false
+    pickTime: false,
+    format: 'dd.mm.yyyy'
   });
 /* Bind error handler for all remote forms */
   $("form[data-remote='true']").on('ajax:error', function(e, xhr, status, error) {
