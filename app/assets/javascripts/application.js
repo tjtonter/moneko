@@ -50,12 +50,14 @@ function ready() {
   $('.datetimeinput').datetimepicker({
     language: 'fi',
     minuteStepping: 15,
-    format: 'DD.MM.YYYY HH:mm'
+    defaultDate: new Date(),
+    format: 'DD.MM.YYYY HH:mm',
+    sideBySide: true
   });
   $('.dateinput').datetimepicker({
     language: 'fi',
     pickTime: false,
-    format: 'dd.mm.yyyy'
+    defaultDate: new Date()
   });
 /* Bind error handler for all remote forms */
   $("form[data-remote='true']").on('ajax:error', function(e, xhr, status, error) {

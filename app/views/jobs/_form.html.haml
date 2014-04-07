@@ -1,4 +1,5 @@
-= form_for [@user, @job], remote: true, html: {role: 'form', class: 'form-horizontal'} do |f|
+= form_for [@user, @job], remote: true, html: {role: 'form', 
+  class: 'form-horizontal'} do |f|
   #job_errors
   .form-group
     = f.label :date, class: 'col-sm-2 control-label'
@@ -11,7 +12,8 @@
     .col-sm-8
       #slider
       %p.help-block
-        Aseta työn alku ja loppuaika tästä. Kesto, alku ja loppu täytetään automaattisesti.
+        Aseta työn alku ja loppuaika tästä. Kesto, alku ja loppu täytetään
+        automaattisesti.
   .form-group
     = f.label :begin, class: 'col-sm-2 control-label'
     .col-sm-8
