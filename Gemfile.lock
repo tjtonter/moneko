@@ -166,6 +166,7 @@ DEPENDENCIES
   less-rails
   momentjs-rails (~> 2.5.0)
   nested_form
+  mysql2
   prawn
   prawn-rails
   psych
