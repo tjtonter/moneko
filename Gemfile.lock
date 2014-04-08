@@ -165,8 +165,8 @@ DEPENDENCIES
   jquery-ui-themes
   less-rails
   momentjs-rails (~> 2.5.0)
-  nested_form
   mysql2
+  nested_form
   prawn
   prawn-rails
   psych

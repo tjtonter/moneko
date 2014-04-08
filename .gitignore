@@ -17,3 +17,6 @@
 
 # Ignore gemfile lock
 /Gemfile.lock
+
+# Ignore compiled assets
+/public/*
