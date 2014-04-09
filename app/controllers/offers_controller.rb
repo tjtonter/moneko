@@ -52,13 +52,13 @@ class OffersController < ApplicationController
 
   def new
     @offer = Offer.new
+    @offer.services.build
   end
 
   def create
-    @offer = Offer.new(params[:offer].permit(:customer, :target, :contents, :execution, :delivery, :charge, :commit))
-
+    @offer = Offer.new(offer_params)
     if @offer.save
-      redirect_to @offer
+      redirect_to offers_path
     else
       render "new"
     end
@@ -85,10 +85,17 @@ class OffersController < ApplicationController
   def update
     @offer = Offer.find(params[:id])
 
-    if @offer.update(params[:offer].permit(:customer, :target, :contents, :execution, :delivery, :charge, :commit))
+    if @offer.update(offer_params)
       redirect_to @offer
     else
       render "edit"
     end 
   end
+  private
+    def offer_params
+      params.require(:offer).permit(:customer, :target, :contents, :execution, 
+                                    :services, :delivery, :commit,
+                                    services_attributes: [:id, :title, :price, 
+                                      :offer_id, :_destroy])
+    end
 end

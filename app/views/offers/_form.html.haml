@@ -1,29 +1,34 @@
-= form_for @offer do |f|
-  %fieldset.span8
+= nested_form_for @offer do |f|
+  %fieldset
     %legend Luo uusi tarjous
-    - if @offer.errors.any?
-      - @offer.errors.full_messages.each do |msg|
-        .row
-          .alert.alert-error.span4
-            %button{:type => "button", :class => "close", "data-dismiss" => "alert"} &times;
-            %p= msg
-    = f.label :customer, "Asiakkaan nimi ja osoite"
-    = f.text_area :customer, :rows => 6, :class => "span8"
-
-    = f.label :target, "Työkohde"
-    = f.text_field :target, :class => "span8"
-
-    = f.label :contents, "Tarjouksen sisältö"
-    = f.text_area :contents, :class => "editor"
-
-    = f.label :execution, "Työn suoritus"
-    = f.text_area :execution, :class => "editor"
-
-    = f.label :delivery, "Toimitusaika"
-    = f.text_area :delivery, :class => "editor"
-
-    = f.label :charge, "Palvelumaksu"
-    = f.text_area :charge, :class => "editor"
-
-    %br
-    = f.submit "Luo tarjous", :class => "btn btn-primary"
+    = render 'shared/form_errors', object: @offer
+    .form-group
+      = f.label :customer, "Asiakkaan nimi ja osoite"
+      = f.text_area :customer, :rows => 6, :class => "form-control"
+    .form-group
+      = f.label :target, "Työkohde"
+      = f.text_field :target, :class => "form-control"
+    .form-group
+      = f.label :contents, "Tarjouksen sisältö"
+      = f.text_area :contents, :class => "form-control"
+    .form-group
+      = f.label :execution, "Työn suoritus"
+      = f.text_area :execution, :class => "form-control"
+    .form-group
+      = f.label :delivery, "Toimitusaika"
+      = f.text_area :delivery, :class => "form-control"
+    %h3 Tarjoukseen sisältyvät palvelut
+    = f.fields_for :services do |service|
+      .service
+        .form-group
+          = service.label :title
+          = service.text_field :title, :class => "form-control"
+        .form-group
+          = service.label :price
+          = service.number_field :price, :class => "form-control"
+        .form-group
+          = service.link_to_remove "Poista tämä palvelu", class: "btn btn-sm btn-warning"
+    = f.link_to_add "Lisää palvelu", :services
+      
+    .form-group
+      = f.submit "Luo tarjous", :class => "btn btn-primary"

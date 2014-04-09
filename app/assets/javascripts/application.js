@@ -18,6 +18,7 @@
 //= require bootstrap-datetimepicker
 //= require moment/fi
 //= require locales/bootstrap-datetimepicker.fi.js
+//= require jquery_nested_form
 //= require_tree .
 
 /* Finnish initialisation for the jQuery UI date picker plugin. */
@@ -43,17 +44,44 @@ jQuery(function($){
     yearSuffix: ''};
   $.datepicker.setDefaults($.datepicker.regional['fi']);
 });
-
-/* Bind all .datetime classes with respective pickers */
+/* Set accounting.js defaults */
+accounting.settings = {
+  currency: {
+  symbol : "€",   // default currency symbol is '$'
+  format: "%v %s", // controls output: %s = symbol, %v = value/number (can be object: see below)
+  decimal : ",",  // decimal point separator
+  thousand: ".",  // thousands separator
+  precision : 2   // decimal places
+  },
+  number: {
+    precision : 0,  // default precision on numbers is 0
+    thousand: ".",
+    decimal : ","
+  }
+}
 function ready() {
+/* Bind all .datetime classes with respective pickers */
   $('.datetimeinput').datetimepicker({
     language: 'fi',
     minuteStepping: 15,
-    format: 'DD.MM.YYYY HH:mm'
+    defaultDate: new Date(),
+    format: 'DD.MM.YYYY HH:mm',
+    sideBySide: true
   });
   $('.dateinput').datetimepicker({
     language: 'fi',
-    pickTime: false
+    pickTime: false,
+    defaultDate: new Date()
+  });
+/* Bind error handler for all remote forms */
+  $("form[data-remote='true']").on('ajax:error', function(e, xhr, status, error) {
+    var json = $.parseJSON(xhr.responseText);
+    $('.form-group').removeClass('has-error');
+    $('.help-block').html('');
+    return $.each(json, function(k, v) {
+      $('#job_'+k).parents('.form-group').addClass('has-error');
+      $('#'+k+'_error').html(v);
+    });
   });
 }
 

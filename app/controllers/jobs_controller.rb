@@ -1,51 +1,71 @@
 class JobsController < ApplicationController
   def index
     @user = User.find(params[:user_id])
-    if params.has_key?(:date) && params.has_key?(:part)
+    if params.has_key?(:date) and params.has_key?(:part)
       days = (params[:part] == '1..15') ? [1, 15] : [16, -1] 
       year, month = params[:date][:year], params[:date][:month]
       a = Date.new year.to_i, month.to_i, days[0]
       b = Date.new year.to_i, month.to_i, days[1]
       flash[:notice] = "Näytetään merkinnät ajalta #{l a} .. #{l b}"
-      @jobs = @user.jobs.where({date: a..b})
+      @jobs = @user.jobs.where({date: a..b}).order(date: :asc)
     else
-      @jobs = @user.jobs
+      @jobs = @user.jobs.order(date: :desc)
     end
-    @jobs = @jobs.order(date: :desc).paginate(:page => params[:page], :per_page => 12)
-    #  @jobs = @user.jobs.where({date: r})
-    @this_year = Date.today.year
+    @jobs = @jobs.paginate(:page => params[:page], :per_page => 12)
     respond_to do |format|
       format.html
       format.json { render :json => custom_json(@jobs) }
+      format.pdf do
+        pdf = JobsPdf.new(@user, @jobs, view_context)
+        send_data pdf.render, :filename => @user.username+"-tunnit.pdf",
+          :disposition => "inline"
+      end
     end
   end
 
   def create
     @user = current_user 
     @job = @user.jobs.new(job_params)
-    @job.description = @job.order.title
     @order = @job.order
     respond_to do |format|
       if @job.save
         format.json {render json: @job, status: :created, layout: !request.xhr?}
       else
-        format.json {render json: @job.errors, 
-          status: :unprocessable_entity}
+        format.json {render json: @job.errors, status: :unprocessable_entity}
       end
     end
   end
 
+  def edit
+    @job = Job.find(params[:id])
+    @user = User.find(params[:user_id])
+  end
   def new
     @user = User.find(params[:user_id])
     @order = Order.find(params[:order_id])
     @job = @user.jobs.new
     respond_to do |format|
-      format.html do 
-        if request.xhr?
-          render 'new', :layout => false
-        else
-          render 'new'
-        end
+      format.html { render 'new', layout: !request.xhr? } 
+    end
+  end
+
+  def edit
+    @job = Job.find(params[:id])
+    @user = User.find(params[:user_id])
+    @order = @job.order
+    respond_to do |format|
+      format.html  { render layout: !request.xhr? }
+    end
+  end
+
+  def update
+    @user = current_user
+    @job = Job.find(params[:id])
+    respond_to do |format|
+      if @job.update(job_params)
+        format.json {render json: @job, status: :ok, layout: !request.xhr?}
+      else
+        format.json {render json: @job.errors, status: :unprocessable_entity}
       end
     end
   end

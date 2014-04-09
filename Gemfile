@@ -7,13 +7,13 @@ gem 'rails', '4.0.0'
 gem 'sqlite3'
 
 # Use mysql for production
-gem 'mysql2'
+#gem 'mysql2'
 
 # Added because missing libyaml
 gem 'psych'
 
-# Use SCSS for stylesheets
-# gem 'sass-rails', '~> 4.0.0'
+# Use nested form
+gem 'nested_form'
 
 # Prawn PDF
 gem 'prawn'
