@@ -1,6 +1,3 @@
-# Place all the behaviors and hooks related to the matching controller here.
-# All this logic will automatically be available in application.js.
-# You can use CoffeeScript in this file: http://coffeescript.org/
 ready = ->
   $('#job-search').hide()
   $('#job-form-toggle').on('click', ->
@@ -31,10 +28,14 @@ ready = ->
     $('#modal-title').html('Muokkaa työtä')
     $('#modal').modal('show')
     $('#edit_'+e.target.id).on('ajax:success', ((e, data, st, xhr) ->
-      console.log "data=" + data
       $.each(data, ((k,v) ->
-        $('#'+data.id+" td."+k).html(v)
+        switch k
+          when 'date' then $('#'+data.id+" td."+k).html(moment(v).format('DD.MM.YYYY'))
+          when 'salary' then $('#'+data.id+" td."+k).html(accounting.formatMoney(parseInt(v)))
+          else $('#'+data.id+" td."+k).html(v)
       ))
+      $('#modal').modal('hide')
+      $('#'+data.id+" td").effect('highlight',{color: "red"}, 3000)
     ))
   ))
 

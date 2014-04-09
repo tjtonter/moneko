@@ -1,17 +1,19 @@
-= form_for [@user, @job], remote: true, html: {role: 'form', class: 'form-horizontal'} do |f|
+= form_for [@user, @job], remote: true, html: {role: 'form', 
+  class: 'form-horizontal'} do |f|
   #job_errors
   .form-group
     = f.label :date, class: 'col-sm-2 control-label'
     .col-sm-8
       = f.text_field :date, class: 'form-control dateinput',
-        value: @job.date.blank? ? "" : @job.date.strftime("%d.%m.%Y")
+        value: @job.date.blank? ? nil : @job.date.strftime("%d.%m.%Y")
       %p.help-block#date_error
   .form-group
     = f.label "Aikaväli", class: 'col-sm-2 control-label'
     .col-sm-8
       #slider
       %p.help-block
-        Aseta työn alku ja loppuaika tästä. Kesto, alku ja loppu täytetään automaattisesti.
+        Aseta työn alku ja loppuaika tästä. Kesto, alku ja loppu täytetään
+        automaattisesti.
   .form-group
     = f.label :begin, class: 'col-sm-2 control-label'
     .col-sm-8
