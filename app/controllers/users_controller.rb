@@ -3,7 +3,7 @@ class UsersController < ApplicationController
     @users = User.all
     @today = Date.today
     if @today.day.between?(16,31)
-      @past = Date.new(@today.year, @today,month, 1)
+      @past = Date.new(@today.year, @today.month, 1)
     else
       @past = @today-1.month
       @past = Date.new(@past.year, @past.month, 16)
