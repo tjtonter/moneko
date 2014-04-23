@@ -16,7 +16,7 @@ ActiveRecord::Schema.define(version: 20140330221027) do
   create_table "jobs", force: true do |t|
     t.integer  "order_id"
     t.integer  "user_id"
-    t.decimal  "duration"
+    t.decimal  "duration",    precision: 8, scale: 2
     t.string   "description"
     t.date     "date"
     t.datetime "created_at"
