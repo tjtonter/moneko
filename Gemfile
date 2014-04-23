@@ -36,6 +36,9 @@ gem 'will_paginate'
 gem 'less-rails'
 gem 'therubyracer'
 
+# Use haml
+gem 'haml'
+
 # Use Uglifier as compressor for JavaScript assets
 gem 'uglifier', '>= 1.3.0'
 
