@@ -43,12 +43,18 @@ class OrdersController < ApplicationController
   def update
     @order = Order.find(params[:id])
     params[:order][:user_ids] ||= []
-    if @order.update(order_params)
-      flash[:notice] = "Työmääräys päivitetty"
-      redirect_to order_path(@order)
-    else
-      @users = User.all
-      render 'edit'
+    respond_to do |format|
+      if @order.update(order_params)
+        flash[:notice] = "Työmääräys päivitetty"
+        format.json {render json: @order, status: :ok}
+        format.html {redirect_to order_path(@order)}
+      else
+        format.json {render json: @order.errors, status: :unprocessable_entity}
+        format.html do
+          @users = User.all
+          render 'edit'
+        end
+      end
     end
   end
 
@@ -56,7 +62,7 @@ class OrdersController < ApplicationController
     @order = Order.find(params[:id])  
     @users = User.all
   end
-
+  
   private
     def order_params
       params.require(:order).permit(:title, :description, :salary, :begin_at, :end_at, :status, :user_ids => [])
