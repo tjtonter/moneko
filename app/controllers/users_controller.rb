@@ -15,9 +15,13 @@ class UsersController < ApplicationController
     @jobs = @user.jobs.all
     @orders = Order.all
   end
-  
+
+  def edit
+    @user = User.find(params[:id])
+  end
+
   private
     def user_params
-      params.require(:user).permit(:email, :username, :name)
+      params.require(:user).permit(:email, :username, :name, roles: [] )
     end
 end
