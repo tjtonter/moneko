@@ -1,0 +1,16 @@
+= form_for @user do |f|
+  .form-group
+    = f.label :name, class: "col-sm-2"
+    = f.text_field :name
+  .form-group
+    = f.label :email, class: "col-sm-2"
+    = f.email_field :email
+  .form-group
+    = f.label :password, class: "col-sm-2"
+    = f.password_field :password
+  - User::ROLES.each do |r|
+    .checkbox
+      = check_box_tag "user[roles][#{r}]", r, @user.roles.include?(r)
+      = label_tag "user_roles_#{r}", r.humanize
+
+  = f.submit
