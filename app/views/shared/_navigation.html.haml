@@ -17,4 +17,4 @@
                 %li= link_to "Oma sivu", user_path(current_user)
                 %li= link_to "Kalenteri", user_tasks_path(current_user)
                 %li= link_to "Työrekisteri", user_jobs_path(current_user)
-                %li= link_to "Kirjaudu ulos", destroy_user_session_path
+                %li= link_to "Kirjaudu ulos", destroy_user_session_path, method: :delete
