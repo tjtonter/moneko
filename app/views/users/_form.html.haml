@@ -1,0 +1,23 @@
+= form_for @user do |f|
+  = render 'shared/form_errors', object: @user
+  .form-group
+    = f.label :name, class: "col-sm-2"
+    = f.text_field :name
+  .form-group
+    = f.label :username, class: "col-sm-2"
+    = f.text_field :username
+  .form-group
+    = f.label :email, class: "col-sm-2"
+    = f.email_field :email
+  .form-group
+    = f.label :password, class: "col-sm-2"
+    = f.password_field :password
+  .form-group
+    = f.label :password_confirmation, class: "col-sm-2"
+    = f.password_field :password_confirmation
+  .form-group
+    - User::ROLES.each do |r|
+      .checkbox
+        = check_box_tag "user[roles][#{r}]", r, @user.roles.include?(r), {:name => "user[roles][]" }
+        = label_tag "user_roles_#{r}", r.humanize
+  = f.submit

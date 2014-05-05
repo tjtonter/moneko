@@ -4,19 +4,21 @@
     %th Käyttäjätunnus
     %th Nimi
     %th Sähköpostiosoite
-    %th Tuntilappu
+    %th Toiminnot
   - @users.each do |user|
     %tr
       %td= user.username
       %td= user.name
       %td= user.email
       %td
-        = link_to "Edellinen", user_jobs_path(user, :pdf,
+        = link_to "Tunnit edellinen", user_jobs_path(user, :pdf,
           :date => {:year => @past.year, :month => @past.month}, 
           :part => @past.day.between?(1, 15) ? "1..15" : "16..-1"),
-          :class => "btn btn-info btn-sm"
-        = link_to "Nykyinen", user_jobs_path(user, :pdf,
+          :class => "btn btn-info btn-xs"
+        = link_to "Tunnit nykyinen", user_jobs_path(user, :pdf,
           :date => {:year => @today.year, :month => @today.month}, 
           :part => @today.day.between?(1, 15) ? "1..15" : "16..-1"),
-          :class => "btn btn-info btn-sm"
-= link_to "Uusi käyttäjä", new_user_registration_path
+          :class => "btn btn-info btn-xs"
+        = link_to "Muokkaa", edit_user_path(user), 
+          class: "btn btn-info btn-xs" if current_user.is?(:admin)
+= link_to "Uusi käyttäjä", new_user_path

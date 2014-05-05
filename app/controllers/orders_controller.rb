@@ -1,4 +1,5 @@
 class OrdersController < ApplicationController
+  load_and_authorize_resource except: [:new, :create]
   before_filter :load_offer_id
   def index
     @orders = params[:term] ? Order.where("title LIKE (?)", "%#{params[:term]}%") : Order.all
