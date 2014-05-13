@@ -1,4 +1,5 @@
 class OffersController < ApplicationController
+  load_and_authorize_resource
   def index
     @offers = Offer.all
   end

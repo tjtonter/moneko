@@ -7,6 +7,7 @@ class Ability
     can :manage, User if user.is?(:user)
     if !user.is?(:admin)
       cannot [:create, :update], User
+      cannot :manage, Offer
     end
   end
 end
