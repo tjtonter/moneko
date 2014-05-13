@@ -3,19 +3,20 @@
     .navbar-header
       = link_to 'MONEKO', root_path, class: 'navbar-brand'
     .collapse.navbar-collapse
-      %ul.nav.navbar-nav
-        %li= link_to "Tarjoukset" ,offers_path
-        %li= link_to "Työmääräykset", orders_path
-        %li= link_to "Käyttäjät", users_path
       - if current_user
-        %ul.nav.navbar-nav.navbar-right
-          %li.dropdown
-            = link_to current_user, class: "dropdown-toggle", data: {toggle: "dropdown"}  do
-              = current_user.name
-              %b.caret
-              %ul.dropdown-menu
-                %li= link_to "Oma sivu", user_path(current_user)
-                %li= link_to "Kalenteri", user_tasks_path(current_user)
-                %li= link_to "Työrekisteri", user_jobs_path(current_user)
-                %li= link_to "Muokkaa", edit_user_password_path
-                %li= link_to "Kirjaudu ulos", destroy_user_session_path, method: :delete
+        %ul.nav.navbar-nav
+          %li= link_to "Tarjoukset" ,offers_path if current_user.is?("admin")
+          %li= link_to "Työmääräykset", orders_path if current_user.is?("admin")
+          %li= link_to "Käyttäjät", users_path if current_user.is?("admin")
+        - if current_user
+          %ul.nav.navbar-nav.navbar-right
+            %li.dropdown
+              = link_to current_user, class: "dropdown-toggle", data: {toggle: "dropdown"}  do
+                = current_user.name
+                %b.caret
+                %ul.dropdown-menu
+                  %li= link_to "Oma sivu", user_path(current_user)
+                  %li= link_to "Kalenteri", user_tasks_path(current_user)
+                  %li= link_to "Työrekisteri", user_jobs_path(current_user)
+                  %li= link_to "Muokkaa", edit_user_password_path
+                  %li= link_to "Kirjaudu ulos", destroy_user_session_path, method: :delete
