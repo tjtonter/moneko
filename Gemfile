@@ -36,9 +36,6 @@ gem 'will_paginate'
 gem 'less-rails'
 gem 'therubyracer'
 
-# Use haml
-gem 'haml'
-
 # Use cancan
 gem 'cancan'
 
