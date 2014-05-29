@@ -1,3 +1,8 @@
+.well.well-sm
+  Tilassa
+  - Order::STATUSES.each do |st|
+    = link_to I18n.t(st), "#", data: {order: @order.id, status: st, users: @order.user_ids},
+      class: "btn-state btn btn-xs #{@order.status == st ? 'btn-primary' : ''}"
 = form_for [@user, @job], remote: true, html: {role: 'form', 
   class: 'form-horizontal'} do |f|
   #job_errors

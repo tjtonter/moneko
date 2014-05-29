@@ -1,4 +1,7 @@
 module ApplicationHelper
+  def next_status(st)
+    Order::STATUSES[(Order::STATUSES.find_index(st)+1)%Order::STATUSES.length]
+  end
   def status_to_class(status)
     case status
     when "waiting"
