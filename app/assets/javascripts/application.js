@@ -71,7 +71,7 @@ function ready() {
   $('.dateinput').datetimepicker({
     language: 'fi',
     pickTime: false,
-    defaultDate: new Date()
+    /* defaultDate: new Date() */
   });
 /* Bind error handler for all remote forms */
   $("form[data-remote='true']").on('ajax:error', function(e, xhr, status, error) {
