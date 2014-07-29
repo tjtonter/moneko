@@ -1,7 +1,7 @@
 .page-header
   %h1= @order.title
-  %small= "Työ on tilassa #{I18n.t @order.status}, luotu #{@order.created_at}, 
-    päivitetty #{@order.updated_at}."
+  %small= "Työ on tilassa #{I18n.t @order.status}, luotu #{time_ago_in_words @order.created_at} sitten, 
+    päivitetty #{time_ago_in_words @order.updated_at} sitten."
 %p
   %strong Työnumero
   %br
