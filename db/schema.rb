@@ -11,7 +11,15 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140501235207) do
+ActiveRecord::Schema.define(version: 20140730082553) do
+
+  create_table "customers", force: true do |t|
+    t.string   "name"
+    t.text     "address"
+    t.string   "bid"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "jobs", force: true do |t|
     t.integer  "order_id"
@@ -53,6 +61,16 @@ ActiveRecord::Schema.define(version: 20140501235207) do
   add_index "orders", ["offer_id"], name: "index_orders_on_offer_id"
   add_index "orders", ["status"], name: "index_orders_on_status"
 
+  create_table "places", force: true do |t|
+    t.string   "name"
+    t.text     "address"
+    t.integer  "customer_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "places", ["customer_id"], name: "index_places_on_customer_id"
+
   create_table "services", force: true do |t|
     t.string   "title"
     t.decimal  "price"
@@ -62,6 +80,16 @@ ActiveRecord::Schema.define(version: 20140501235207) do
   end
 
   add_index "services", ["offer_id"], name: "index_services_on_offer_id"
+
+  create_table "targets", force: true do |t|
+    t.string   "name"
+    t.text     "address"
+    t.integer  "customer_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "targets", ["customer_id"], name: "index_targets_on_customer_id"
 
   create_table "tasks", force: true do |t|
     t.integer  "user_id"
