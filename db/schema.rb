@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140730082553) do
+ActiveRecord::Schema.define(version: 20140812095301) do
 
   create_table "customers", force: true do |t|
     t.string   "name"
@@ -35,7 +35,6 @@ ActiveRecord::Schema.define(version: 20140730082553) do
   end
 
   create_table "offers", force: true do |t|
-    t.text     "customer"
     t.string   "target"
     t.text     "contents"
     t.text     "execution"
@@ -43,7 +42,12 @@ ActiveRecord::Schema.define(version: 20140730082553) do
     t.text     "charge"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "place_id"
+    t.integer  "customer_id"
   end
+
+  add_index "offers", ["customer_id"], name: "index_offers_on_customer_id"
+  add_index "offers", ["place_id"], name: "index_offers_on_place_id"
 
   create_table "orders", force: true do |t|
     t.string   "title"
@@ -80,16 +84,6 @@ ActiveRecord::Schema.define(version: 20140730082553) do
   end
 
   add_index "services", ["offer_id"], name: "index_services_on_offer_id"
-
-  create_table "targets", force: true do |t|
-    t.string   "name"
-    t.text     "address"
-    t.integer  "customer_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  add_index "targets", ["customer_id"], name: "index_targets_on_customer_id"
 
   create_table "tasks", force: true do |t|
     t.integer  "user_id"

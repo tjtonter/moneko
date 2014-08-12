@@ -1,6 +1,7 @@
 %table.table.table-striped
   %thead
     %tr
+      %th Tunnus
       %th Asiakas
       %th Kohde
       %th Päivitetty
@@ -8,8 +9,9 @@
   %tbody
     - @offers.each do |offer| 
       %tr
-        %td= offer.customer
-        %td= link_to offer.target, offer
+        %td= link_to offer.id
+        %td= offer.customer.name
+        %td= offer.place.name
         %td= l offer.updated_at.to_time, format: :short
         %td= number_to_currency(offer.services.sum(:price))
 

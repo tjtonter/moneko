@@ -3,10 +3,11 @@
     %legend Luo uusi tarjous
     = render 'shared/form_errors', object: @offer
     .form-group
-      = collection_select :customer, :customer_id, Customer.all, :id, :name
+      = f.label :customer_id, "Asiakas"
+      = f.collection_select :customer_id, Customer.all, :id, :name
     .form-group
-      = f.label :target, "Työkohde"
-      = f.text_field :target, :class => "form-control"
+      = f.label :place_id, "Kohde"
+      = f.collection_select :place_id, Place.all, :id, :name
     .form-group
       = f.label :contents, "Tarjouksen sisältö"
       = f.text_area :contents, :class => "form-control"

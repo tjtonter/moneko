@@ -14,7 +14,7 @@
       %li= link_to "Muokkaa", edit_offer_path(@offer)
       %li= link_to "Luo työmääräys", new_order_path(:offer_id => @offer)
       %li= link_to "Lähetä", "#"
-%address= simple_format(@offer.customer)
+%address= simple_format(@offer.customer.name)
 %br
 .row
   .col-md-3
