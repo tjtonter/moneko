@@ -230,3 +230,6 @@ fi:
   active: Aktiivinen
   complete: Valmis
   billed: Laskutettu
+  accepted: Hyväksytty
+  unknown: Tuntematon
+  denied: Hylätty
