@@ -9,10 +9,8 @@
 %p
   %strong Tarjousnumero
   %br
-  - if @order.offer_id?
-    = link_to @order.offer_id, @order.offer_id 
-  - else
-    Työstä tehtyä tarjousta ei tiedossa.
+  - unless @order.offer.nil?
+    = link_to @order.offer.id, @order.offer
 %p
   %strong Työn kuvaus
   %br

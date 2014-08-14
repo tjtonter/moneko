@@ -11,10 +11,11 @@ class OrdersController < ApplicationController
   end
 
   def new
-    @order = Order.new(order_params)    
+    @order = Order.new(order_params)
     @users = User.all
-    if request.xhr?
-      render layout: false
+    respond_to do |format|
+      format.html { render layout: !request.xhr? }
+      format.json { render layout: false }
     end
   end
 
@@ -66,7 +67,7 @@ class OrdersController < ApplicationController
   
   private
     def order_params
-      params.require(:order).permit(:title, :description, :salary, :begin_at, :end_at, :status, :user_ids => [])
+      params.require(:order).permit(:offer_id, :title, :description, :salary, :begin_at, :end_at, :status, :user_ids => [])
     end
 
     def load_offer_id

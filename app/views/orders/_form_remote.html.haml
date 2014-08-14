@@ -1,6 +1,7 @@
 = form_for @order, remote: true do |f|
   %fieldset.span6
     %legend Työmääräys
+    = f.hidden_field :offer_id
     .form-group
       = f.label :title
       = f.text_field :title, :class => "form-control" 
