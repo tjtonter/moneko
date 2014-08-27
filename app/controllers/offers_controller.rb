@@ -45,7 +45,7 @@ class OffersController < ApplicationController
     
     respond_to do |format|
       if @offer.update(offer_params)
-        format.json {render json: @offer, status: :ok}
+        format.json {render json: @offer, status: :accepted}
         format.html {redirect_to @offer}
       else
         format.json { render json: @offer.errors, status: :unprocessable_entity }
@@ -56,7 +56,7 @@ class OffersController < ApplicationController
   private
     def offer_params
       params.require(:offer).permit(:customer_id, :place_id, :contents, :execution, 
-                                    :services, :delivery, :commit, :status,
+                                    :services, :delivery, :commit, :status, :salary,
                                     services_attributes: [:id, :title, :price, 
                                       :offer_id, :_destroy])
     end
