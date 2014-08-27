@@ -1,8 +1,7 @@
 .well.well-sm
   Tilassa
   - Order::STATUSES.each do |st|
-    = link_to I18n.t(st), "#", data: {order: @order.id, status: st, users: @order.user_ids},
-      class: "btn-state btn btn-xs #{@order.status == st ? 'btn-primary' : ''}"
+    = link_to I18n.t(st), order_path(@order, order: {id: @order.id, status: st, user_ids: @order.user_ids}), method: :put, remote: true, class: "btn-state btn btn-xs #{@order.status == st ? 'btn-primary' : ''}"
 = form_for [@user, @job], remote: true, html: {role: 'form', 
   class: 'form-horizontal'} do |f|
   #job_errors

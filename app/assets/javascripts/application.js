@@ -83,6 +83,12 @@ function ready() {
       $('#'+k+'_error').html(v);
     });
   });
+  /* Bind ajax trigger for order state change buttons */
+  $('.btn-state').on('ajax:success', function(e, data, st, xhr) {
+    $('.btn-state').removeClass('btn-primary')
+    $(this).addClass('btn-primary')
+    $('#user_calendar').fullCalendar('refetchEvents')
+  });
 }
 
 $(document).ready(ready);
