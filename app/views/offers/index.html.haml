@@ -4,15 +4,18 @@
       %th Tunnus
       %th Asiakas
       %th Kohde
+      %th Kuvaus
       %th Päivitetty
       %th Arvo
       %th Tila
+      %th Työmääräyksiä
   %tbody
     - @offers.each do |offer| 
       %tr
         %td= link_to offer.id, offer
         %td= offer.customer.name
         %td= offer.place.name
+        %td= truncate offer.contents
         %td= time_ago_in_words offer.updated_at.to_time
         %td= number_to_currency(offer.services.sum(:price))
         %td
@@ -25,5 +28,9 @@
                 %li{role: "presentation"}
                   = link_to I18n.t(status), offer_path(offer, offer: {status: status}), 
                     remote: true, method: "put", role: "menuitem", tabindex: -1
+        %td{title: "Yhteensä / Aktiiviset / Valmiit"} 
+          #{offer.orders.count} / 
+          #{offer.orders.where(:status=>"active").count} / 
+          #{offer.orders.where(:status=>"complete").count}
 
 %p= link_to "Luo uusi tarjous", new_offer_path, :class => "btn btn-primary"
