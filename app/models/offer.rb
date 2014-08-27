@@ -8,7 +8,8 @@ class Offer < ActiveRecord::Base
   has_many :services, :dependent => :destroy
   accepts_nested_attributes_for :services, allow_destroy: true, reject_if: :all_blank
   validates :contents, :presence => true
-  validates :services, :presence => true
+  validates :services, :salary, :presence => true
+  validates :salary, inclusion: { in: 0..100 }
   validates_inclusion_of :status, :in => STATUSES,
     :message => "Status must be one of: #{STATUSES.join(" ,")}"
 end
