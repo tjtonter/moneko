@@ -1,6 +1,5 @@
 class OrdersController < ApplicationController
   load_and_authorize_resource except: [:new, :create]
-  before_filter :load_offer_id
   def index
     @orders = params[:term] ? Order.where("title LIKE (?)", "%#{params[:term]}%") : Order.all
   
@@ -12,6 +11,9 @@ class OrdersController < ApplicationController
 
   def new
     @order = Order.new(order_params)
+    if !@order.offer.nil?
+      @order.description = @order.offer.contents
+    end
     @users = User.all
     respond_to do |format|
       format.html { render layout: !request.xhr? }
@@ -43,12 +45,11 @@ class OrdersController < ApplicationController
   end
 
   def update
-    @order = Order.find(params[:id])
     params[:order][:user_ids] ||= []
     respond_to do |format|
       if @order.update(order_params)
         flash[:notice] = "Työmääräys päivitetty"
-        format.json {render json: @order, status: :ok}
+        format.json {render json: @order, status: :accepted}
         format.html {redirect_to order_path(@order)}
       else
         format.json {render json: @order.errors, status: :unprocessable_entity}
@@ -67,11 +68,11 @@ class OrdersController < ApplicationController
   
   private
     def order_params
-      params.require(:order).permit(:offer_id, :title, :description, :salary, :begin_at, :end_at, :status, :user_ids => [])
+      params.require(:order).permit(:id, :offer_id, :title, :description, :salary, :allday, :begin_at, :end_at, :status, user_ids: [])
     end
 
     def load_offer_id
-      @offer = Offer.find(params[:offer_id]) if params[:offer_id].present?
+      @offer = Offer.find(order_params) if params[order_params].present?
     end
     
     def create_number
@@ -86,9 +87,10 @@ class OrdersController < ApplicationController
           :title => order.title,
           :start => order.begin_at,
           :end => order.end_at,
-          :allDay => (order.begin_at.to_date != order.end_at.to_date),
+          :allDay => order.end_at ? (order.begin_at.to_date != order.end_at.to_date) : true,
           :url => order_path(order),
-          :color => view_context.status_to_color(order.status)
+          :color => view_context.status_to_color(order.status),
+          :user_ids => order.users.map { |user| user.id }
         }
       end
       list.as_json

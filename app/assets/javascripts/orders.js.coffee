@@ -6,7 +6,7 @@ datefmt = (d) ->
   d.getHours() + ":" + d.getMinutes()
   
 eventmove = (event,delta,revertFunc) ->
-  console.log "muutos=" + delta
+  console.log event
   $.ajax({
     type: 'PUT'
     url: window.location + '/' + event.id
@@ -15,13 +15,15 @@ eventmove = (event,delta,revertFunc) ->
         id: event.id
         user_ids: event.user_ids
         begin_at: event.start.format()
-        end_at: event.end.format()
+        end_at: if event.end then event.end.format() else null
+        allday: event.allDay
       }
     }
   })
 
 eventresize = (event, delta, revertFunc) ->
   console.log "muutos=" + delta
+  console.log event
   $.ajax({
     type: 'PUT'
     url: window.location + '/' + event.id
@@ -31,6 +33,7 @@ eventresize = (event, delta, revertFunc) ->
         user_ids: event.user_ids
         begin_at: event.start.format()
         end_at: event.end.format()
+        allday: event.allDay
       }
     }
   })
@@ -42,6 +45,11 @@ eventselect = (startDate, endDate, allDay) ->
     $('#modalcontent').html(data)
     $('#modal-title').html("Uusi työmääräys")
     $('#modal').modal('show')
+    $('#order_allday').on 'click', () ->
+      if $(this).is(':checked')
+        $('#order_end_at').prop('disabled', true)
+      else
+        $('#order_end_at').prop('disabled', false)
     $('#new_order').on('ajax:success', (e, data, status, xhr) ->
         $('#modal').modal('hide')
         alert "Uusi työpäivä rekisteröity."

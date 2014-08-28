@@ -23,8 +23,9 @@
   %strong 
     Työn suunniteltu kesto
   %br
-  #{l @order.begin_at, :format => :long} -- 
-  #{l @order.end_at, :format => :long}
+  #{l @order.begin_at, :format => :long} 
+  - if @order.end_at
+    \-- #{l @order.end_at, :format => :long}
 %p
   %strong Palkka
   %br

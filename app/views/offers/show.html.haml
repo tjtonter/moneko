@@ -1,26 +1,39 @@
-.page-header
-  %h3 Työtarjous
-  %p 
-    Luotu #{@offer.created_at.to_date.strftime("%d.%m.%Y")}
-    %br
-    Muokattu #{@offer.updated_at.to_date.strftime("%d.%m.%Y")}
-  .btn-group
-    %button{:class => "btn btn-success dropdown-toggle",
-    "data-toggle"=> "dropdown", :href => "#"}
-      Toiminnot
-      %span.caret
-    %ul.dropdown-menu{role: "menu"}
-      %li= link_to "Luo PDF", offer_path(@offer, :format => 'pdf')
-      %li= link_to "Muokkaa", edit_offer_path(@offer)
-      %li= link_to "Luo työmääräys", '', id: 'toggle-order-form'
-      %li= link_to "Lähetä", "#"
+%h3 Työtarjous
+%p 
+  Luotu #{@offer.created_at.to_date.strftime("%d.%m.%Y")}
+  %br
+  Muokattu #{@offer.updated_at.to_date.strftime("%d.%m.%Y")}
+.row
+  .col-md-3
+    .btn-group
+      %button{:class => "btn btn-success dropdown-toggle",
+      "data-toggle"=> "dropdown", :href => "#"}
+        Toiminnot
+        %span.caret
+      %ul.dropdown-menu{role: "menu"}
+        %li= link_to "Luo PDF", offer_path(@offer, :format => 'pdf')
+        %li= link_to "Muokkaa", edit_offer_path(@offer)
+        %li= link_to "Luo työmääräys", '', id: 'toggle-order-form'
+        %li= link_to "Lähetä", "#"
+.row
+  %br
+  .col-md-5
+    .progress
+      .progress-bar.progress-bar-success{role: "progressbar", data: {salary: @offer.salary},
+        style: "width: #{@offer.salary}%;"}
+        #{@offer.salary} %
+    .input-group.input-group-sm
+      = link_to "+ 1 %", offer_path(@offer), data: {delta: 1}, class: "salary-link btn btn-xs btn-success"
+      = link_to "- 1 %", offer_path(@offer), data: {delta: -1}, class: "salary-link btn btn-xs btn-danger"
+
+
 %address= simple_format(@offer.customer.name)
 %br
 .row
   .col-md-3
     %h4 Työkohde
   .col-md-7
-    %p= @offer.target
+    %p= @offer.place.name
 .row
   .col-md-3
     %h4 Tarjouksemme sisältö 
@@ -42,15 +55,14 @@
 .row
   - @offer.services.each do |service|
     .col-md-3
-      %b= link_to service.title, '', class: "service-link", data: {value: service.price }
+      %b= link_to service.title, new_order_path(order:{offer_id: @offer.id}), 
+        remote: true, class: "service-link", data: {salary: service.price}
     .col-md-7
       %b= number_to_currency service.price
-  .col-md-7.col-md-offset-3
+  .col-md-3
+    %b= link_to "Kaikki työt", new_order_path(order:{offer_id: @offer.id}), 
+      remote: true, class: "service-link", data: {salary: @offer.services.sum(:price)}
+  .col-md-7
     %b= number_to_currency @offer.services.sum(:price)
 
-.row#order-form-div.hide
-  .col-md-5
-    %p
-      %b Palkka %
-      = number_field_tag "salary", in: 1..100
-    = render 'orders/form_remote'
+= render 'shared/modal'
