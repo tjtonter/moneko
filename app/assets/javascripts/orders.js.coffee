@@ -7,6 +7,7 @@ datefmt = (d) ->
 
 ready = ->
   $('#all_orders_cal').fullCalendar({
+    editable: true
     selectable: true
     selectHelper: true
     firstDay: 1
@@ -17,9 +18,23 @@ ready = ->
       right: 'month,agendaWeek,agendaDay'
     }
     weekMode: 'variable'
+    eventDrop: (event,delta,revertFunc) ->
+      console.log "muutos=" + delta.asDays()
+      $.ajax({
+        type: 'PUT'
+        url: window.location + '/' + event.id
+        data: {
+          order: {
+              id: event.id
+              user_ids: event.user_ids
+              begin_at: event.start.format()
+              end_at: event.end.format()
+            }
+        }
+      })
     select: (startDate, endDate, allDay) ->
       $.get((window.location + '/new'),
-      {order:{begin_at: datefmt(startDate), end_at: datefmt(endDate)}},
+      {order:{begin_at: startDate.format(), end_at: endDate.format()}},
       ((data, textStatus) ->
         $('#modalcontent').html(data)
         $('#modal-title').html("Uusi työmääräys")
