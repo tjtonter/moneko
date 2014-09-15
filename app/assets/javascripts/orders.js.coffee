@@ -38,6 +38,27 @@ eventresize = (event, delta, revertFunc) ->
     }
   })
 
+# This if triggered when a jQuery UI draggable element is dropped into calendar.
+eventdrop = (moment, jsEvent, ui) ->
+  event = $(this).data('eventObject')
+  copy = $.extend({}, event)
+  copy.start = moment
+
+  console.log "Dropped event: " + copy
+  $.ajax({
+    type: 'POST'
+    url: window.location
+    data: {
+      order: {
+        title: event.title
+        user_ids: event.user_ids
+        begin_at: moment.format()
+      }
+    }
+  })
+  $('#all_orders_cal').fullCalendar('refetchEvents')
+  console.log "Calendar updated."
+
 eventselect = (startDate, endDate, allDay) ->
   $.get((window.location + '/new'),
   {order:{begin_at: startDate.format(), end_at: endDate.format()}},
@@ -67,6 +88,12 @@ eventselect = (startDate, endDate, allDay) ->
   $('#all_orders_cal').fullCalendar('unselect')
 
 ready = ->
+  $('.draggable').each ->
+    o = $(@)
+    event = {title: o.text()}
+    o.data('eventObject', event)
+    o.draggable({revert: true})
+
   $('#all_orders_cal').fullCalendar({
     editable: true
     selectable: true
@@ -80,6 +107,8 @@ ready = ->
       right: 'month,agendaWeek,agendaDay'
     }
     weekMode: 'variable'
+    droppable: true
+    drop: eventdrop
     eventDrop: eventmove
     eventResize: eventresize
     select: eventselect
