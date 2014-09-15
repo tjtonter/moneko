@@ -99,7 +99,9 @@ ready = ->
     selectable: true
     selectHelper: true
     firstDay: 1
-    events: window.location + '.json'
+    eventSources: [
+      window.location + '.json'
+    ]
     height: 700
     header: {
       left: 'prev,next today'

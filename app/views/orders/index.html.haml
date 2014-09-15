@@ -7,6 +7,7 @@
 
 #all_orders_cal.col-md-10
 .col-md-2
-  - 10.times do |event|
-    %p.draggable Event
+  - @offers.each do |offer|
+    %p.draggable 
+      #{offer.place.name}: #{offer.contents} 
 = render 'shared/modal'

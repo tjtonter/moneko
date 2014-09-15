@@ -2,7 +2,7 @@ class OrdersController < ApplicationController
   load_and_authorize_resource except: [:new, :create]
   def index
     @orders = params[:term] ? Order.where("title LIKE (?)", "%#{params[:term]}%") : Order.all
-  
+    @offers = Offer.all 
     respond_to do |format|
       format.html
       format.json { render json: custom_json(@orders) }
