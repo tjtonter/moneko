@@ -6,14 +6,18 @@ class ApplicationController < ActionController::Base
   before_filter :configure_permitted_parameters, if: :devise_controller?
   before_filter :authenticate_user!
   attr_accessor :login
-
+  before_filter do
+    resource = controller_name.singularize.to_sym
+    method = "#{resource}_params"
+    params[resource] &&= send(method) if respond_to?(method, true)
+  end
   protected
 
   def configure_permitted_parameters
     devise_parameter_sanitizer.for(:sign_up) {|u| u.permit(:email, :password, :password_confirmation, roles: [])}
   end
   def update_sanitized_params
-    devise_parameter_sanitizer.for(:sign_up) {|u| u.permit(:username, :email, :password, :name, :password_confirmation)}
-    devise_parameter_sanitizer.for(:sign_in) {|u| u.permit(:username, :email, :password, :password_confirmation, :remember_me)}
+    devise_parameter_sanitizer.for(:sign_up) {|u| u.permit(:login, :username, :email, :password, :name, :password_confirmation)}
+    devise_parameter_sanitizer.for(:sign_in) {|u| u.permit(:login, :username, :email, :password, :password_confirmation, :remember_me)}
   end
 end

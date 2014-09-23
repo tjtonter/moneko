@@ -1,6 +1,7 @@
 = form_for @order, remote: true do |f|
   %fieldset.span6
     %legend Työmääräys
+    = f.hidden_field :offer_id
     .form-group
       = f.label :title
       = f.text_field :title, :class => "form-control" 
@@ -9,6 +10,9 @@
       = f.label :description
       = f.text_area :description, :class => "form-control", :rows => 5 
       %p.help-block#description_errors
+    .form-group
+      = f.check_box :allday
+      = f.label :allday
     .form-group
       = f.label :begin_at
       = f.text_field :begin_at, :class => "form-control datetimeinput",

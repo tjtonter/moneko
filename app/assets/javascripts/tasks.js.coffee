@@ -31,21 +31,6 @@ ready = ->
             $('#modal').modal('hide')
             alert "Uusi työpäivä rekisteröity."
           ))
-          $('.btn-state').on('click', (e) ->
-            e.preventDefault()
-            $('.btn-state').removeClass('btn-primary')
-            $(this).addClass('btn-primary')
-            id = e.target.dataset.order
-            st = e.target.dataset.status
-            users = e.target.dataset.users
-            $.ajax({
-              url: 'http://'+window.location.host+'/orders/'+id
-              data: {order: {status: st, user_ids: users, id: id}}
-              type: 'PATCH'
-              success: (data, textStatus, jqXHR) ->
-                $('#user_calendar').fullCalendar('refetchEvents')
-            })
-          )
         ))
 
         $('#modal').modal('show')

@@ -1,7 +1,7 @@
 .page-header
   %h1= @order.title
-  %small= "Työ on tilassa #{I18n.t @order.status}, luotu #{@order.created_at}, 
-    päivitetty #{@order.updated_at}."
+  %small= "Työ on tilassa #{I18n.t @order.status}, luotu #{time_ago_in_words @order.created_at} sitten, 
+    päivitetty #{time_ago_in_words @order.updated_at} sitten."
 %p
   %strong Työnumero
   %br
@@ -9,10 +9,8 @@
 %p
   %strong Tarjousnumero
   %br
-  - if @order.offer_id?
-    = link_to @order.offer_id, @order.offer_id 
-  - else
-    Työstä tehtyä tarjousta ei tiedossa.
+  - unless @order.offer.nil?
+    = link_to @order.offer.id, @order.offer
 %p
   %strong Työn kuvaus
   %br
@@ -25,8 +23,9 @@
   %strong 
     Työn suunniteltu kesto
   %br
-  #{l @order.begin_at, :format => :long} -- 
-  #{l @order.end_at, :format => :long}
+  #{l @order.begin_at, :format => :long} 
+  - if @order.end_at
+    \-- #{l @order.end_at, :format => :long}
 %p
   %strong Palkka
   %br

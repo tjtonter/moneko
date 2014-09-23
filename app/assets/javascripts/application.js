@@ -71,7 +71,7 @@ function ready() {
   $('.dateinput').datetimepicker({
     language: 'fi',
     pickTime: false,
-    defaultDate: new Date()
+    /* defaultDate: new Date() */
   });
 /* Bind error handler for all remote forms */
   $("form[data-remote='true']").on('ajax:error', function(e, xhr, status, error) {
@@ -82,6 +82,12 @@ function ready() {
       $('#job_'+k).parents('.form-group').addClass('has-error');
       $('#'+k+'_error').html(v);
     });
+  });
+  /* Bind ajax trigger for order state change buttons */
+  $('.btn-state').on('ajax:success', function(e, data, st, xhr) {
+    $('.btn-state').removeClass('btn-primary')
+    $(this).addClass('btn-primary')
+    $('#user_calendar').fullCalendar('refetchEvents')
   });
 }
 
