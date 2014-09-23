@@ -9,6 +9,9 @@ gem 'sqlite3'
 # Use mysql for production
 #gem 'mysql2'
 
+# Google API gem
+gem 'google-api-client'
+
 # Added because missing libyaml
 gem 'psych'
 
@@ -19,8 +22,6 @@ gem 'nested_form'
 gem 'prawn'
 gem 'prawn-rails'
 
-# Use haml
-gem 'haml'
 group :assets do
   gem 'sass-rails'
 end
@@ -34,7 +35,6 @@ gem 'will_paginate'
 
 # Use less
 gem 'less-rails'
-gem 'therubyracer'
 
 # Use haml
 gem 'haml'
