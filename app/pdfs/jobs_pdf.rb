@@ -2,7 +2,7 @@ class JobsPdf < Prawn::Document
   def initialize(user, jobs, view)
     super(:page_layout => :landscape)
     @view = view
-    text "Työtunti-ilmoitus", size: 30, style: :bold, align: :center
+    text "Työtunti-ilmoitus", size: 14, style: :bold, align: :center
     text "Nimi:"
     text user.name, style: :bold
     move_down 30
