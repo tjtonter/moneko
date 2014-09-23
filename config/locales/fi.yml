@@ -210,6 +210,9 @@ fi:
       job:
         one: Työ
         other: Työt
+      user:
+        one: Käyttäjä
+        other: Käyttäjät
     attributes:
       order:
         title: "Otsikko"
@@ -224,6 +227,12 @@ fi:
         begin: "Alkoi"
         end: "Loppui"
         salary: "Palkka"
+      user:
+        name: "Nimi"
+        username: "Käyttäjätunnus"
+        email: "Sähköpostiosoite"
+        password: "Salasana"
+        password_confirmation: "Salasanan vahvistus"
     errors:
       <<: *errors
   waiting: Odottaa
