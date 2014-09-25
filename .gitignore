@@ -19,6 +19,7 @@
 /Gemfile.lock
 
 *.rbc
+*.swp
 capybara-*.html
 .rspec
 /log
