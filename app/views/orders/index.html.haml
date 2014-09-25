@@ -6,8 +6,4 @@
   jonka avulla voit aina viitata ristiriidattomasti samaan työhön.
 
 #all_orders_cal.col-md-10
-.col-md-2
-  - @offers.each do |offer|
-    %p.draggable 
-      #{unless offer.place.nil? offer.place.name}: #{offer.contents} 
 = render 'shared/modal'
