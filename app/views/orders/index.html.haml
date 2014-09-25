@@ -5,5 +5,9 @@
   Luomallesi työmääräykselle annetaan automaattisesti uniikki työnumero, 
   jonka avulla voit aina viitata ristiriidattomasti samaan työhön.
 
-#all_orders_cal
+#all_orders_cal.col-md-10
+.col-md-2
+  - @offers.each do |offer|
+    %p.draggable 
+      #{offer.place.name}: #{offer.contents} 
 = render 'shared/modal'

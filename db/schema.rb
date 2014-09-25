@@ -11,23 +11,30 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140501235207) do
+ActiveRecord::Schema.define(version: 20140828095104) do
+
+  create_table "customers", force: true do |t|
+    t.string   "name"
+    t.text     "address"
+    t.string   "bid"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "jobs", force: true do |t|
     t.integer  "order_id"
     t.integer  "user_id"
-    t.decimal  "duration",    precision: 8, scale: 2
+    t.decimal  "duration",    precision: 8,  scale: 2
     t.string   "description"
     t.date     "date"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.decimal  "salary"
+    t.decimal  "salary",      precision: 10, scale: 0
     t.time     "begin"
     t.time     "end"
   end
 
   create_table "offers", force: true do |t|
-    t.text     "customer"
     t.string   "target"
     t.text     "contents"
     t.text     "execution"
@@ -35,7 +42,15 @@ ActiveRecord::Schema.define(version: 20140501235207) do
     t.text     "charge"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "place_id"
+    t.integer  "customer_id"
+    t.string   "status"
+    t.integer  "salary"
   end
+
+  add_index "offers", ["customer_id"], name: "index_offers_on_customer_id"
+  add_index "offers", ["place_id"], name: "index_offers_on_place_id"
+  add_index "offers", ["status"], name: "index_offers_on_status"
 
   create_table "orders", force: true do |t|
     t.string   "title"
@@ -44,24 +59,35 @@ ActiveRecord::Schema.define(version: 20140501235207) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "number"
-    t.decimal  "salary"
+    t.decimal  "salary",      precision: 10, scale: 0
     t.string   "status"
     t.datetime "begin_at"
     t.datetime "end_at"
+    t.boolean  "allday"
   end
 
-  add_index "orders", ["offer_id"], name: "index_orders_on_offer_id"
-  add_index "orders", ["status"], name: "index_orders_on_status"
+  add_index "orders", ["offer_id"], name: "index_orders_on_offer_id", using: :btree
+  add_index "orders", ["status"], name: "index_orders_on_status", using: :btree
+
+  create_table "places", force: true do |t|
+    t.string   "name"
+    t.text     "address"
+    t.integer  "customer_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "places", ["customer_id"], name: "index_places_on_customer_id"
 
   create_table "services", force: true do |t|
     t.string   "title"
-    t.decimal  "price"
+    t.decimal  "price",      precision: 10, scale: 0
     t.integer  "offer_id"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
-  add_index "services", ["offer_id"], name: "index_services_on_offer_id"
+  add_index "services", ["offer_id"], name: "index_services_on_offer_id", using: :btree
 
   create_table "tasks", force: true do |t|
     t.integer  "user_id"
@@ -71,8 +97,8 @@ ActiveRecord::Schema.define(version: 20140501235207) do
     t.datetime "updated_at"
   end
 
-  add_index "tasks", ["order_id"], name: "index_tasks_on_order_id"
-  add_index "tasks", ["user_id"], name: "index_tasks_on_user_id"
+  add_index "tasks", ["order_id"], name: "index_tasks_on_order_id", using: :btree
+  add_index "tasks", ["user_id"], name: "index_tasks_on_user_id", using: :btree
 
   create_table "users", force: true do |t|
     t.string   "name"
@@ -93,7 +119,7 @@ ActiveRecord::Schema.define(version: 20140501235207) do
     t.integer  "roles_mask"
   end
 
-  add_index "users", ["email"], name: "index_users_on_email", unique: true
-  add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
+  add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
+  add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
 
 end

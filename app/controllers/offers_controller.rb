@@ -1,5 +1,5 @@
 class OffersController < ApplicationController
-  load_and_authorize_resource
+# load_and_authorize_resource
   def index
     @offers = Offer.all
   end
@@ -11,6 +11,7 @@ class OffersController < ApplicationController
 
   def create
     @offer = Offer.new(offer_params)
+    @offer.status = "waiting"
     if @offer.save
       redirect_to offers_path
     else
@@ -20,6 +21,8 @@ class OffersController < ApplicationController
 
   def show
     @offer = Offer.find(params[:id])
+    @order = @offer.orders.build
+    @users = User.all
     respond_to do |format|
       format.html
       format.pdf do
@@ -39,17 +42,21 @@ class OffersController < ApplicationController
 
   def update
     @offer = Offer.find(params[:id])
-
-    if @offer.update(offer_params)
-      redirect_to @offer
-    else
-      render "edit"
-    end 
+    
+    respond_to do |format|
+      if @offer.update(offer_params)
+        format.json {render json: @offer, status: :accepted}
+        format.html {redirect_to @offer}
+      else
+        format.json { render json: @offer.errors, status: :unprocessable_entity }
+        format.html { render "edit" }
+      end
+    end
   end
   private
     def offer_params
-      params.require(:offer).permit(:customer, :target, :contents, :execution, 
-                                    :services, :delivery, :commit,
+      params.require(:offer).permit(:customer_id, :place_id, :contents, :execution, 
+                                    :services, :delivery, :commit, :status, :salary,
                                     services_attributes: [:id, :title, :price, 
                                       :offer_id, :_destroy])
     end
