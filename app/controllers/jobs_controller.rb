@@ -11,12 +11,13 @@ class JobsController < ApplicationController
     else
       @jobs = @user.jobs.order(date: :desc)
     end
+    pdf_jobs = @jobs
     @jobs = @jobs.paginate(:page => params[:page], :per_page => 12)
     respond_to do |format|
       format.html
       format.json { render :json => custom_json(@jobs) }
       format.pdf do
-        pdf = JobsPdf.new(@user, @jobs, view_context)
+        pdf = JobsPdf.new(@user, pdf_jobs, view_context)
         send_data pdf.render, :filename => @user.username+"-tunnit.pdf",
           :disposition => "inline"
       end

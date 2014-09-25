@@ -1,4 +1,5 @@
 class Task < ActiveRecord::Base
+  require 'google/api_client'
   belongs_to :user
   belongs_to :order
   before_create :gcal_event_add
@@ -7,13 +8,28 @@ class Task < ActiveRecord::Base
   GOOGLE_EMAIL = "445337145466-rgarqo6icknoop3n195t5prauovs5ecp@developer.gserviceaccount.com"
 
   private
-    # TODO: Refactor to look like gcal_event_delete()
     def gcal_event_add
       if self.user.gcal?
         @client = google_apiclient
-        self.gcalid = gcal_event_insert(@client, self.order, self.user)
-        puts "GCAL_ID: #{self.gcalid})"
-        return true
+        service = @client.discovered_api('calendar', 'v3')
+        event = {
+          'summary' => self.order.title,
+          'description' => self.order.description,
+          'start' => {
+            'dateTime' => self.order.begin_at.to_datetime.rfc3339
+          },
+          'end' => {
+            'dateTime' => self.order.end_at.to_datetime.rfc3339
+          }
+        }
+        puts "Adding event to #{self.user.name} calendar #{self.user.gcal}"
+        @result = @client.execute(
+          api_method: service.events.insert,
+          parameters: {'calendarId' => self.user.gcal},
+          body: JSON.dump(event),
+          headers: {'Content-Type' => 'application/json'}
+        )
+        self.gcalid = @result.data.id
       end
     end
 

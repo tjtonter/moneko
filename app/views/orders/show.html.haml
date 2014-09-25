@@ -36,7 +36,8 @@
   %thead
     %tr
       %th Työntekijä
-      %th Päivämäärä
+      %th Päivämä
+      %th Kuvaus
       %th Kesto (tuntia)
       %th Palkka (euroa)
   - if @order.jobs.any?
@@ -45,12 +46,14 @@
       %tr
         %td= j.user.name
         %td= l j.date, format: :long
+        %td= j.description
         %td= j.duration
-        %td= j.salary
+        %td= number_to_currency j.salary
     %th Yhteenveto
     %td
+    %td
     %th= @order.jobs.sum('duration')
-    %th= @order.jobs.sum('salary')
+    %th= number_to_currency @order.jobs.sum('salary')
 %p
   = link_to "Poista", @order, :class => "btn btn-danger", method: :delete
   = link_to "Muokkaa", edit_order_path(@order), :class => "btn btn-primary"

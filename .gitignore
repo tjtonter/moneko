@@ -18,6 +18,8 @@
 # Ignore gemfile lock
 /Gemfile.lock
 
+# Ignore compiled assets
+/public/*
 *.rbc
 *.swp
 capybara-*.html
@@ -25,6 +27,7 @@ capybara-*.html
 /log
 /tmp
 /db/*.sqlite3
+/public/assets
 /public/system
 /coverage/
 /spec/tmp

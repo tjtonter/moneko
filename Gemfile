@@ -7,7 +7,7 @@ gem 'rails', '4.0.0'
 gem 'sqlite3'
 
 # Use mysql for production
-#gem 'mysql2'
+gem 'mysql2'
 
 # Google API gem
 gem 'google-api-client'
@@ -35,9 +35,6 @@ gem 'will_paginate'
 
 # Use less
 gem 'less-rails'
-
-# Use haml
-gem 'haml'
 
 # Use cancan
 gem 'cancan'
