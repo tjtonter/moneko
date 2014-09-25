@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140828095104) do
+ActiveRecord::Schema.define(version: 20140924094107) do
 
   create_table "customers", force: true do |t|
     t.string   "name"
@@ -95,6 +95,7 @@ ActiveRecord::Schema.define(version: 20140828095104) do
     t.datetime "task_date"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "gcalid"
   end
 
   add_index "tasks", ["order_id"], name: "index_tasks_on_order_id", using: :btree
@@ -117,6 +118,7 @@ ActiveRecord::Schema.define(version: 20140828095104) do
     t.string   "current_sign_in_ip"
     t.string   "last_sign_in_ip"
     t.integer  "roles_mask"
+    t.string   "gcal"
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree

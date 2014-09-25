@@ -21,6 +21,7 @@
 # Ignore compiled assets
 /public/*
 *.rbc
+*.swp
 capybara-*.html
 .rspec
 /log

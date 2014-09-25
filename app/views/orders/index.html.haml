@@ -9,5 +9,5 @@
 .col-md-2
   - @offers.each do |offer|
     %p.draggable 
-      #{offer.place.name}: #{offer.contents} 
+      #{unless offer.place.nil? offer.place.name}: #{offer.contents} 
 = render 'shared/modal'
