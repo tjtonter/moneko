@@ -12,7 +12,7 @@ class UsersController < ApplicationController
   end
 
   def show
-    @user = User.find(params[:id])
+    @user = User.find(current_user.id)
     @jobs = @user.jobs.all
     @orders = Order.all
   end
@@ -49,6 +49,6 @@ class UsersController < ApplicationController
 
   private
     def user_params
-      params.require(:user).permit(:email, :username, :password, :password_confirmation, :name, :roles => [])
+      params.require(:user).permit(:email, :username, :password, :password_confirmation, :name, :gcal, :roles => [])
     end
 end
