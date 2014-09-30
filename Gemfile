@@ -15,6 +15,9 @@ gem 'google-api-client'
 # Added because missing libyaml
 gem 'psych'
 
+# Use haml
+gem 'haml'
+
 # Use nested form
 gem 'nested_form'
 
