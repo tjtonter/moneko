@@ -2,8 +2,7 @@ class TasksController < ApplicationController
   def index
     @user = User.find(params[:user_id])
     if params[:start] && params[:end]
-      @orders = @user.orders.where("begin_at < ? AND end_at > ?", 
-                                   Time.at(params[:end].to_i), Time.at(params[:start].to_i))
+      @orders = @user.orders.where("begin_at < ? AND end_at > ?", params[:end], params[:start])
     else
       @orders = @user.orders
     end
