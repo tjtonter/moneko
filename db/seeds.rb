@@ -8,10 +8,4 @@
 #   Mayor.create(name: 'Emanuel', city: cities.first)
 
 
-customer = "Asiakas 1\nTietie 2\n00100 Helsinki"
-contents = "Kaikkea ja muuta"
-target = "Koti ja työpaikka, ikkunanpesut"
-execution = "Nopeasti ja helposti"
-delivery = "Heti hätä hätä"
-charge = "Ihan liikaa"
-Offer.create(customer, contents, target, execution, delivery, charge)
+User.create!({name: "Timo Tonteri", password: "eisalasana", password_confirmation:"eisalasana", email: "timo.tonteri@helsinki.fi", username: "timo"})
