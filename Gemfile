@@ -9,6 +9,9 @@ gem 'sqlite3'
 # Use mysql for production
 gem 'mysql2'
 
+# Use haml
+gem 'haml'
+
 # Google API gem
 gem 'google-api-client'
 
