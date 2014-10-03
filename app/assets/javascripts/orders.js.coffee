@@ -93,7 +93,7 @@ ready = ->
     event = {title: o.text()}
     o.data('eventObject', event)
     o.draggable({revert: true})
-
+  console.log "Starting calendar."
   $('#all_orders_cal').fullCalendar({
     editable: true
     selectable: true
