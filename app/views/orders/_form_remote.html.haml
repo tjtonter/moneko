@@ -11,9 +11,6 @@
       = f.text_area :description, :class => "form-control", :rows => 5 
       %p.help-block#description_errors
     .form-group
-      = f.check_box :allday
-      = f.label :allday
-    .form-group
       = f.label :begin_at
       = f.text_field :begin_at, :class => "form-control datetimeinput",
         :value => @order.begin_at.nil? ? "" : (l @order.begin_at, format: :short)

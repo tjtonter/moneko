@@ -24,12 +24,12 @@ ActiveRecord::Schema.define(version: 20140828095104) do
   create_table "jobs", force: true do |t|
     t.integer  "order_id"
     t.integer  "user_id"
-    t.decimal  "duration",    precision: 8,  scale: 2
+    t.decimal  "duration",    precision: 8, scale: 2
     t.string   "description"
     t.date     "date"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.decimal  "salary",      precision: 10, scale: 0
+    t.decimal  "salary"
     t.time     "begin"
     t.time     "end"
   end
@@ -59,15 +59,15 @@ ActiveRecord::Schema.define(version: 20140828095104) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "number"
-    t.decimal  "salary",      precision: 10, scale: 0
+    t.decimal  "salary"
     t.string   "status"
     t.datetime "begin_at"
     t.datetime "end_at"
     t.boolean  "allday"
   end
 
-  add_index "orders", ["offer_id"], name: "index_orders_on_offer_id", using: :btree
-  add_index "orders", ["status"], name: "index_orders_on_status", using: :btree
+  add_index "orders", ["offer_id"], name: "index_orders_on_offer_id"
+  add_index "orders", ["status"], name: "index_orders_on_status"
 
   create_table "places", force: true do |t|
     t.string   "name"
@@ -81,13 +81,13 @@ ActiveRecord::Schema.define(version: 20140828095104) do
 
   create_table "services", force: true do |t|
     t.string   "title"
-    t.decimal  "price",      precision: 10, scale: 0
+    t.decimal  "price"
     t.integer  "offer_id"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
-  add_index "services", ["offer_id"], name: "index_services_on_offer_id", using: :btree
+  add_index "services", ["offer_id"], name: "index_services_on_offer_id"
 
   create_table "tasks", force: true do |t|
     t.integer  "user_id"
@@ -97,8 +97,8 @@ ActiveRecord::Schema.define(version: 20140828095104) do
     t.datetime "updated_at"
   end
 
-  add_index "tasks", ["order_id"], name: "index_tasks_on_order_id", using: :btree
-  add_index "tasks", ["user_id"], name: "index_tasks_on_user_id", using: :btree
+  add_index "tasks", ["order_id"], name: "index_tasks_on_order_id"
+  add_index "tasks", ["user_id"], name: "index_tasks_on_user_id"
 
   create_table "users", force: true do |t|
     t.string   "name"
@@ -119,7 +119,7 @@ ActiveRecord::Schema.define(version: 20140828095104) do
     t.integer  "roles_mask"
   end
 
-  add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
-  add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
+  add_index "users", ["email"], name: "index_users_on_email", unique: true
+  add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
 
 end

@@ -1,13 +1,9 @@
-%h1 Työmääräykset
+%h1 Työmäärät
 %p 
   Tästä näet kaikki luodut työmääräykset ja niiden nykyiset tilat. 
   Allaolevasta kalenterista voit luoda uuden työmääräyksen. 
   Luomallesi työmääräykselle annetaan automaattisesti uniikki työnumero, 
   jonka avulla voit aina viitata ristiriidattomasti samaan työhön.
 
-#all_orders_cal.col-md-10
-.col-md-2
-  - @offers.each do |offer|
-    %p.draggable 
-      #{offer.place.name}: #{offer.contents} 
+#all_orders_cal
 = render 'shared/modal'
