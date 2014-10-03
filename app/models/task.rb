@@ -4,11 +4,12 @@ class Task < ActiveRecord::Base
   belongs_to :order
   before_create :gcal_event_add
   before_destroy :gcal_event_delete
+  after_touch :gcal_event_update
   GOOGLE_ID = "445337145466-rgarqo6icknoop3n195t5prauovs5ecp.apps.googleusercontent.com"
   GOOGLE_EMAIL = "445337145466-rgarqo6icknoop3n195t5prauovs5ecp@developer.gserviceaccount.com"
 
   private
-    def gcal_event_add
+  def gcal_event_add
       if self.user.gcal?
         @client = google_apiclient
         service = @client.discovered_api('calendar', 'v3')
@@ -30,6 +31,40 @@ class Task < ActiveRecord::Base
           headers: {'Content-Type' => 'application/json'}
         )
         self.gcalid = @result.data.id
+      end
+    end
+
+    def gcal_event_update
+      puts "Updating task #{self.gcalid}"
+      if self.user.gcal? and self.gcalid?
+        @client = google_apiclient
+        service = @client.discovered_api('calendar', 'v3')
+        event = @client.execute(
+          api_method: service.events.get,
+          parameters: {'calendarId' => self.user.gcal, 'eventId' => self.gcalid }
+        )
+
+        event = {
+          'summary' => self.order.title,
+          'description' => self.order.description,
+          'sequence' => event.data.sequence+1,
+          'start' => {
+            'dateTime' => self.order.begin_at.to_datetime.rfc3339
+          },
+          'end' => {
+            'dateTime' => self.order.end_at.to_datetime.rfc3339
+          }
+        }
+        puts "Updating event #{self.gcalid} to #{self.user.name} calendar #{self.user.gcal}"
+        @result = @client.execute(
+          api_method: service.events.update,
+          parameters: {'calendarId' => self.user.gcal, 'eventId' => self.gcalid},
+          body: JSON.dump(event),
+          headers: {'Content-Type' => 'application/json'}
+        )
+      
+        puts "This is the new event: #{event}"
+        puts "Returned #{@result.data.updated}"
       end
     end
 
