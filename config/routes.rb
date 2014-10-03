@@ -7,5 +7,5 @@ Moneko::Application.routes.draw do
     resources :tasks
   end
 
-  root to: "offers#index"  
+  root to: "users#show"
 end

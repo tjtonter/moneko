@@ -193,7 +193,7 @@ fi:
       #default: ! '%A %e. %Bta %Y %H:%M:%S %z'
       long: ! '%e. %Bta %Y %H:%M'
       short: ! '%d.%m.%Y %H:%M'
-      default: ! '%d.%m.%Y'
+      default: ! '%d.%m.%Y %H:%M'
     pm: iltapäivä
   # remove these aliases after 'activemodel' and 'activerecord' namespaces are removed from Rails repository
   activemodel:
@@ -231,6 +231,7 @@ fi:
         name: "Nimi"
         username: "Käyttäjätunnus"
         email: "Sähköpostiosoite"
+        gcal: "Google kalenterin id"
         password: "Salasana"
         password_confirmation: "Salasanan vahvistus"
     errors:

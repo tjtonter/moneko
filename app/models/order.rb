@@ -1,6 +1,7 @@
 class Order < ActiveRecord::Base
   STATUSES = ["waiting", "active", "complete", "billed"]
   belongs_to :offer
+  after_update :touch_tasks
   has_many :jobs, :dependent => :destroy
   has_many :tasks, :dependent => :destroy
   has_many :users, :through => :tasks
@@ -16,4 +17,10 @@ class Order < ActiveRecord::Base
     def end_does_not_equal_begin
       @errors.add(:end_at, "ei voi olla sama kuin alkuaika") if self.end_at == self.begin_at
     end
+    def touch_tasks
+      self.tasks.each do |t|
+        t.touch
+      end
+    end
+
 end
