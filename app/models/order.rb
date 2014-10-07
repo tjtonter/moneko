@@ -6,7 +6,8 @@ class Order < ActiveRecord::Base
   has_many :tasks, :dependent => :destroy
   has_many :users, :through => :tasks
   accepts_nested_attributes_for :tasks
-
+  attr_accessor :rule
+  serialize :rrule
   validates_presence_of :title, :begin_at, :number
   validates_uniqueness_of :number
   validates_inclusion_of :status, :in => STATUSES,

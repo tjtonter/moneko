@@ -71,6 +71,15 @@ eventselect = (startDate, endDate, allDay) ->
         $('#order_end_at').prop('disabled', true)
       else
         $('#order_end_at').prop('disabled', false)
+    $('#repeat').on 'click', () ->
+      console.log "Changing state"
+      if $(this).is(':checked')
+        $('.btn-day').prop('disabled', false)
+      else
+        $('.btn-day').prop('disabled', true)
+    $('.btn-day').on 'click', () ->
+      $(this).toggleClass 'btn-primary'
+      
     $('#new_order').on('ajax:success', (e, data, status, xhr) ->
         $('#modal').modal('hide')
         alert "Uusi työpäivä rekisteröity."

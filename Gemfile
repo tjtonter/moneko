@@ -12,6 +12,9 @@ gem 'mysql2'
 # Use haml
 gem 'haml'
 
+# Use ice_cube
+gem 'ice_cube'
+
 # Google API gem
 gem 'google-api-client'
 

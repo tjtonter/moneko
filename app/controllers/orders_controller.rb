@@ -25,12 +25,19 @@ class OrdersController < ApplicationController
     @order = Order.new(order_params)
     @order.number = create_number 
     @order.status = "waiting"
+    if params[:order][:rule]
+      hash = IceCube::Schedule.new(Time.parse(params[:order][:begin_at])).to_hash do |s|
+        s.add_recurrence_rule IceCube::Rule.weekly.day(params[:order][:rule][:days].map(&:to_i))
+      end
+      @order.rrule = hash
+    end
     respond_to do |format|
       if @order.save
         format.json {render json: @order, status: :created}
       else
         format.json {render json: @order.errors, status: :unprocessable_entity, layout: !request.xhr?}
       end
+      puts @order.rrule
     end
   end
 
@@ -68,7 +75,7 @@ class OrdersController < ApplicationController
   
   private
     def order_params
-      params.require(:order).permit(:id, :offer_id, :title, :description, :salary, :allday, :begin_at, :end_at, :status, user_ids: [])
+      params.require(:order).permit(:id, :offer_id, :title, :description, :salary, :allday, :begin_at, :end_at, :status, user_ids: [], rule: [days: []])
     end
 
     def load_offer_id
