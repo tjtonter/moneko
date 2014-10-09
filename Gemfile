@@ -15,6 +15,8 @@ gem 'haml'
 # Google API gem
 gem 'google-api-client'
 
+gem 'ice_cube'
+
 # Added because missing libyaml
 gem 'psych'
 

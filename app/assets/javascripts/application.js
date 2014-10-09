@@ -70,7 +70,7 @@ function ready() {
   });
   $('.dateinput').datetimepicker({
     language: 'fi',
-    pickTime: false,
+    pickTime: false
     /* defaultDate: new Date() */
   });
 /* Bind error handler for all remote forms */

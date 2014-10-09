@@ -1,11 +1,13 @@
 class OrdersController < ApplicationController
   load_and_authorize_resource except: [:new, :create]
+  include IceCube
+
   def index
     @orders = params[:term] ? Order.where("title LIKE (?)", "%#{params[:term]}%") : Order.all
     @offers = Offer.all 
     respond_to do |format|
       format.html
-      format.json { render json: custom_json(@orders) }
+      format.json { render json: custom_json2(@orders) }
     end
   end
 
@@ -25,6 +27,14 @@ class OrdersController < ApplicationController
     @order = Order.new(order_params)
     @order.number = create_number 
     @order.status = "waiting"
+    if params[:order][:rrule]
+      s = Schedule.new(@order.begin_at, end_time: @order.end_at)
+      r = Rule.weekly.day(params[:order][:rrule][:days].map(&:to_i))
+      r.until(params[:order][:rrule][:ends].to_time)
+      puts r.to_s
+      s.add_recurrence_rule r
+      @order.rule = s.to_hash
+    end
     respond_to do |format|
       if @order.save
         format.json {render json: @order, status: :created}
@@ -68,7 +78,7 @@ class OrdersController < ApplicationController
   
   private
     def order_params
-      params.require(:order).permit(:id, :offer_id, :title, :description, :salary, :allday, :begin_at, :end_at, :status, user_ids: [])
+      params.require(:order).permit(:id, :offer_id, :title, :description, :salary, :allday, :begin_at, :end_at, :status, rrule: [:ends, days: []], user_ids: [])
     end
 
     def load_offer_id
@@ -92,6 +102,26 @@ class OrdersController < ApplicationController
           :color => view_context.status_to_color(order.status),
           :user_ids => order.users.map { |user| user.id }
         }
+      end
+      list.as_json
+    end
+    def custom_json2(orders)
+      list = Array.new
+      orders.each do |order|
+        if order.rule?
+          s = Schedule.from_hash(order.rule)
+	  list = s.all_occurrences.map do |time|
+            { :id => order.id,
+              :title => order.title,
+              :start => time,
+              :end => time+s.duration,
+              :allDay => order.end_at ? (order.begin_at.to_date != order.end_at.to_date) : true,
+              :url => order_path(order),
+              :color => view_context.status_to_color(order.status),
+              :user_ids => order.users.map { |user| user.id }
+            }
+	  end
+	end
       end
       list.as_json
     end

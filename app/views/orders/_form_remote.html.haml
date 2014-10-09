@@ -14,6 +14,16 @@
       = f.check_box :allday
       = f.label :allday
     .form-group
+      = f.label :frequency
+      = select_tag :frequency, options_for_select(["Viikoittain"], "Viikoittain")
+      %br
+    - Date::DAYNAMES.each_with_index do |day, i|
+      = f.label day
+      = check_box_tag "order[rrule][days][]", i
+    .form-group
+      = f.label "Toiston loppu"
+      = text_field_tag "order[rrule][ends]", nil, class: "dateinput"
+    .form-group
       = f.label :begin_at
       = f.text_field :begin_at, :class => "form-control datetimeinput",
         :value => @order.begin_at.nil? ? "" : (l @order.begin_at)
