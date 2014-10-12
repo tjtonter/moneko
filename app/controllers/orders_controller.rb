@@ -7,7 +7,7 @@ class OrdersController < ApplicationController
     @offers = Offer.all 
     respond_to do |format|
       format.html
-      format.json { render json: custom_json2(@orders) }
+      format.json { render json: @orders }
     end
   end
 
