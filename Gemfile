@@ -18,6 +18,8 @@ gem 'ice_cube'
 # Google API gem
 gem 'google-api-client'
 
+gem 'ice_cube'
+
 # Added because missing libyaml
 gem 'psych'
 
@@ -38,6 +40,9 @@ end
 gem 'jquery-rails', '~>2.3.0'
 gem 'jquery-ui-rails'
 gem 'jquery-ui-themes'
+
+# Ice_cube for recurring events
+gem 'ice_cube'
 
 # Pagination
 gem 'will_paginate'
