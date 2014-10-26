@@ -8,4 +8,5 @@
 #   Mayor.create(name: 'Emanuel', city: cities.first)
 
 
-User.create!({name: "Timo Tonteri", password: "eisalasana", password_confirmation:"eisalasana", email: "timo.tonteri@helsinki.fi", username: "timo"})
+u = User.create!({name: "Timo Tonteri", password: "eisalasana", password_confirmation:"eisalasana", email: "timo.tonteri@helsinki.fi", username: "timo"})
+u.roles = ["admin", "user"]

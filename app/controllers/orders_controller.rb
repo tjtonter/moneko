@@ -4,10 +4,11 @@ class OrdersController < ApplicationController
 
   def index
     @orders = params[:term] ? Order.where("title LIKE (?)", "%#{params[:term]}%") : Order.all
-    @offers = Offer.all 
+    @offers = Offer.all
+    @events = @orders.as_json.flatten
     respond_to do |format|
       format.html
-      format.json { render json: @orders }
+      format.json { render json: @events }
     end
   end
 
@@ -30,8 +31,7 @@ class OrdersController < ApplicationController
     if params[:order][:rrule]
       s = Schedule.new(@order.begin_at, end_time: @order.end_at)
       r = Rule.weekly.day(params[:order][:rrule][:days].map(&:to_i))
-      r.until(params[:order][:rrule][:ends].to_time)
-      puts r.to_s
+      r.until(params[:order][:rrule][:ends].to_date)
       s.add_recurrence_rule r
       @order.rule = s.to_hash
     end
@@ -41,7 +41,6 @@ class OrdersController < ApplicationController
       else
         format.json {render json: @order.errors, status: :unprocessable_entity, layout: !request.xhr?}
       end
-      puts @order.rrule
     end
   end
 
@@ -79,7 +78,8 @@ class OrdersController < ApplicationController
   
   private
     def order_params
-      params.require(:order).permit(:id, :offer_id, :title, :description, :salary, :allday, :begin_at, :end_at, :status, rrule: [:ends, days: []], user_ids: [])
+      params.require(:order).permit(:id, :offer_id, :title, :description, :salary, :allday, :begin_at, :end_at, :status, 
+                                    rrule: [:ends, days: []], user_ids: [])
     end
 
     def load_offer_id

@@ -1,5 +1,6 @@
 class Order < ActiveRecord::Base
   include IceCube
+  include Rails.application.routes.url_helpers
   STATUSES = ["waiting", "active", "complete", "billed"]
   belongs_to :offer
   after_update :touch_tasks
@@ -15,18 +16,15 @@ class Order < ActiveRecord::Base
     :message => "Status must be one of: #{STATUSES.join(" ,")}"
   validate :end_does_not_equal_begin
   def as_json(options = {})
-    s = Schedule.from_hash(rule)
-    list = s.all_occurrences.map do |t|
-      {
-        id: self.id,
-        title: self.title,
-        allDay: false,
-        start: t,
-        :end => t + s.duration,
-        url: Rails.application.routes.url_helpers.orders_path(self)
-      
-    end
-    list.to_json
+    Schedule.from_hash(rule.except(:start_date)).all_occurrences.map { |t| 
+      {"id" =>self.id,
+      "title"=> self.title,
+      "allDay"=> false,
+      "start"=> t,
+      "end"=> t + t.duration, 
+      "url"=>  order_path(self)
+      }.as_json
+    }
   end
   protected
     def end_does_not_equal_begin

@@ -25,8 +25,11 @@
       = f.label :repeat
     .form-group
       - Date::DAYNAMES.each_with_index do |day, i|
-        = check_box_tag "order[rule][days][]", i, false
+        = check_box_tag "order[rrule][days][]", i, false
         = day
+    .form-group
+      = f.label :ends
+      = text_field_tag "order[rrule][ends]", l(Date.today+1.week, format: :short), class: "dateinput"
 
     %br
     Työn suorittajat
