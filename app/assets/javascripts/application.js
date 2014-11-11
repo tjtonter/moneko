@@ -19,6 +19,7 @@
 //= require moment/fi
 //= require locales/bootstrap-datetimepicker.fi.js
 //= require jquery_nested_form
+//= require recurring_select
 //= require_tree .
 
 /* Finnish initialisation for the jQuery UI date picker plugin. */

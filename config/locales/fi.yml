@@ -1,4 +1,11 @@
 fi:
+  recurring_select:
+    not_recurring: "- ei toistuva -"
+    change_schedule: "Muuta aikataulua..."
+    set_schedule: "Aseta aikataulu..."
+    new_custom_schedule: "Uusi muokattu aikataulu..."
+    custom_schedule: "Muokattu aikataulu..."
+    or: "tai"
   will_paginate:
     previous_label: "&#8592; Edellinen"
     next_label: "Seuraava &#8594;"

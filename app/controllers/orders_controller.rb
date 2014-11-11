@@ -18,6 +18,7 @@ class OrdersController < ApplicationController
       @order.description = @order.offer.contents
     end
     @users = User.all
+    @remote = true
     respond_to do |format|
       format.html { render layout: !request.xhr? }
       format.json { render layout: false }
@@ -74,6 +75,7 @@ class OrdersController < ApplicationController
   def edit
     @order = Order.find(params[:id])  
     @users = User.all
+    @remote= false
   end
   
   private

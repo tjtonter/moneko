@@ -14,6 +14,7 @@ gem 'haml'
 
 # Use ice_cube
 gem 'ice_cube'
+gem 'recurring_select'
 
 # Google API gem
 gem 'google-api-client'
