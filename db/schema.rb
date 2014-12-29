@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141008145414) do
+ActiveRecord::Schema.define(version: 20141216095852) do
 
   create_table "customers", force: true do |t|
     t.string   "name"
@@ -65,6 +65,7 @@ ActiveRecord::Schema.define(version: 20141008145414) do
     t.datetime "end_at"
     t.boolean  "allday"
     t.text     "rule"
+    t.date     "until_at"
   end
 
   add_index "orders", ["offer_id"], name: "index_orders_on_offer_id"

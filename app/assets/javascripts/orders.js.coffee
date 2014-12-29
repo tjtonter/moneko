@@ -60,7 +60,7 @@ eventdrop = (moment, jsEvent, ui) ->
   console.log "Calendar updated."
 
 eventselect = (startDate, endDate, allDay) ->
-  $.get((window.location + '/new'),
+  $.get((window.location.origin + '/orders/new'),
   {order:{begin_at: startDate.format(), end_at: endDate.format()}},
   ((data, textStatus) ->
     $('#modalcontent').html(data)

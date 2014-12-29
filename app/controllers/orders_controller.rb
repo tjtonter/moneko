@@ -3,17 +3,15 @@ class OrdersController < ApplicationController
   include IceCube
 
   def index
-    @orders = params[:term] ? Order.where("title LIKE (?)", "%#{params[:term]}%") : Order.all
-    @offers = Offer.all
-    @events = @orders.as_json.flatten
+    @orders = Order.all
     respond_to do |format|
       format.html
-      format.json { render json: @events }
+      format.json { render json: @orders.as_json(date: params[:end]).flatten }
     end
   end
 
   def new
-    @order = Order.new(order_params)
+    @order = params[:order] ? Order.new(order_params) : Order.new
     if !@order.offer.nil?
       @order.description = @order.offer.contents
     end
@@ -29,12 +27,11 @@ class OrdersController < ApplicationController
     @order = Order.new(order_params)
     @order.number = create_number 
     @order.status = "waiting"
-    if params[:order][:rrule]
-      s = Schedule.new(@order.begin_at, end_time: @order.end_at)
-      r = Rule.weekly.day(params[:order][:rrule][:days].map(&:to_i))
-      r.until(params[:order][:rrule][:ends].to_date)
+    if params[:order][:rule]
+      s = Schedule.new(start = params[:order][:begin_at].to_time, :end_time => params[:order][:end_at].to_time)
+      r = RecurringSelect.dirty_hash_to_rule params[:order][:rule]
       s.add_recurrence_rule r
-      @order.rule = s.to_hash
+      @order.schedule = r
     end
     respond_to do |format|
       if @order.save
@@ -56,6 +53,11 @@ class OrdersController < ApplicationController
   end
 
   def update
+    @order = Order.find(params[:id])
+    if params[:order][:rule]
+      @order.schedule = params[:order][:rule]
+      params[:order].delete :rule
+    end
     params[:order][:user_ids] ||= []
     respond_to do |format|
       if @order.update(order_params)
@@ -80,8 +82,8 @@ class OrdersController < ApplicationController
   
   private
     def order_params
-      params.require(:order).permit(:id, :offer_id, :title, :description, :salary, :allday, :begin_at, :end_at, :status, 
-                                    rrule: [:ends, days: []], user_ids: [])
+      params.require(:order).permit(:id, :offer_id, :title, :description, :salary, :allday, :begin_at, :end_at, :until_at, :status, 
+                                    :rule , user_ids: [])
     end
 
     def load_offer_id

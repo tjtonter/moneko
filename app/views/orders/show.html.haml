@@ -27,6 +27,10 @@
   - if @order.end_at
     \-- #{l @order.end_at, :format => :long}
 %p
+  %strong Toisto
+  %br
+  = @order.converted_schedule.to_s
+%p
   %strong Palkka
   %br
   = "#{@order.salary} €"

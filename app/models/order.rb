@@ -8,15 +8,15 @@ class Order < ActiveRecord::Base
   has_many :tasks, :dependent => :destroy
   has_many :users, :through => :tasks
   accepts_nested_attributes_for :tasks
-  serialize :rule
-  attr_accessor :rrule
+  serialize :rule, Hash
   validates_presence_of :title, :begin_at, :number
   validates_uniqueness_of :number
   validates_inclusion_of :status, :in => STATUSES,
     :message => "Status must be one of: #{STATUSES.join(" ,")}"
   validate :end_does_not_equal_begin
-  def as_json(options = {})
-    Schedule.from_hash(rule.except(:start_date)).all_occurrences.map { |t| 
+
+  def as_json(options={})
+    self.converted_schedule.occurrences(options[:date]).map { |t| 
       {"id" =>self.id,
       "title"=> self.title,
       "allDay"=> false,
@@ -26,6 +26,19 @@ class Order < ActiveRecord::Base
       }.as_json
     }
   end
+
+  def schedule=(new_schedule)
+    write_attribute(:rule, RecurringSelect.dirty_hash_to_rule(new_schedule).to_hash)
+  end
+
+  def converted_schedule
+    the_schedule = Schedule.new(self.begin_at, :end_time => self.end_at)
+    rule = RecurringSelect.dirty_hash_to_rule(self.rule)
+    rule.until(self.until_at)
+    the_schedule.add_recurrence_rule(rule)
+    the_schedule
+  end
+
   protected
     def end_does_not_equal_begin
       @errors.add(:end_at, "ei voi olla sama kuin alkuaika") if self.end_at == self.begin_at
