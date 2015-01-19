@@ -16,7 +16,13 @@ class Order < ActiveRecord::Base
   validate :end_does_not_equal_begin
 
   def as_json(options={})
-    self.converted_schedule.occurrences(options[:date]).map { |t| 
+    s = converted_schedule
+    if s
+      array = s.occurrences_between(options[:start], options[:end])
+    else 
+      array = [self.begin_at]
+    end
+    array.map { |t| 
       {"id" =>self.id,
       "title"=> self.title,
       "allDay"=> false,
@@ -32,11 +38,15 @@ class Order < ActiveRecord::Base
   end
 
   def converted_schedule
-    the_schedule = Schedule.new(self.begin_at, :end_time => self.end_at)
-    rule = RecurringSelect.dirty_hash_to_rule(self.rule)
-    rule.until(self.until_at)
-    the_schedule.add_recurrence_rule(rule)
-    the_schedule
+    if self.rule.empty? || self.rule.nil?
+      return nil
+    else
+      the_schedule = Schedule.new(self.begin_at, :end_time => self.end_at)
+      rule = RecurringSelect.dirty_hash_to_rule(self.rule)
+      rule.until(self.until_at)
+      the_schedule.add_recurrence_rule(rule)
+      the_schedule
+    end
   end
 
   protected
