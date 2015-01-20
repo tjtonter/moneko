@@ -10,10 +10,12 @@ class Order < ActiveRecord::Base
   accepts_nested_attributes_for :tasks
   serialize :rule, Hash
   validates_presence_of :title, :begin_at, :number
+  validates :until_at, presence: true, unless: "rule.nil?"
   validates_uniqueness_of :number
   validates_inclusion_of :status, :in => STATUSES,
     :message => "Status must be one of: #{STATUSES.join(" ,")}"
   validate :end_does_not_equal_begin
+
 
   def as_json(options={})
     if self.rule.empty?

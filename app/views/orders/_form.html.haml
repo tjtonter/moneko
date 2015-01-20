@@ -1,6 +1,9 @@
 = form_for @order, remote: @remote do |f|
   %fieldset.span6
     %legend Työmääräys
+    - @order.errors.full_messages.each do |error|
+      .alert.alert-warning{role: "alert"}
+        %p= error
     = f.hidden_field :offer_id
     .form-group
       = f.label :title
@@ -22,7 +25,7 @@
       %p.help-block#end_at__errors
     .form-group
       = f.label "Toistuva?"
-      = f.select_recurring :rule
+      = f.select_recurring :rule, nil, allow_blank: true
     .form-group
       = f.label :until_at
       = f.text_field :until_at, class: "dateinput",
