@@ -16,21 +16,25 @@ class Order < ActiveRecord::Base
   validate :end_does_not_equal_begin
 
   def as_json(options={})
-    s = converted_schedule
-    if s
-      array = s.occurrences_between(options[:start], options[:end])
-    else 
-      array = [self.begin_at]
-    end
-    array.map { |t| 
+    if self.rule.empty?
       {"id" =>self.id,
       "title"=> self.title,
       "allDay"=> false,
-      "start"=> t,
-      "end"=> t + t.duration, 
+      "start"=> self.begin_at,
+      "end"=> self.end_at, 
       "url"=>  order_path(self)
       }.as_json
-    }
+    else
+      converted_schedule.all_occurrences.map { |t| 
+        {"id" =>self.id,
+        "title"=> self.title,
+        "allDay"=> false,
+        "start"=> t,
+        "end"=> t + t.duration, 
+        "url"=>  order_path(self)
+        }.as_json
+      }
+    end
   end
 
   def schedule=(new_schedule)
