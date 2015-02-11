@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141216095852) do
+ActiveRecord::Schema.define(version: 20150204133047) do
 
   create_table "customers", force: true do |t|
     t.string   "name"
@@ -33,6 +33,26 @@ ActiveRecord::Schema.define(version: 20141216095852) do
     t.time     "begin"
     t.time     "end"
   end
+
+  create_table "occurrances", force: true do |t|
+    t.integer  "order_id"
+    t.datetime "start"
+    t.datetime "end"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "occurrances", ["order_id"], name: "index_occurrances_on_order_id"
+
+  create_table "occurrences", force: true do |t|
+    t.integer  "order_id"
+    t.datetime "start"
+    t.datetime "end"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "occurrences", ["order_id"], name: "index_occurrences_on_order_id"
 
   create_table "offers", force: true do |t|
     t.string   "target"
