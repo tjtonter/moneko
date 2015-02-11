@@ -4,6 +4,8 @@ class Order < ActiveRecord::Base
   STATUSES = ["waiting", "active", "complete", "billed"]
   belongs_to :offer
   after_update :touch_tasks
+  before_save :save_occurrences
+  has_many :occurrences, :dependent => :destroy
   has_many :jobs, :dependent => :destroy
   has_many :tasks, :dependent => :destroy
   has_many :users, :through => :tasks
@@ -16,40 +18,30 @@ class Order < ActiveRecord::Base
     :message => "Status must be one of: #{STATUSES.join(" ,")}"
   validate :end_does_not_equal_begin
 
+  def recurring?
+    return self.rule.nil? ? false : true
+  end
 
-  def as_json(options={})
-    if self.rule.empty?
-      {"id" =>self.id,
-      "title"=> self.title,
-      "allDay"=> false,
-      "start"=> self.begin_at,
-      "end"=> self.end_at, 
-      "url"=>  order_path(self)
-      }.as_json
+  def rule=(new_schedule)
+    if RecurringSelect.is_valid_rule?(new_schedule) && new_schedule != "{}"
+      rule = RecurringSelect.dirty_hash_to_rule(new_schedule)
+      rule.until self.until_at
+      write_attribute(:rule, rule.to_hash)
     else
-      converted_schedule.all_occurrences.map { |t| 
-        {"id" =>self.id,
-        "title"=> self.title,
-        "allDay"=> false,
-        "start"=> t,
-        "end"=> t + t.duration, 
-        "url"=>  order_path(self)
-        }.as_json
-      }
+      write_attribute(:rule, nil)
     end
   end
 
-  def schedule=(new_schedule)
-    write_attribute(:rule, RecurringSelect.dirty_hash_to_rule(new_schedule).to_hash)
+  def duration
+    self.end_at-self.begin_at
   end
 
   def converted_schedule
-    if self.rule.empty? || self.rule.nil?
-      return nil
+    unless self.recurring?
+      return "null"
     else
-      the_schedule = Schedule.new(self.begin_at, :end_time => self.end_at)
+      the_schedule = Schedule.new(self.begin_at)
       rule = RecurringSelect.dirty_hash_to_rule(self.rule)
-      rule.until(self.until_at)
       the_schedule.add_recurrence_rule(rule)
       the_schedule
     end
@@ -64,4 +56,14 @@ class Order < ActiveRecord::Base
         t.touch
       end
     end
-end
+    def save_occurrences
+      self.occurrences.clear
+      if self.recurring?
+        self.converted_schedule.occurrences(Time.now+1.year).each do |o|
+          self.occurrences.build(start: o, :end => o+self.duration)
+        end 
+      else
+        self.occurrences.build(start: self.begin_at, :end => self.end_at)
+      end
+    end
+  end
