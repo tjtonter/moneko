@@ -1,12 +1,11 @@
 class OrdersController < ApplicationController
   load_and_authorize_resource except: [:new, :create]
-  include IceCube
 
   def index
-    @orders = Order.all
+    @events = Occurrence.where("start < ? AND end > ?", params[:end], params[:start])
     respond_to do |format|
       format.html
-      format.json { render json: @orders.as_json(date: params[:end]).flatten }
+      format.json { render json: @events.as_json }
     end
   end
 
@@ -27,12 +26,6 @@ class OrdersController < ApplicationController
     @order = Order.new(order_params)
     @order.number = create_number 
     @order.status = "waiting"
-    if params[:order][:rule]
-      s = Schedule.new(start = params[:order][:begin_at].to_time, :end_time => params[:order][:end_at].to_time)
-      r = RecurringSelect.dirty_hash_to_rule params[:order][:rule]
-      s.add_recurrence_rule r
-      @order.schedule = r
-    end
     respond_to do |format|
       if @order.save
         format.json {render json: @order, status: :created}
@@ -54,10 +47,6 @@ class OrdersController < ApplicationController
 
   def update
     @order = Order.find(params[:id])
-    if params[:order][:rule]
-      @order.schedule = params[:order][:rule]
-      params[:order].delete :rule
-    end
     params[:order][:user_ids] ||= []
     respond_to do |format|
       if @order.update(order_params)
