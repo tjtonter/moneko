@@ -1,8 +1,13 @@
 %nav.navbar.navbar-inverse.navbar-fixed-top
   .container-fluid
     .navbar-header
+      %button.navbar-toggle.collapsed{type: "button", "data-toggle" => "collapse", "data-target" => "#main-nav" }
+        %span.sr-only Toggle navigation
+        %span.icon-bar
+        %span.icon-bar
+        %span.icon-bar
       = link_to 'MONEKO', root_path, class: 'navbar-brand'
-    .collapse.navbar-collapse
+    .collapse.navbar-collapse#main-nav
       - if current_user
         %ul.nav.navbar-nav
           %li= link_to "Tarjoukset" ,offers_path if current_user.is?("admin")
