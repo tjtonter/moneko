@@ -1,20 +1,21 @@
 class OrdersController < ApplicationController
   load_and_authorize_resource except: [:new, :create]
+
   def index
-    @orders = params[:term] ? Order.where("title LIKE (?)", "%#{params[:term]}%") : Order.all
-    @offers = Offer.all 
+    @events = Occurrence.where("start < ? AND end > ?", params[:end], params[:start])
     respond_to do |format|
       format.html
-      format.json { render json: custom_json(@orders) }
+      format.json { render json: @events.as_json }
     end
   end
 
   def new
-    @order = Order.new(order_params)
+    @order = params[:order] ? Order.new(order_params) : Order.new
     if !@order.offer.nil?
       @order.description = @order.offer.contents
     end
     @users = User.all
+    @remote = true
     respond_to do |format|
       format.html { render layout: !request.xhr? }
       format.json { render layout: false }
@@ -45,6 +46,7 @@ class OrdersController < ApplicationController
   end
 
   def update
+    @order = Order.find(params[:id])
     params[:order][:user_ids] ||= []
     respond_to do |format|
       if @order.update(order_params)
@@ -64,11 +66,13 @@ class OrdersController < ApplicationController
   def edit
     @order = Order.find(params[:id])  
     @users = User.all
+    @remote= false
   end
   
   private
     def order_params
-      params.require(:order).permit(:id, :offer_id, :title, :description, :salary, :allday, :begin_at, :end_at, :status, user_ids: [])
+      params.require(:order).permit(:id, :offer_id, :title, :description, :salary, :allday, :begin_at, :end_at, :until_at, :status, 
+                                    :rule , user_ids: [])
     end
 
     def load_offer_id
@@ -92,6 +96,26 @@ class OrdersController < ApplicationController
           :color => view_context.status_to_color(order.status),
           :user_ids => order.users.map { |user| user.id }
         }
+      end
+      list.as_json
+    end
+    def custom_json2(orders)
+      list = Array.new
+      orders.each do |order|
+        if order.rule?
+          s = Schedule.from_hash(order.rule)
+	  list = s.all_occurrences.map do |time|
+            { :id => order.id,
+              :title => order.title,
+              :start => time,
+              :end => time+s.duration,
+              :allDay => order.end_at ? (order.begin_at.to_date != order.end_at.to_date) : true,
+              :url => order_path(order),
+              :color => view_context.status_to_color(order.status),
+              :user_ids => order.users.map { |user| user.id }
+            }
+	  end
+	end
       end
       list.as_json
     end

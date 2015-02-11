@@ -1,7 +1,10 @@
-= form_for @order do |f|
-  %fieldset
+= form_for @order, remote: @remote do |f|
+  %fieldset.span6
     %legend Työmääräys
-    = render 'shared/form_errors', object: @order
+    - @order.errors.full_messages.each do |error|
+      .alert.alert-warning{role: "alert"}
+        %p= error
+    = f.hidden_field :offer_id
     .form-group
       = f.label :title
       = f.text_field :title, :class => "form-control" 
@@ -12,19 +15,23 @@
       %p.help-block#description_errors
     .form-group
       = f.label :begin_at
-      = f.text_field :begin_at, :class => "form-control datetimeinput", 
-        :value => @order.begin_at.nil? ? "" : (l @order.begin_at, format: :short)
+      = f.text_field :begin_at, :class => "form-control datetimeinput",
+        :value => @order.begin_at.nil? ? "" : (l @order.begin_at)
       %p.help-block#begin_at_errors
     .form-group
       = f.label :end_at
       = f.text_field :end_at, :class => "form-control datetimeinput",
-        :value => @order.end_at.nil? ? "" : (l @order.end_at, format: :short)
+        :value => @order.end_at.nil? ? "" : (l @order.end_at)
       %p.help-block#end_at__errors
     .form-group
-      = f.label :status
-      = f.select :status, Order::STATUSES.map { |s| [I18n.t(s), s] }
+      = f.label :rule, "Toistuva?"
+      = f.select_recurring :rule, nil, allow_blank: true
+    .form-group
+      = f.label :until_at
+      = f.text_field :until_at, class: "dateinput",
+        :value => @order.until_at.nil? ? "" : (l @order.until_at, format: :short)
     %br
-    %strong Työn suorittajat
+    %b Työn suorittajat
     %br
     - @users.each do |u|
       .checkbox

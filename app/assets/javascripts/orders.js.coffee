@@ -60,7 +60,7 @@ eventdrop = (moment, jsEvent, ui) ->
   console.log "Calendar updated."
 
 eventselect = (startDate, endDate, allDay) ->
-  $.get((window.location + '/new'),
+  $.get((window.location.origin + '/orders/new'),
   {order:{begin_at: startDate.format(), end_at: endDate.format()}},
   ((data, textStatus) ->
     $('#modalcontent').html(data)
@@ -71,6 +71,15 @@ eventselect = (startDate, endDate, allDay) ->
         $('#order_end_at').prop('disabled', true)
       else
         $('#order_end_at').prop('disabled', false)
+    $('#repeat').on 'click', () ->
+      console.log "Changing state"
+      if $(this).is(':checked')
+        $('.btn-day').prop('disabled', false)
+      else
+        $('.btn-day').prop('disabled', true)
+    $('.btn-day').on 'click', () ->
+      $(this).toggleClass 'btn-primary'
+      
     $('#new_order').on('ajax:success', (e, data, status, xhr) ->
         $('#modal').modal('hide')
         alert "Uusi työpäivä rekisteröity."
@@ -93,7 +102,7 @@ ready = ->
     event = {title: o.text()}
     o.data('eventObject', event)
     o.draggable({revert: true})
-
+  console.log "Starting calendar."
   $('#all_orders_cal').fullCalendar({
     editable: true
     selectable: true

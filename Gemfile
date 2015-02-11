@@ -12,6 +12,10 @@ gem 'mysql2'
 # Use haml
 gem 'haml'
 
+# Use ice_cube
+gem 'ice_cube'
+gem 'recurring_select'
+
 # Google API gem
 gem 'google-api-client'
 
@@ -32,9 +36,6 @@ end
 gem 'jquery-rails', '~>2.3.0'
 gem 'jquery-ui-rails'
 gem 'jquery-ui-themes'
-
-# Ice_cube for recurring events
-gem 'ice_cube'
 
 # Pagination
 gem 'will_paginate'
