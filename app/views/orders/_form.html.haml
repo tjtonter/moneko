@@ -24,7 +24,7 @@
         :value => @order.end_at.nil? ? "" : (l @order.end_at)
       %p.help-block#end_at__errors
     .form-group
-      = f.label "Toistuva?"
+      = f.label :rule, "Toistuva?"
       = f.select_recurring :rule, nil, allow_blank: true
     .form-group
       = f.label :until_at
