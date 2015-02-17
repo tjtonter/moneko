@@ -12,7 +12,6 @@
         %ul.nav.navbar-nav#user-nav{data: {"user-id" => current_user.id}}
           %li= link_to "Tarjoukset" ,offers_path if current_user.is?("admin")
           %li= link_to "Työmääräykset", orders_path if current_user.is?("admin")
-          %li= link_to "Tapahtumat", occurrences_path if current_user.is?("admin")
           %li= link_to "Käyttäjät", users_path if current_user.is?("admin")
         - if current_user
           %ul.nav.navbar-nav.navbar-right
