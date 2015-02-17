@@ -4,8 +4,6 @@ class Order < ActiveRecord::Base
   STATUSES = ["waiting", "active", "complete", "billed"]
   belongs_to :offer
   after_update :touch_tasks
-  before_save :save_occurrences
-  has_many :occurrences, :dependent => :destroy
   has_many :jobs, :dependent => :destroy
   has_many :tasks, :dependent => :destroy
   has_many :users, :through => :tasks
@@ -56,16 +54,6 @@ class Order < ActiveRecord::Base
     def touch_tasks
       self.tasks.each do |t|
         t.touch
-      end
-    end
-    def save_occurrences
-      self.occurrences.clear
-      if self.recurring?
-        self.converted_schedule.occurrences(Time.now+1.year).each do |o|
-          self.occurrences.build(start: o, :end => o+self.duration)
-        end 
-      else
-        self.occurrences.build(start: self.begin_at, :end => self.end_at)
       end
     end
   end
