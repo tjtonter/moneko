@@ -31,6 +31,15 @@ fetch_events = (start, end, timezone, callback) ->
               url: Routes.new_user_job_path(id, order_id: order.id,job: { date: date})
             }
             events.push event
+        else
+          event = {
+            id: order.id
+            title: order.title
+            start: order.begin_at
+            end: order.end_at
+            url: Routes.new_user_job_path(id, order_id: order.id,job: { date: order.begin_at})
+          }
+          events.push event
       callback events
     context: {
       start: start
