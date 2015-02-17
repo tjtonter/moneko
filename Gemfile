@@ -12,6 +12,9 @@ gem 'mysql2'
 # Use haml
 gem 'haml'
 
+# Javascript and routes
+gem 'js-routes'
+
 # Use ice_cube
 gem 'ice_cube'
 gem 'recurring_select'
