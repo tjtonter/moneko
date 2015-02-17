@@ -17,7 +17,7 @@ class Order < ActiveRecord::Base
   validate :end_does_not_equal_begin
 
   def recurring?
-    return self.rule.nil? ? false : true
+    return !self.rule.empty?
   end
 
   def rule=(new_schedule)

@@ -29,7 +29,7 @@
 %p
   %strong Toisto
   %br
-  = @order.recurring? ? "Ei toistoa" :  @order.converted_schedule.to_s
+  = @order.recurring? ? @order.converted_schedule.to_s : "Ei toistoa" 
 %p
   %strong Palkka
   %br
