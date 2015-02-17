@@ -1,6 +1,47 @@
 # Place all the behaviors and hooks related to the matching controller here.
 # All this logic will automatically be available in application.js.
 # You can use CoffeeScript in this file: http://coffeescript.org/
+fetch_events = (start, end, timezone, callback) ->
+  $.ajax({
+    url: 'http://'+window.location.host+'/orders.json'
+    dataType: 'json'
+    data: {
+      start: start.unix()
+      end: end.unix()
+    }
+    success: (data) ->
+      dtstart = new Date(start)
+      dtend   = new Date(end)
+      id      = $('#user-nav').data('user-id')
+      events = []
+      for order in data
+        if order.ical
+          msdelta = Date.parse(order.end_at) - Date.parse(order.begin_at)
+          options = RRule.parseString(order.ical)
+          options.dtstart = new Date(order.begin_at)
+          rule = new RRule(options)
+          dates = rule.between(dtstart, dtend)
+          for date in dates
+            d2 = new Date(Date.parse(date)+msdelta)
+            event = {
+              id: order.id
+              title: order.title
+              start: date.toString()
+              end: d2.toString()
+              url: Routes.order_path(order.id)
+            }
+            events.push event
+        else
+          event = {
+            id: order.id
+            title: order.title
+            start: order.begin_at
+            end: order.end_at
+            url: Routes.order_path(order.id)
+          }
+          events.push event
+      callback events
+  })
 datefmt = (d) ->
   d.getDate() + "." + (d.getMonth() + 1) + "." + d.getFullYear() + " " +
   d.getHours() + ":" + d.getMinutes()
@@ -108,9 +149,7 @@ ready = ->
     selectable: true
     selectHelper: true
     firstDay: 1
-    eventSources: [
-      window.location + '.json'
-    ]
+    events: fetch_events
     height: 700
     header: {
       left: 'prev,next today'
