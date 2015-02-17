@@ -1,9 +1,27 @@
-%h1 Työmäärät
+%h1 Työkset
 %p 
   Tästä näet kaikki luodut työmääräykset ja niiden nykyiset tilat. 
   Allaolevasta kalenterista voit luoda uuden työmääräyksen. 
   Luomallesi työmääräykselle annetaan automaattisesti uniikki työnumero, 
   jonka avulla voit aina viitata ristiriidattomasti samaan työhön.
 
-#all_orders_cal
-= render 'shared/modal'
+
+%table.table
+  %thead
+    %tr
+      %th= "Työnumero" 
+      %th= "Kuvaus"
+      %th= "Päivämäärä"
+      %th= "Palkka"
+      %th= "Kesto"
+      %th Toiminnot 
+  %tbody
+    - if @orders
+      - @orders.each do |o|
+        %tr
+          %td= o.id
+          %td= link_to o.title, o
+          %td= o.begin_at
+          %td= o.end_at
+          %td= o.duration.to_s
+          %td= link_to "Poista", o, method: :delete

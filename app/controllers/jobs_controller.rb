@@ -44,7 +44,7 @@ class JobsController < ApplicationController
   def new
     @user = User.find(params[:user_id])
     @order = Order.find(params[:order_id])
-    @job = @user.jobs.new
+    @job = @user.jobs.new(job_params)
     respond_to do |format|
       format.html { render 'new', layout: !request.xhr? } 
     end

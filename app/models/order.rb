@@ -27,8 +27,10 @@ class Order < ActiveRecord::Base
       rule = RecurringSelect.dirty_hash_to_rule(new_schedule)
       rule.until self.until_at
       write_attribute(:rule, rule.to_hash)
+      write_attribute(:ical, rule.to_ical)
     else
       write_attribute(:rule, nil)
+      write_attribute(:ical, nil)
     end
   end
 

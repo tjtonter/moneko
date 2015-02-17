@@ -2,7 +2,7 @@ class Occurrence < ActiveRecord::Base
   include Rails.application.routes.url_helpers
   belongs_to :order
 
-  def as_json 
+  def as_json(options = {}) 
     {"id" =>self.order.id,
     "title"=> self.order.title,
     "allDay"=> false,

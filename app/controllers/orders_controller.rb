@@ -2,10 +2,10 @@ class OrdersController < ApplicationController
   load_and_authorize_resource except: [:new, :create]
 
   def index
-    @events = Occurrence.where("start < ? AND end > ?", params[:end], params[:start])
+    @orders = Order.all
     respond_to do |format|
       format.html
-      format.json { render json: @events.as_json }
+      format.json { render json: @orders.as_json }
     end
   end
 
