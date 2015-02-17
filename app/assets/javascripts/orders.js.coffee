@@ -42,10 +42,7 @@ fetch_events = (start, end, timezone, callback) ->
           events.push event
       callback events
   })
-datefmt = (d) ->
-  d.getDate() + "." + (d.getMonth() + 1) + "." + d.getFullYear() + " " +
-  d.getHours() + ":" + d.getMinutes()
-  
+
 eventmove = (event,delta,revertFunc) ->
   console.log event
   $.ajax({
@@ -99,6 +96,13 @@ eventdrop = (moment, jsEvent, ui) ->
   })
   $('#all_orders_cal').fullCalendar('refetchEvents')
   console.log "Calendar updated."
+
+eventselect2 = (start, end, allday) ->
+  window.location = Routes.new_order_path(order:
+    {
+      begin_at: start.format()
+      end_at: end.format()
+    })
 
 eventselect = (startDate, endDate, allDay) ->
   $.get((window.location.origin + '/orders/new'),
@@ -161,7 +165,8 @@ ready = ->
     drop: eventdrop
     eventDrop: eventmove
     eventResize: eventresize
-    select: eventselect
+    select: eventselect2
+    timezone: "Europe/Helsinki"
     }
   )
 
