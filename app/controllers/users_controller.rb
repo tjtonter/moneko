@@ -39,6 +39,7 @@ class UsersController < ApplicationController
     @user = User.find(params[:id])
     params[:user].delete(:password) if params[:password].blank?
     params[:user].delete(:password_confirmation) if params[:password].blank?
+    puts params
     if @user.update(user_params)
       flash[:notice] = "Käyttäjä päivitetty"
       redirect_to user_path(@user)

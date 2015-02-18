@@ -16,10 +16,14 @@
     = f.email_field :email, :autofocus => true
   - if devise_mapping.confirmable? && resource.pending_reconfirmation?
     %div
-      Currently waiting confirmation for: #{resource.unconfirmed_email}
+      Odotetaan vahvistusta osoitteesta: #{resource.unconfirmed_email}
+  %div
+    = f.label :gcal
+    %br/
+    = f.text_field :gcal
   %div
     = f.label :password
-    %i (leave blank if you don't want to change it)
+    %i (Ohita jos et halua vaihtaa)
     %br/
     = f.password_field :password, :autocomplete => "off"
   %div
@@ -28,11 +32,11 @@
     = f.password_field :password_confirmation
   %div
     = f.label :current_password
-    %i (we need your current password to confirm your changes)
+    %i (Vahvista antamalla nykyinen salasana)
     %br/
     = f.password_field :current_password
-  %div= f.submit "Update"
-%h3 Cancel my account
-%p
-  Unhappy? #{button_to "Cancel my account", registration_path(resource_name), :data => { :confirm => "Are you sure?" }, :method => :delete}
-= link_to "Back", :back
+  %div= f.submit "Paivita"
+//%h3 Cancel my account
+//%p
+//  Unhappy? #{button_to "Cancel my account", registration_path(resource_name), :data => { :confirm => "Are you sure?" }, :method => :delete}
+= link_to "Takaisin", :back

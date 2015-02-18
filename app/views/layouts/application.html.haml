@@ -9,10 +9,10 @@
     = render 'shared/navigation'
               
     #errors.container
-      - if flash[:notice]
+      - flash.each do |name, msg|
         .alert.alert-success
           %strong Ilmoitus!
-          = flash[:notice]
+          = msg
           %button.close{ type: "button", data: {dismiss: "alert"}, "aria-hidden" => true} &times;
     .container
       = yield

@@ -2,8 +2,7 @@ class User < ActiveRecord::Base
   ROLES = %w[admin user dismissed]
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable
-  devise :database_authenticatable,
-         :recoverable, :rememberable, :trackable, :validatable
+  devise :database_authenticatable, :registerable, :recoverable, :rememberable, :trackable, :validatable
   attr_accessor :login
   validates_presence_of :name, :username
   validates_uniqueness_of :username
