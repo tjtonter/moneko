@@ -3,7 +3,7 @@
 # You can use CoffeeScript in this file: http://coffeescript.org/
 fetch_events = (start, end, timezone, callback) ->
   $.ajax({
-    url: 'http://'+window.location.host+'/orders.json'
+    url: Routes.user_tasks_path($('#user-nav').data('user-id'), {format: "json"})
     dataType: 'json'
     data: {
       start: start.unix()
