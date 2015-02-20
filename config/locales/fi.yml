@@ -1,4 +1,7 @@
 fi:
+  admin: "Järjestelmänvalvoja"
+  user: "Käyttäjä"
+  dismissed: "Irtisanottu"
   recurring_select:
     not_recurring: "- ei toistuva -"
     change_schedule: "Muuta aikataulua..."
