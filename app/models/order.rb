@@ -46,6 +46,25 @@ class Order < ActiveRecord::Base
       the_schedule
     end
   end
+  def as_event
+    event = {
+      'summary' => self.title,
+      'description' => self.description,
+      'start' => {
+        'dateTime' => self.begin_at.to_datetime.rfc3339,
+        'timeZone' => self.begin_at.time_zone.name
+      },
+      'end' => {
+        'dateTime' => self.end_at.to_datetime.rfc3339,
+        'timeZone' => self.end_at.time_zone.name
+      }
+    }
+    if self.recurring?
+      event['recurrence'] = ['RRULE:'+self.ical]
+    end
+    puts "AS EVENT: "+event.to_s
+    return event 
+  end
 
   protected
     def end_does_not_equal_begin
