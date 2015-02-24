@@ -39,6 +39,7 @@ end
 gem 'jquery-rails', '~>2.3.0'
 gem 'jquery-ui-rails'
 gem 'jquery-ui-themes'
+gem 'jquery_mobile_rails'
 
 # Pagination
 gem 'will_paginate'
