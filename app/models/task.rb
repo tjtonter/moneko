@@ -13,24 +13,15 @@ class Task < ActiveRecord::Base
       if self.user.gcal?
         @client = google_apiclient
         service = @client.discovered_api('calendar', 'v3')
-        event = {
-          'summary' => self.order.title,
-          'description' => self.order.description,
-          'start' => {
-            'dateTime' => self.order.begin_at.to_datetime.rfc3339
-          },
-          'end' => {
-            'dateTime' => self.order.end_at.to_datetime.rfc3339
-          }
-        }
         puts "Adding event to #{self.user.name} calendar #{self.user.gcal}"
         @result = @client.execute(
           api_method: service.events.insert,
           parameters: {'calendarId' => self.user.gcal},
-          body: JSON.dump(event),
+          body: JSON.dump(self.order.as_event),
           headers: {'Content-Type' => 'application/json'}
         )
-        self.gcalid = @result.data.id
+       self.gcalid = @result.data.id
+       puts "Createdd task #{@result.data.id}"
       end
     end
 
@@ -39,31 +30,14 @@ class Task < ActiveRecord::Base
       if self.user.gcal? and self.gcalid?
         @client = google_apiclient
         service = @client.discovered_api('calendar', 'v3')
-        event = @client.execute(
-          api_method: service.events.get,
-          parameters: {'calendarId' => self.user.gcal, 'eventId' => self.gcalid }
-        )
-
-        event = {
-          'summary' => self.order.title,
-          'description' => self.order.description,
-          'sequence' => event.data.sequence+1,
-          'start' => {
-            'dateTime' => self.order.begin_at.to_datetime.rfc3339
-          },
-          'end' => {
-            'dateTime' => self.order.end_at.to_datetime.rfc3339
-          }
-        }
         puts "Updating event #{self.gcalid} to #{self.user.name} calendar #{self.user.gcal}"
         @result = @client.execute(
           api_method: service.events.update,
           parameters: {'calendarId' => self.user.gcal, 'eventId' => self.gcalid},
-          body: JSON.dump(event),
+          body: JSON.dump(self.order.as_event),
           headers: {'Content-Type' => 'application/json'}
         )
-      
-        puts "This is the new event: #{event}"
+        puts @result.data
         puts "Returned #{@result.data.updated}"
       end
     end
