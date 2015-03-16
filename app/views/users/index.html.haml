@@ -11,6 +11,7 @@
       %td= user.name
       %td= user.email
       %td
+        = link_to "Rekisteri", user_jobs_path(user), class: "btn btn-info btn-xs"
         = link_to "Tunnit edellinen", user_jobs_path(user, :pdf,
           :date => {:year => @past.year, :month => @past.month}, 
           :part => @past.day.between?(1, 15) ? "1..15" : "16..-1"),
