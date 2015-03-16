@@ -17,7 +17,10 @@
       = radio_button_tag :part , '15..-1'
       = label_tag :part, "15..", class: "col-sm-2"
     .form-group
-      = submit_tag "Rajaa", name: nil, class: "col-sm-offset-1 btn btn-info btn-sm"
+      = label_tag :format, "Formaatti", class: "col-sm-2"
+      = select_tag :format, options_for_select(%w[html pdf], "html")
+    .form-group
+      = submit_tag "Rajaa", name: nil, class: "col-sm-offset-2 btn btn-info btn-sm"
 
 = render "table"
 = render "shared/modal"
