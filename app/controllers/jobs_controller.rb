@@ -6,7 +6,6 @@ class JobsController < ApplicationController
       year, month = params[:date][:year], params[:date][:month]
       a = Date.new year.to_i, month.to_i, days[0]
       b = Date.new year.to_i, month.to_i, days[1]
-      flash[:notice] = "Näytetään merkinnät ajalta #{l a} .. #{l b}"
       @jobs = @user.jobs.where({date: a..b}).order(date: :asc)
     else
       @jobs = @user.jobs.order(date: :desc)
