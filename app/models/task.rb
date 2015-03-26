@@ -27,7 +27,7 @@ class Task < ActiveRecord::Base
 
     def gcal_event_update
       puts "Updating task #{self.gcalid}"
-      if self.user? and self.gcalid?
+      if self.user and self.gcalid?
         @client = google_apiclient
         service = @client.discovered_api('calendar', 'v3')
         puts "Updating event #{self.gcalid} to #{self.user.name} calendar #{self.user.gcal}"
@@ -43,7 +43,7 @@ class Task < ActiveRecord::Base
     end
 
     def gcal_event_delete
-      if self.user?
+      if self.user
         @client = google_apiclient
         service = @client.discovered_api('calendar', 'v3')
         result = @client.execute(
