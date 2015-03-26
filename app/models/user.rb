@@ -20,6 +20,10 @@ class User < ActiveRecord::Base
     end
   end
 
+  def gcal?
+    self.gcal.empty? ? false : true
+  end
+
   def roles=(roles)
     self.roles_mask = (roles & ROLES).map { |r| 2**ROLES.index(r) }.inject(0, :+)
   end
