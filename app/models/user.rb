@@ -21,6 +21,9 @@ class User < ActiveRecord::Base
   end
 
   def gcal?
+    if self.gcal.nil?
+      return false
+    end
     self.gcal.empty? ? false : true
   end
 
