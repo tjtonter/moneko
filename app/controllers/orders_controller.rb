@@ -2,7 +2,13 @@ class OrdersController < ApplicationController
   load_and_authorize_resource except: [:new, :create]
 
   def index
-    @orders = Order.all
+    if params[:end] && params[:start]
+      t1 = Date.strptime params[:start], "%s"
+      t2 = Date.strptime params[:end], "%s"
+      @orders = Order.where("begin_at < ? AND (end_at > ? OR until_at > ?)", t2, t1, t1)
+    else
+      @orders = Order.all  
+    end
     respond_to do |format|
       format.html
       format.json { render json: @orders.as_json }
@@ -55,7 +61,7 @@ class OrdersController < ApplicationController
       if @order.update(order_params)
         flash[:notice] = "Työmääräys päivitetty"
         format.json {render json: @order, status: :accepted}
-        format.html {redirect_to order_path(@order)}
+        format.html {redirect_to orders_path}
       else
         format.json {render json: @order.errors, status: :unprocessable_entity}
         format.html do
