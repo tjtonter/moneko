@@ -14,6 +14,7 @@ class OrdersController < ApplicationController
     if !@order.offer.nil?
       @order.description = @order.offer.contents
     end
+    @order.until_at ||= @order.end_at
     @users = User.all
     @remote = true
     respond_to do |format|
