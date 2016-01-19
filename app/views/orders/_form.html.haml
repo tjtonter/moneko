@@ -28,8 +28,7 @@
       = f.select_recurring :rule, nil, allow_blank: true
     .form-group
       = f.label :until_at
-      = f.text_field :until_at, class: "dateinput",
-        :value => @order.until_at.nil? ? "" : (l @order.until_at, format: :short)
+      = f.text_field :until_at, class: "dateinput", :value => l(@order.until_at, format: :short)
     %br
     %b Työn suorittajat
     %br
