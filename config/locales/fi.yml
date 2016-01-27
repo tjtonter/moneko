@@ -2,6 +2,8 @@ fi:
   admin: "Järjestelmänvalvoja"
   user: "Käyttäjä"
   dismissed: "Irtisanottu"
+  ice_cube:
+    each_day: Joka %{count}. paiva
   recurring_select:
     not_recurring: "- ei toistuva -"
     change_schedule: "Muuta aikataulua..."
