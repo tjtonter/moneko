@@ -12,7 +12,7 @@ gem 'bootstrap-slider-rails'
 gem 'sqlite3'
 
 # Use mysql for production
-gem 'mysql2'
+gem 'mysql2', '~>0.3.18'
 
 # Use haml
 gem 'haml'

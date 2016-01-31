@@ -6,7 +6,7 @@
           %h4 Tyomaaraykset
         .list-group
           - @user.tasks.each do |task|
-            = link_to order_path(task.order), 
+            = link_to order_path(task.order.id), 
               class: "list-group-item list-group-item-info" do
               %span.badge= task.order.jobs.count
               = task.order.title
