@@ -16,7 +16,7 @@ class UsersController < ApplicationController
     @jobs = @user.jobs.order("date desc").limit(15)
     t1 = 2.weeks.ago
     t2 = 2.weeks.from_now
-    @orders = Order.where("begin_at < ? AND (end_at > ? OR until_at > ?)", t2, t1, t1)
+    @orders = @user.orders.where("begin_at < ? AND (end_at > ? OR until_at > ?)", t2, t1, t1)
   end
 
   def new

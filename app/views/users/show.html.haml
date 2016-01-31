@@ -5,12 +5,12 @@
         .panel-heading
           %h4 Tyomaaraykset
         .list-group
-          - @user.tasks.each do |task|
-            = link_to order_path(task.order.id), 
+          - @orders.each do |order|
+            = link_to order_path(order), 
               class: "list-group-item list-group-item-info" do
-              %span.badge= task.order.jobs.count
-              = task.order.title
-              = number_to_currency task.order.salary
+              %span.badge= order.jobs.count
+              = order.title
+              = number_to_currency order.salary
     .col-xs-12.col-sm-6
       .panel.panel-primary
         .panel-heading
