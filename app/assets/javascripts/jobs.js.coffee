@@ -1,4 +1,11 @@
 ready = ->
+  $('#new_job').on('submit', ->
+    t1 = moment($('#job_begin').val(), "HH:mm")
+    t2 = moment($('#job_end').val(), "HH:mm")
+    d = moment.utc(t2.diff(t1))
+    $('#job_duration').val(d.format("HH.mm"))
+    console.log $('#job_duration')
+  )
   $('#job-search').hide()
   $('#job-form-toggle').on('click', ->
     $('#job-search').toggle(500)
@@ -35,7 +42,6 @@ ready = ->
           else $('#'+data.id+" td."+k).html(v)
       ))
       $('#modal').modal('hide')
-      $('#'+data.id+" td").effect('highlight',{color: "red"}, 3000)
     ))
   ))
 

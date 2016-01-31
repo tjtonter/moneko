@@ -15,22 +15,42 @@
       %p.help-block#description_errors
     .form-group
       = f.label :begin_at
-      = f.text_field :begin_at, :class => "form-control datetimeinput",
+      .input-group.datetimeinput
+        .input-group-addon
+          %span.glyphicon.glyphicon-time
+        = f.text_field :begin_at, :class => "form-control",
         :value => @order.begin_at.nil? ? "" : (l @order.begin_at)
       %p.help-block#begin_at_errors
     .form-group
       = f.label :end_at
-      = f.text_field :end_at, :class => "form-control datetimeinput",
-        :value => @order.end_at.nil? ? "" : (l @order.end_at)
-      %p.help-block#end_at__errors
-    .form-group
-      = f.label :rule, "Toistuva?"
-      = f.select_recurring :rule, nil, allow_blank: true
-    .form-group
-      = f.label :until_at
-      = f.text_field :until_at, class: "dateinput", :value => l(@order.until_at, format: :short)
-    %br
-    %b Työn suorittajat
+      .input-group.datetimeinput
+        .input-group-addon
+          %span.glyphicon.glyphicon-time
+        = f.text_field :end_at, :class => "form-control",
+          :value => @order.end_at.nil? ? "" : (l @order.end_at)
+      %p.help-block#end_at_errors
+    %fieldset
+      %legend Toistuvuus
+      .checkbox
+        %label
+          = check_box_tag "order[recurring]", 'yes', @order.recurring?
+          Recurring
+      .form-group
+        = f.label :rule
+        .input-group
+          = f.select_recurring :rule, nil, {}, 
+            class: "form-control", disabled: (@order.recurring? ? false : true)
+      .form-group
+        = f.label :until_at
+        .input-group.dateinput
+          .input-group-addon
+            %span.glyphicon.glyphicon-time
+          = f.text_field :until_at, 
+            value: (l @order.until_at unless @order.until_at.nil?),
+            class: "form-control", disabled:(@order.recurring? ? false : true)
+        %p.help-block#until_at_errors
+    %fieldset
+      %legend Työn suorittajat
     %br
     - @users.each do |u|
       .checkbox

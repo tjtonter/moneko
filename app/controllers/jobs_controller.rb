@@ -29,21 +29,21 @@ class JobsController < ApplicationController
     @order = @job.order
     respond_to do |format|
       if @job.save
+        flash[:notice] = "Uusi merkinta luotu"
+        format.html {redirect_to order_path(@order)}
         format.json {render json: @job, status: :created, layout: !request.xhr?}
       else
+        format.html {render 'new'}
         format.json {render json: @job.errors, status: :unprocessable_entity}
       end
     end
   end
 
-  def edit
-    @job = Job.find(params[:id])
-    @user = User.find(params[:user_id])
-  end
   def new
     @user = User.find(params[:user_id])
     @order = Order.find(params[:order_id])
-    @job = @user.jobs.new(job_params)
+    @job = params[:job] ? @user.jobs.new(job_params) : @user.jobs.new
+    @remote = request.xhr?
     respond_to do |format|
       format.html { render 'new', layout: !request.xhr? } 
     end
@@ -53,6 +53,7 @@ class JobsController < ApplicationController
     @job = Job.find(params[:id])
     @user = User.find(params[:user_id])
     @order = @job.order
+    @remote = request.xhr?
     respond_to do |format|
       format.html  { render layout: !request.xhr? }
     end

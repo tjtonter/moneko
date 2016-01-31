@@ -3,12 +3,11 @@
     %td.ordernumber
       = link_to order_path(job.order) do
         %strong
-          = job.order.number
         = job.order.title
     %td.description= job.description
     %td.date= job.date.nil? ? "" : (l job.date, :format => :short)
     %td.salary= number_to_currency job.salary, :unit => "€"
-    %td.duration= job.duration
+    %td.duration.hidden-xs= job.duration
     %td
       = link_to "Poista", user_job_path(@user, job), :method => :delete, 
         data: { confirm:  "Haluatko varmasti poistaa työn?" },

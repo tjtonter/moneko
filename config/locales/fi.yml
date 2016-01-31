@@ -1,20 +1,9 @@
+---
 fi:
-  admin: "Järjestelmänvalvoja"
-  user: "Käyttäjä"
-  dismissed: "Irtisanottu"
-  ice_cube:
-    each_day: Joka %{count}. paiva
-  recurring_select:
-    not_recurring: "- ei toistuva -"
-    change_schedule: "Muuta aikataulua..."
-    set_schedule: "Aseta aikataulu..."
-    new_custom_schedule: "Uusi muokattu aikataulu..."
-    custom_schedule: "Muokattu aikataulu..."
-    or: "tai"
-  will_paginate:
-    previous_label: "&#8592; Edellinen"
-    next_label: "Seuraava &#8594;"
-    page_gap: "&hellip;"
+  activerecord:
+    errors:
+      messages:
+        record_invalid: 'Validointi epäonnistui: %{errors}'
   date:
     abbr_day_names:
     - su
@@ -47,9 +36,9 @@ fi:
     - perjantai
     - lauantai
     formats:
-      default: ! '%e. %Bta %Y'
-      long: ! '%A %e. %Bta %Y'
-      short: ! '%d.%m.%Y'
+      default: "%d.%m.%Y"
+      long: "%A %e. %Bta %Y"
+      short: "%d.%m.%Y"
     month_names:
     -
     - tammikuu
@@ -94,16 +83,16 @@ fi:
         other: yli %{count} vuotta
       x_days:
         one: päivä
-        other: ! '%{count} päivää'
+        other: "%{count} päivää"
       x_minutes:
         one: minuutti
-        other: ! '%{count} minuuttia'
+        other: "%{count} minuuttia"
       x_months:
         one: kuukausi
-        other: ! '%{count} kuukautta'
+        other: "%{count} kuukautta"
       x_seconds:
         one: sekunti
-        other: ! '%{count} sekuntia'
+        other: "%{count} sekuntia"
     prompts:
       day: päivä
       hour: tunti
@@ -111,11 +100,11 @@ fi:
       month: kuukausi
       second: sekunti
       year: vuosi
-  errors: &errors
-    format: ! '%{attribute} %{message}'
+  errors:
+    format: "%{attribute} %{message}"
     messages:
       accepted: täytyy olla hyväksytty
-      blank: ei voi olla tyhjä
+      blank: ei voi olla sisällötön
       confirmation: ei vastaa varmennusta
       empty: ei voi olla tyhjä
       equal_to: täytyy olla yhtä suuri kuin %{count}
@@ -130,16 +119,15 @@ fi:
       not_a_number: ei ole luku
       not_an_integer: ei ole kokonaisluku
       odd: täytyy olla pariton
-      record_invalid: ! 'Validointi epäonnistui: %{errors}'
       taken: on jo käytössä
       too_long: on liian pitkä (saa olla enintään %{count} merkkiä)
       too_short: on liian lyhyt (oltava vähintään %{count} merkkiä)
       wrong_length: on väärän pituinen (täytyy olla täsmälleen %{count} merkkiä)
     template:
-      body: ! 'Seuraavat kentät aiheuttivat ongelmia:'
+      body: 'Seuraavat kentät aiheuttivat ongelmia:'
       header:
         one: Virhe syötteessä esti mallin %{model} tallentamisen
-        other: ! '%{count} virhettä esti mallin %{model} tallentamisen'
+        other: "%{count} virhettä esti mallin %{model} tallentamisen"
   helpers:
     select:
       prompt: Valitse
@@ -150,22 +138,22 @@ fi:
   number:
     currency:
       format:
-        delimiter: .
-        format: ! '%n %u'
+        delimiter: "."
+        format: "%n %u"
         precision: 2
-        separator: ! ','
+        separator: ","
         significant: false
         strip_insignificant_zeros: false
-        unit: €
+        unit: "€"
     format:
-      delimiter: .
+      delimiter: "."
       precision: 3
-      separator: ! ','
+      separator: ","
       significant: false
       strip_insignificant_zeros: false
     human:
       decimal_units:
-        format: ! '%n %u'
+        format: "%n %u"
         units:
           thousand: tuhatta
           million: miljoonaa
@@ -179,15 +167,15 @@ fi:
         significant: true
         strip_insignificant_zeros: true
       storage_units:
-        format: ! '%n %u'
+        format: "%n %u"
         units:
           byte:
             one: tavu
             other: tavua
-          gb: GB
-          kb: kB
-          mb: MB
-          tb: TB
+          gb: Gt
+          kb: kt
+          mb: Mt
+          tb: Tt
     percentage:
       format:
         delimiter: ''
@@ -196,62 +184,135 @@ fi:
         delimiter: ''
   support:
     array:
-      last_word_connector: ! ' ja '
-      two_words_connector: ! ' ja '
-      words_connector: ! ', '
+      last_word_connector: " ja "
+      two_words_connector: " ja "
+      words_connector: ", "
   time:
     am: aamupäivä
     formats:
-      #default: ! '%A %e. %Bta %Y %H:%M:%S %z'
-      long: ! '%e. %Bta %Y %H:%M'
-      short: ! '%d.%m.%Y %H:%M'
-      default: ! '%d.%m.%Y %H:%M'
+      default: "%d.%m.%Y %H:%M"
+      long: "%e. %Bta %Y %H.%M"
+      short: "%e.%m. %H.%M"
     pm: iltapäivä
-  # remove these aliases after 'activemodel' and 'activerecord' namespaces are removed from Rails repository
-  activemodel:
-    errors:
-      <<: *errors
-  activerecord:
-    models:
-      offer: 
-        one: Tarjous
-        other: Tarjoukset
-      order:
-        one: Työmääräys
-        other: Työmääräykset
-      job:
-        one: Työ
-        other: Työt
-      user:
-        one: Käyttäjä
-        other: Käyttäjät
-    attributes:
-      order:
-        title: "Otsikko"
-        description: "Kuvaus"
-        begin_at: "Alkamisaika"
-        end_at: "Loppumisaika"
-        salary: "Urakkapalkka"
-      job:
-        date: "Päivämäärä"
-        duration: "Kesto"
-        description: "Kuvaus"
-        begin: "Alkoi"
-        end: "Loppui"
-        salary: "Palkka"
-      user:
-        name: "Nimi"
-        username: "Käyttäjätunnus"
-        email: "Sähköpostiosoite"
-        gcal: "Google kalenterin id"
-        password: "Salasana"
-        password_confirmation: "Salasanan vahvistus"
-    errors:
-      <<: *errors
-  waiting: Odottaa
-  active: Aktiivinen
-  complete: Valmis
-  billed: Laskutettu
-  accepted: Hyväksytty
-  unknown: Tuntematon
-  denied: Hylätty
+  recurring_select:
+    not_recurring: "- ei toistuva -"
+    change_schedule: "Muuta aikataulua"
+    set_schedule: "Aseta aikataulu"
+    new_custom_schedule: "Uusi räätälöity aikataulu"
+    custom_schedule: "Räätälöity aikatalu"
+    or: "tai"
+  ice_cube:
+    pieces_connector: ' / '
+    not: 'not %{target}'
+    not_on: 'not on %{target}'
+    date:
+      formats:
+        default: '%B %-d, %Y'
+      month_names:
+      -
+      - tammikuu
+      - helmikuu
+      - maaliskuu
+      - huhtikuu
+      - toukokuu
+      - kesäkuu
+      - heinäkuu
+      - elokuu
+      - syyskuu
+      - lokakuu
+      - marraskuu
+      - joulukuu
+      day_names:
+      - sunnuntai
+      - maanantai
+      - tiistai
+      - keskiviikko
+      - torstai
+      - perjantai
+      - lauantai
+    times:
+      other: '%{count} times'
+      one: '%{count} time'
+    until: 'until %{date}'
+    days_of_week: '%{segments} %{day}'
+    days_of_month:
+      other: '%{segments} days of the month'
+      one: '%{segments} day of the month'
+    days_of_year:
+      other: '%{segments} days of the year'
+      one: '%{segments} day of the year'
+    at_hours_of_the_day:
+      other: on the %{segments} hours of the day
+      one: on the %{segments} hour of the day
+    on_minutes_of_hour:
+      other: on the %{segments} minutes of the hour
+      one: on the %{segments} minute of the hour
+    at_seconds_of_minute:
+      other: at the %{segments} seconds
+      one: at the %{segments} second
+    on_seconds_of_minute:
+      other: on the %{segments} seconds of the minute
+      one: on the %{segments} second of the minute
+    each_second:
+      one: Secondly
+      other: joka %{count} seconds
+    each_minute:
+      one: Minutely
+      other: joka %{count} minutes
+    each_hour:
+      one: Hourly
+      other: joka %{count} hours
+    each_day:
+      one: Daily
+      other: joka %{count} days
+    each_week:
+      one: Weekly
+      other: joka %{count} weeks
+    each_month:
+      one: Monthly
+      other: joka %{count} months
+    each_year:
+      one: Yearly
+      other: joka %{count} years
+    'on': on the %{sentence}
+    in: 'in %{target}'
+    integer:
+      negative: '%{ordinal} to last'
+      literal_ordinals:
+        -1: last
+        -2: 2nd to last
+      ordinal: '%{number}%{ordinal}'
+      ordinals:
+        default: th
+        1: st
+        2: nd
+        3: rd
+        11: th
+        12: th
+        13: th
+    on_weekends: on Weekends
+    on_weekdays: on Weekdays
+    days_on:
+      - Sundays
+      - Mondays
+      - Tuesdays
+      - Wednesdays
+      - Thursdays
+      - Fridays
+      - Saturdays
+    on_days: on %{days}
+    array:
+      last_word_connector: ', ja '
+      two_words_connector: ' ja '
+      words_connector: ', '
+    string:
+      format:
+        day: '%{rest} %{current}'
+        day_of_week: '%{rest} %{current}'
+        day_of_month: '%{rest} %{current}'
+        day_of_year: '%{rest} %{current}'
+        hour_of_day: '%{rest} %{current}'
+        minute_of_hour: '%{rest} %{current}'
+        until: '%{rest} %{current}'
+        count: '%{rest} %{current}'
+        default: '%{rest} %{current}'

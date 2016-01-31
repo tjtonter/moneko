@@ -7,11 +7,6 @@
   %br
   %span.label.label-success=@order.number
 %p
-  %strong Tarjousnumero
-  %br
-  - unless @order.offer.nil?
-    = link_to @order.offer.id, @order.offer
-%p
   %strong Työn kuvaus
   %br
   =@order.description
@@ -23,19 +18,23 @@
   %strong 
     Työn suunniteltu kesto
   %br
-  #{l @order.begin_at, :format => :long} 
-  - if @order.end_at
-    \-- #{l @order.end_at, :format => :long}
+  #{l @order.begin_at.to_date}
+  \-- #{@order.recurring? && @order.until_at ? (l @order.until_at) : (l @order.end_at.to_date)}
+  #{@order.begin_at.strftime("%H:%M")} -- #{@order.end_at.strftime("%H:%M")}
 %p
   %strong Toisto
   %br
-  = @order.recurring? ? @order.converted_schedule.to_s : "Ei toistoa" 
+  - if @order.recurring?
+    = @order.converted_schedule
 %p
   %strong Palkka
   %br
   = "#{@order.salary} €"
 %p
-  %strong Työhön rekiströidyt työmerkinnät
+  = link_to "Uusi merkinta", new_user_job_path(current_user, order_id: @order), 
+    class: "btn btn-success btn-sm"
+  = link_to "Poista", @order, class: "btn btn-danger btn-sm", method: :delete
+  = link_to "Muokkaa", edit_order_path(@order), class: "btn btn-primary btn-sm"
 %table.table.table-striped.table-bordered
   %thead
     %tr
@@ -49,7 +48,7 @@
     - @order.jobs.each do |j|
       %tr
         %td= j.user.name
-        %td= l j.date, format: :long
+        %td= l j.date
         %td= j.description
         %td= j.duration
         %td= number_to_currency j.salary
@@ -58,7 +57,4 @@
     %td
     %th= @order.jobs.sum('duration')
     %th= number_to_currency @order.jobs.sum('salary')
-%p
-  = link_to "Poista", @order, :class => "btn btn-danger", method: :delete
-  = link_to "Muokkaa", edit_order_path(@order), :class => "btn btn-primary"
 

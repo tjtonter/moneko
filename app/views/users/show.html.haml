@@ -1,1 +1,24 @@
-%h2 Oma sivu
+.container
+  .row
+    .col-xs-12.col-sm-6
+      .panel.panel-primary
+        .panel-heading
+          %h4 Tyomaaraykset
+        .list-group
+          - @user.tasks.each do |task|
+            = link_to order_path(task.order), 
+              class: "list-group-item list-group-item-info" do
+              %span.badge= task.order.jobs.count
+              = task.order.title
+              = number_to_currency task.order.salary
+    .col-xs-12.col-sm-6
+      .panel.panel-primary
+        .panel-heading
+          %h4 Rekisteri
+        .list-group
+          - @jobs.each do |job|
+            .list-group-item.list-group-item-info
+              = l job.date, format: :short
+              = job.order.title
+              = job.description
+              = number_to_currency job.salary

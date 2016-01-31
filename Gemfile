@@ -1,8 +1,13 @@
 source 'https://rubygems.org'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-gem 'rails', '4.0.0'
+gem 'rails', '4.2.0'
 
+gem 'sass-rails', '>= 3.2'
+# Use bootstrap gem
+gem 'sprockets-rails'
+gem 'bootstrap-sass', '~> 3.3.6'
+gem 'bootstrap-slider-rails'
 # Use sqlite3 as the database for Active Record
 gem 'sqlite3'
 
@@ -20,7 +25,7 @@ gem 'ice_cube'
 gem 'recurring_select'
 
 # Google API gem
-gem 'google-api-client'
+gem 'google-api-client', '~> 0.7.1'
 
 # Added because missing libyaml
 gem 'psych'
@@ -33,19 +38,12 @@ gem 'prawn'
 gem 'prawn-rails'
 
 group :assets do
-  gem 'sass-rails'
 end
 # Use jquery as the JavaScript library
 gem 'jquery-rails', '~>2.3.0'
-gem 'jquery-ui-rails'
-gem 'jquery-ui-themes'
-gem 'jquery_mobile_rails'
 
 # Pagination
 gem 'will_paginate'
-
-# Use less
-gem 'less-rails'
 
 # Use cancan
 gem 'cancan'
@@ -59,9 +57,11 @@ gem 'coffee-rails', '~> 4.0.0'
 # See https://github.com/sstephenson/execjs#readme for more supported runtimes
 gem 'therubyracer', platforms: :ruby
 
+gem 'fullcalendar-rails'
+
 # gem 'therubyracer', platforms: :ruby
-gem 'momentjs-rails', '~> 2.5.0'
-gem 'bootstrap3-datetimepicker-rails', '~> 3.0.0'
+gem 'momentjs-rails', '~> 2.9.0'
+gem 'bootstrap3-datetimepicker-rails', '~> 4.17.37'
 
 # Turbolinks makes following links in your web application faster. Read more: https://github.com/rails/turbolinks
 gem 'turbolinks'

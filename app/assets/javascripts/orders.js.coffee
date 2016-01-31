@@ -19,6 +19,7 @@ fetch_events = (start, end, timezone, callback) ->
           msdelta = Date.parse(order.end_at) - Date.parse(order.begin_at)
           options = RRule.parseString(order.ical)
           options.dtstart = new Date(order.begin_at)
+          options.until = new Date(order.until_at)
           rule = new RRule(options)
           dates = rule.between(dtstart, dtend)
           for date in dates
@@ -140,14 +141,14 @@ eventselect = (startDate, endDate, allDay) ->
     )
   ), "html")
   $('#all_orders_cal').fullCalendar('unselect')
+  
+disable_rules = () ->
+  recurring = $('#order_recurring').prop('checked')
+  $('#order_rule').prop('disabled', !recurring)
+  $('#order_until_at').prop('disabled', !recurring)
 
 ready = ->
-  $('.draggable').each ->
-    o = $(@)
-    event = {title: o.text()}
-    o.data('eventObject', event)
-    o.draggable({revert: true})
-  console.log "Starting calendar."
+  $('#order_recurring').on('click', disable_rules)
   $('#all_orders_cal').fullCalendar({
     editable: true
     selectable: true

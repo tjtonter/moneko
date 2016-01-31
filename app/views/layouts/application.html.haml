@@ -4,16 +4,18 @@
     %title Moneko
     = stylesheet_link_tag "application", media: "all", "data-turbolinks-track" => true
     = javascript_include_tag "application", "data-turbolinks-track" => true
+    %meta{'name' => 'viewport', :content => 'width=device-width, initial-scale=1'}
     = csrf_meta_tags
   %body
     = render 'shared/navigation'
               
     #errors.container
-      - flash.each do |name, msg|
-        .alert.alert-success
-          %strong Ilmoitus!
-          = msg
-          %button.close{ type: "button", data: {dismiss: "alert"}, "aria-hidden" => true} &times;
+      .col-xs-12
+        - flash.each do |name, msg|
+          .alert.alert-success
+            %strong Ilmoitus!
+            = msg
+            %button.close{ type: "button", data: {dismiss: "alert"}, "aria-hidden" => true} &times;
     .container
       = yield
 

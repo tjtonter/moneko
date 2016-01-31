@@ -58,6 +58,8 @@ class OrdersController < ApplicationController
   def update
     @order = Order.find(params[:id])
     params[:order][:user_ids] ||= []
+    params[:order][:rule] ||= nil
+    params[:order][:until_at] ||= nil
     respond_to do |format|
       if @order.update(order_params)
         flash[:notice] = "Työmääräys päivitetty"
@@ -81,7 +83,9 @@ class OrdersController < ApplicationController
   
   private
     def order_params
-      params.require(:order).permit(:id, :offer_id, :title, :description, :salary, :allday, :begin_at, :end_at, :until_at, :status, 
+      params.require(:order).permit(:id, :offer_id, :title, :description, 
+                                    :salary, :allday, :begin_at, :end_at, 
+                                    :until_at, :status, :recurring,
                                     :rule , user_ids: [])
     end
 

@@ -15,15 +15,16 @@ class Order < ActiveRecord::Base
   validates_inclusion_of :status, :in => STATUSES,
     :message => "Status must be one of: #{STATUSES.join(" ,")}"
   validate :end_does_not_equal_begin
+  attr_accessor :recurring
 
   def recurring?
-    return !self.rule.empty?
+    return self.ical?
   end
 
   def rule=(new_schedule)
     if RecurringSelect.is_valid_rule?(new_schedule) && new_schedule != "{}"
       rule = RecurringSelect.dirty_hash_to_rule(new_schedule)
-      rule.until self.until_at
+      #rule.until self.until_at
       write_attribute(:rule, rule.to_hash)
       write_attribute(:ical, rule.to_ical)
     else
@@ -60,7 +61,7 @@ class Order < ActiveRecord::Base
       }
     }
     if self.recurring?
-      event['recurrence'] = ['RRULE:'+self.ical]
+      event['recurrence'] = ['RRULE:'+self.converted_schedule.to_ical]
     end
     puts "AS EVENT: "+event.to_s
     return event 
