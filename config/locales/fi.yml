@@ -1,9 +1,34 @@
 ---
 fi:
+  duration: Kesto
+  recurring: Toistuva
+  not_recurring: Ei toistuva
+  recurrence: Toistuvuus
+  worker:
+    one: Työntekijä
+    other: Työntekijät
+  workid: Työnumero
+  confirmation: "Oletko varma?"
+  new_job: "Uusi työmerkintä"
+  delete_order: "Poista työmääräys"
+  edit_order: "Muokkaa työmääräystä"
   activerecord:
     errors:
       messages:
         record_invalid: 'Validointi epäonnistui: %{errors}'
+    models: 
+      order: Työmääräys
+    attributes:
+      order:
+        title: Otsikko
+        description: Kuvaus
+        begin_at: Aloitusaika
+        end_at: Loppumisaika
+        until_at: Toiston loppuaika
+        rule: Toistumissääntö
+        salary: Palkka
+      job:
+        date: Päivämäärä
   date:
     abbr_day_names:
     - su
@@ -203,8 +228,8 @@ fi:
     or: "tai"
   ice_cube:
     pieces_connector: ' / '
-    not: 'not %{target}'
-    not_on: 'not on %{target}'
+    not: 'ei %{target}'
+    not_on: 'ei %{target}'
     date:
       formats:
         default: '%B %-d, %Y'
@@ -231,16 +256,16 @@ fi:
       - perjantai
       - lauantai
     times:
-      other: '%{count} times'
-      one: '%{count} time'
-    until: 'until %{date}'
+      other: '%{count} kertaa'
+      one: '%{count} kerta'
+    until: '%{date} saakka'
     days_of_week: '%{segments} %{day}'
     days_of_month:
-      other: '%{segments} days of the month'
-      one: '%{segments} day of the month'
+      other: '%{segments} päivinä kuukaudessa'
+      one: '%{segments} päivänä kuukaudessa'
     days_of_year:
-      other: '%{segments} days of the year'
-      one: '%{segments} day of the year'
+      other: '%{segments} päivinä vuodessa'
+      one: '%{segments} päivä vuodessa'
     at_hours_of_the_day:
       other: on the %{segments} hours of the day
       one: on the %{segments} hour of the day
@@ -263,24 +288,24 @@ fi:
       one: Hourly
       other: joka %{count} hours
     each_day:
-      one: Daily
-      other: joka %{count} days
+      one: Päivittäin
+      other: joka %{count} päivä
     each_week:
-      one: Weekly
-      other: joka %{count} weeks
+      one: Viikottain
+      other: joka %{count} viikko
     each_month:
-      one: Monthly
-      other: joka %{count} months
+      one: Kuukausittain
+      other: joka %{count} kuukausi
     each_year:
-      one: Yearly
-      other: joka %{count} years
+      one: Vuosittain
+      other: joka %{count} vuosi
     'on': on the %{sentence}
     in: 'in %{target}'
     integer:
       negative: '%{ordinal} to last'
       literal_ordinals:
-        -1: last
-        -2: 2nd to last
+        -1: viimeinen
+        -2: toiseksi viimeinen
       ordinal: '%{number}%{ordinal}'
       ordinals:
         default: th
@@ -290,17 +315,17 @@ fi:
         11: th
         12: th
         13: th
-    on_weekends: on Weekends
-    on_weekdays: on Weekdays
+    on_weekends: Viikonloppuisin
+    on_weekdays: Viikolla
     days_on:
-      - Sundays
-      - Mondays
-      - Tuesdays
-      - Wednesdays
-      - Thursdays
-      - Fridays
-      - Saturdays
-    on_days: on %{days}
+      - sunnuntaisin
+      - maanantaisin
+      - tiistaisin
+      - keskiviikkoisin
+      - torstaisin
+      - perjantaisin
+      - lauantaisin
+    on_days: '%{days}'
     array:
       last_word_connector: ', ja '
       two_words_connector: ' ja '

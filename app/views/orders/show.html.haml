@@ -3,46 +3,49 @@
   %small= "Työ on tilassa #{I18n.t @order.status}, luotu #{time_ago_in_words @order.created_at} sitten, 
     päivitetty #{time_ago_in_words @order.updated_at} sitten."
 %p
-  %strong Työnumero
+  %strong= t :workid
   %br
   %span.label.label-success=@order.number
 %p
-  %strong Työn kuvaus
+  %strong= t 'activerecord.attributes.order.description'
   %br
   =@order.description
 %p
-  %strong Työhön määrätty henkilökunta
+  %strong= t :worker, count: @order.users.count
   - @order.users.each do |user|
     %h4= user.name
 %p
-  %strong 
-    Työn suunniteltu kesto
+  %strong= t :duration 
   %br
   #{l @order.begin_at.to_date}
   \-- #{@order.recurring? && @order.until_at ? (l @order.until_at) : (l @order.end_at.to_date)}
   #{@order.begin_at.strftime("%H:%M")} -- #{@order.end_at.strftime("%H:%M")}
 %p
-  %strong Toisto
+  %strong= t :recurring
   %br
   - if @order.recurring?
     = @order.converted_schedule
+  -else
+    = t :not_recurring
 %p
-  %strong Palkka
+  %strong= t 'activerecord.attributes.order.salary'
   %br
   = "#{@order.salary} €"
 %p
-  = link_to "Uusi merkinta", new_user_job_path(current_user, order_id: @order), 
+  = link_to (t :new_job), new_user_job_path(current_user, order_id: @order),
     class: "btn btn-success btn-sm"
-  = link_to "Poista", @order, class: "btn btn-danger btn-sm", method: :delete
-  = link_to "Muokkaa", edit_order_path(@order), class: "btn btn-primary btn-sm"
+  = link_to (t :edit_order), edit_order_path(@order), class: "btn btn-primary btn-sm"
+  = link_to (t :delete_order), order_path(@order), 
+    class: "btn btn-danger btn-sm", method: :delete,
+    data: {confirm:(t :confirmation)}
 %table.table.table-striped.table-bordered
   %thead
     %tr
-      %th Työntekijä
-      %th Päivämä
-      %th Kuvaus
-      %th Kesto (tuntia)
-      %th Palkka (euroa)
+      %th= t :worker, count: 1 
+      %th= t 'activerecord.attributes.job.date'
+      %th= t 'activerecord.attributes.order.description'
+      %th= t :duration
+      %th= t 'activerecord.attributes.order.salary'
   - if @order.jobs.any?
     %tbody
     - @order.jobs.each do |j|

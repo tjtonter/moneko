@@ -30,11 +30,11 @@
           :value => @order.end_at.nil? ? "" : (l @order.end_at)
       %p.help-block#end_at_errors
     %fieldset
-      %legend Toistuvuus
+      %legend= t :recurrence
       .checkbox
         %label
           = check_box_tag "order[recurring]", 'yes', @order.recurring?
-          Recurring
+          = t :recurring
       .form-group
         = f.label :rule
         .input-group
@@ -50,7 +50,7 @@
             class: "form-control", disabled:(@order.recurring? ? false : true)
         %p.help-block#until_at_errors
     %fieldset
-      %legend Työn suorittajat
+      %legend= t :workers
     %br
     - @users.each do |u|
       .checkbox
