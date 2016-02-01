@@ -5,7 +5,7 @@
         %p= error
   .form-group
     .input-group.date.col-xs-12.col-sm-4
-      = f.hidden_field :date, value: (l @job.date),
+      = f.hidden_field :date, value: (@job.date ? (l @job.date) : ""),
         class: 'form-control dateinput-inline'
       %p.help-block#date_error
   .form-group
