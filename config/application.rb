@@ -21,6 +21,8 @@ module Moneko
     config.i18n.default_locale = :fi
     config.i18n.enforce_available_locales = true
     # For bootstrap glyphicons
-    config.assets.paths << "#{Rails}/vendor/assets/fonts"
+    config.assets.paths << "#{Rails}/app/assets/fonts"
+    config.assets.precompile += %w(*.png *.jpg *.jpeg *.gif *.woff *.ttf *.eot *.svg)
+    config.assets.digest = true
   end
 end

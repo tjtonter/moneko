@@ -1,0 +1,13 @@
+@import 'bootstrap-sprockets';
+@import 'bootstrap';
+@import 'bootstrap-datetimepicker';
+@import 'bootstrap-slider';
+@import 'fullcalendar';
+@import 'recurring_select';
+@import 'http://netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap-glyphicons.css';
+
+.rs_dialog_holder
+{
+  z-index: 1051
+}
+
