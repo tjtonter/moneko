@@ -10,7 +10,7 @@ class Task < ActiveRecord::Base
 
   private
   def gcal_event_add
-      if self.user.gcal?
+      if self.user.gcal? && self.order
         @client = google_apiclient
         service = @client.discovered_api('calendar', 'v3')
         puts "Adding event to #{self.user.name} calendar #{self.user.gcal}"

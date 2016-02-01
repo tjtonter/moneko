@@ -25,6 +25,10 @@
         %span.glyphicon.glyphicon-euro
       = f.text_field :salary, placeholder: "Palkka",class: 'form-control'
       %p.help-block#salary_error
+  .form-group      
+    .input-group.col-xs-12.col-sm-4
+      = f.text_area :description, placeholder: "Lisätiedot",
+        class: 'form-control'
   = f.hidden_field :duration
   = f.hidden_field :order_id, :value => @order.nil? ? "" : @order.id
   .form-group
