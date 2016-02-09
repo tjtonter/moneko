@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160202011737) do
+ActiveRecord::Schema.define(version: 20160209230641) do
 
   create_table "customers", force: :cascade do |t|
     t.string   "name",       limit: 255
@@ -85,7 +85,7 @@ ActiveRecord::Schema.define(version: 20160202011737) do
     t.datetime "end_at"
     t.boolean  "allday"
     t.text     "rule"
-    t.date     "until_at"
+    t.datetime "until_at"
     t.string   "ical",        limit: 255
   end
 
