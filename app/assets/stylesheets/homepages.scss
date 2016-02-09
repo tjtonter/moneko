@@ -1,0 +1,24 @@
+body {
+}
+
+.header {
+  //background-image:url("http://placehold.it/1960x400");
+  background-image:url("https://asiakas.kotisivukone.com/files/moneko.kotisivukone.com/2012-09-07-0522.jpg");
+  background-position: center 400px;
+  background-size: cover;
+  height: 400px;
+}
+#page {
+  background-color: white;
+  padding-bottom: 10px;
+  box-shadow: 10px 0px 60px  grey;
+  font-family: "Ubuntu", "Trebuchet MS"
+}
+
+.title {
+  font-family: 'Arial Black';
+  color: rgb(255, 111, 15);
+  font-size: 25px;
+  margin: 0px;
+  text-shadow: 0 0 10px black;
+}

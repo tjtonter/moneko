@@ -19,6 +19,7 @@ fetch_events = (start, end, timezone, callback) ->
           msdelta = Date.parse(order.end_at) - Date.parse(order.begin_at)
           options = RRule.parseString(order.ical)
           options.dtstart = new Date(order.begin_at)
+          options.until = new Date(order.until_at)
           rule = new RRule(options)
           dates = rule.between(dtstart, dtend)
           for date in dates

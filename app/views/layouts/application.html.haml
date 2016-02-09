@@ -9,11 +9,13 @@
   %body
     = render 'shared/navigation'
               
-    #errors.col-xs-12
-      - flash.each do |name, msg|
-        .alert.alert-success
-          %strong Ilmoitus!
-          = msg
-          %button.close{ type: "button", data: {dismiss: "alert"}, "aria-hidden" => true} &times;
+    - if notice
+      .container
+        #errors.col-xs-12
+          - flash.each do |name, msg|
+            .alert.alert-success
+              %strong Ilmoitus!
+              = msg
+              %button.close{ type: "button", data: {dismiss: "alert"}, "aria-hidden" => true} &times;
     = yield
 
