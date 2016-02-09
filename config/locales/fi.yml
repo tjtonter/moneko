@@ -1,9 +1,14 @@
 ---
 fi:
+  welcome: "Tervetuloa %{user}!"
+  sign_in: Kirjaudu
+  logout: Kirjaudu ulos
   duration: Kesto
   recurring: Toistuva
   not_recurring: Ei toistuva
   recurrence: Toistuvuus
+  jobs: Rekisteri
+  orders: Työmääräykset
   worker:
     one: Työntekijä
     other: Työntekijät
@@ -17,7 +22,9 @@ fi:
       messages:
         record_invalid: 'Validointi epäonnistui: %{errors}'
     models: 
-      order: Työmääräys
+      order:
+        one: Työmääräys
+        other: Työmääräykset
     attributes:
       order:
         title: Otsikko

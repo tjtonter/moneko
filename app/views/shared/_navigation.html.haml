@@ -17,5 +17,13 @@
           %li= link_to "Rekisteri", user_jobs_path(current_user)
           %li= link_to "Muokkaa", edit_user_registration_path
         %ul.nav.navbar-nav.navbar-right
-          %li= link_to "Kirjaudu ulos", destroy_user_session_path, 
-            method: :delete, class: "navbar-right"
+          %li
+            %p.navbar-text
+              = t :welcome, user: current_user.name
+              = link_to (t :logout), destroy_user_session_path, 
+                method: :delete
+      - else
+        %ul.nav.navbar-nav.navbar-right
+          %li
+            %p.navbar-text
+              = link_to (t :sign_in), new_user_session_path

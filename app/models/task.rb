@@ -1,5 +1,5 @@
 class Task < ActiveRecord::Base
-  require 'google/api_client'
+  require 'google/apis/calendar_v3'
   belongs_to :user
   belongs_to :order
   before_create :gcal_event_add
@@ -7,8 +7,23 @@ class Task < ActiveRecord::Base
   after_touch :gcal_event_update
   GOOGLE_ID = "445337145466-rgarqo6icknoop3n195t5prauovs5ecp.apps.googleusercontent.com"
   GOOGLE_EMAIL = "445337145466-rgarqo6icknoop3n195t5prauovs5ecp@developer.gserviceaccount.com"
-
+  
   private
+  def get_google_token
+    @client = Google::APIClient.new(application_name: 'Moneko', application_version: '0.1')
+    key = Google::APIClient::KeyUtils.load_from_pkcs12('moneko.p12', 'notasecret')
+    @client.authorization = Signet::OAuth2::Client.new(
+      :token_credential_uri => 'https://accounts.google.com/o/oauth2/token',
+      :audience => 'https://accounts.google.com/o/oauth2/token',
+      :scope => 'https://www.googleapis.com/auth/calendar',
+      :issuer => GOOGLE_EMAIL, 
+      :signing_key => key
+    )
+    @client.authorization.fetch_access_token!
+    @client
+    raise @client.to_yaml
+  end
+
   def gcal_event_add
       if self.user.gcal? && self.order
         @client = google_apiclient
@@ -55,17 +70,6 @@ class Task < ActiveRecord::Base
     end
 
     def google_apiclient
-      @client = Google::APIClient.new(application_name: 'Moneko', application_version: '0.1')
-      key = Google::APIClient::KeyUtils.load_from_pkcs12('moneko.p12', 'notasecret')
-      @client.authorization = Signet::OAuth2::Client.new(
-        :token_credential_uri => 'https://accounts.google.com/o/oauth2/token',
-        :audience => 'https://accounts.google.com/o/oauth2/token',
-        :scope => 'https://www.googleapis.com/auth/calendar',
-        :issuer => GOOGLE_EMAIL, 
-        :signing_key => key
-      )
-      @client.authorization.fetch_access_token!
-      @client
     end
 
     def gcal_event_insert(client, order, user)

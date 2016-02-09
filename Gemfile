@@ -25,7 +25,9 @@ gem 'ice_cube'
 gem 'recurring_select'
 
 # Google API gem
-gem 'google-api-client', '~> 0.7.1'
+gem 'google-api-client'
+gem 'omniauth'
+gem 'omniauth-google-oauth2'
 
 # Added because missing libyaml
 gem 'psych'
@@ -37,8 +39,6 @@ gem 'nested_form'
 gem 'prawn'
 gem 'prawn-rails'
 
-group :assets do
-end
 # Use jquery as the JavaScript library
 gem 'jquery-rails', '~>2.3.0'
 

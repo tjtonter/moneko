@@ -3,7 +3,7 @@
     .col-xs-12.col-sm-6
       .panel.panel-primary
         .panel-heading
-          %h4 Tyomaaraykset
+          %h4= t :orders
         .list-group
           - @orders.each do |order|
             = link_to order_path(order), 
@@ -14,7 +14,7 @@
     .col-xs-12.col-sm-6
       .panel.panel-primary
         .panel-heading
-          %h4 Rekisteri
+          %h4= t :jobs
         .list-group
           - @jobs.each do |job|
             .list-group-item.list-group-item-info

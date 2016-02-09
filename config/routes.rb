@@ -1,5 +1,11 @@
 Moneko::Application.routes.draw do
-  devise_for :users, :skip => [:registrations]
+  root to: 'homepages#front'
+  get '/' => 'homepages#front'
+  get '/palvelut' => 'homepages#services'
+  get '/yhteystiedot' => 'homepages#contact'
+
+  devise_for :users, :skip => [:registrations],
+    :controllers => { :omniauth_callbacks => "omniauth_callbacks" }
   as :user do 
     get 'users/edit' => 'devise/registrations#edit', as: 'edit_user_registration'
     put 'users' => 'devise/registrations#update', as: 'user_registration'
@@ -11,5 +17,4 @@ Moneko::Application.routes.draw do
     resources :tasks
   end
 
-  root to: "users#show"
 end
