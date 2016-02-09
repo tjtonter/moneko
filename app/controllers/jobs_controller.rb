@@ -82,6 +82,12 @@ class JobsController < ApplicationController
                                   :description, :date, :salary, :begin, :end)
     end
 
+    def sec_to_hhmm(sec)
+      mm, ss = sec.divmod(60)
+      hh, mm = mm.divmod(60)
+      "#{hh}:#{mm}"
+    end
+
     def custom_json(jobs)
       list = jobs.map do |job|
         { :id => job.id,
