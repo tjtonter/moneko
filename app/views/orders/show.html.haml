@@ -3,11 +3,12 @@
     %h1= @order.title
     %small= "Työ on tilassa #{I18n.t @order.status}, luotu #{time_ago_in_words @order.created_at} sitten, 
       päivitetty #{time_ago_in_words @order.updated_at} sitten."
-  %p  
-    = link_to (t :edit_order), edit_order_path(@order), class: "btn btn-primary btn-sm"
-    = link_to (t :delete_order), order_path(@order), 
-      class: "btn btn-danger btn-sm", method: :delete,
-      data: {confirm:(t :confirmation)}
+  - if can? :update, @order
+    %p  
+      = link_to (t :edit_order), edit_order_path(@order), class: "btn btn-primary btn-sm"
+      = link_to (t :delete_order), order_path(@order), 
+        class: "btn btn-danger btn-sm", method: :delete,
+        data: {confirm:(t :confirmation)}
   %p
     %strong= t :workid
     %br
@@ -55,11 +56,11 @@
           %td= j.user.name
           %td= l j.date
           %td= j.description
-          %td= j.duration
+          %td= j.as_hours
           %td= number_to_currency j.salary
       %th Yhteenveto
       %td
       %td
-      %th= @order.jobs.sum('duration')
+      %td
       %th= number_to_currency @order.jobs.sum('salary')
 

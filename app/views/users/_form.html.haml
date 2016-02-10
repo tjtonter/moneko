@@ -17,6 +17,10 @@
     .col-sm-5
       = f.email_field :email
   .form-group
+    = f.label :address, class: "col-sm-2"
+    .col-sm-5
+      = f.text_field :address
+  .form-group
     = f.label :password, class: "col-sm-2"
     .col-sm-5
       = f.password_field :password
@@ -30,7 +34,7 @@
         .radio
           %label
             = radio_button_tag "user[roles][#{r}]", r, @user.roles.include?(r), {:name => "user[roles][]" }
-            = I18n.t r
+            = t r, count: 1
   .form-group
     .col-sm-offset-2.col-sm-5
       = f.submit class: "btn btn-default"

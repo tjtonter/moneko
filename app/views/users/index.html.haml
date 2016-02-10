@@ -1,26 +1,21 @@
 .container
-  %h2 Kaikki käyttäjät
-  %table.table
-    %tr
-      %th Käyttäjätunnus
-      %th Nimi
-      %th Sähköpostiosoite
-      %th Toiminnot
-    - @users.each do |user|
-      %tr
-        %td= user.username
-        %td= user.name
-        %td= user.email
-        %td
-          = link_to "Rekisteri", user_jobs_path(user), class: "btn btn-info btn-xs"
-          = link_to "Tunnit edellinen", user_jobs_path(user, :pdf,
-            :date => {:year => @past.year, :month => @past.month}, 
-            :part => @past.day.between?(1, 15) ? "1..15" : "16..-1"),
-            :class => "btn btn-info btn-xs"
-          = link_to "Tunnit nykyinen", user_jobs_path(user, :pdf,
-            :date => {:year => @today.year, :month => @today.month}, 
-            :part => @today.day.between?(1, 15) ? "1..15" : "16..-1"),
-            :class => "btn btn-info btn-xs"
-          = link_to "Muokkaa", edit_user_path(user), 
-            class: "btn btn-info btn-xs" if current_user.is?(:admin)
-  = link_to "Uusi käyttäjä", new_user_path
+  .col-xs-12
+    %h2= t :user, count: 2 
+  - @users.each do |user|
+    .col-xs-12.col-sm-6.col-md-3
+      %div{class: "panel panel-#{user.is?(:dismissed) ? "warning" : "success"}"}
+        .panel-heading
+          = user.name
+          - if user.is?(:dismissed)
+            = t :dismissed
+        .panel-body
+          Tiedot
+        %ul.list-group
+          %li.list-group-item= user.email
+          - if user.address
+            %li.list-group-item= user.address
+        .panel-footer
+          = link_to (t :edit), edit_user_path(user), class: "btn btn-info"
+          = link_to (t :jobs), user_jobs_path(user), class: "btn btn-info"
+  .col-xs-12 
+    = link_to (t :new_user), new_user_path, class: "btn btn-primary btn-block"

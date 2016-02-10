@@ -5,6 +5,11 @@ class ApplicationController < ActionController::Base
   before_filter :update_sanitized_params, if: :devise_controller?
   before_filter :configure_permitted_parameters, if: :devise_controller?
   attr_accessor :login
+
+  rescue_from CanCan::AccessDenied do |exception|
+    redirect_to new_user_session_path, :alert=>exception.message
+  end
+
   before_filter do
     resource = controller_name.singularize.to_sym
     method = "#{resource}_params"

@@ -1,7 +1,9 @@
 ---
 fi:
   admin: Ylläpitäjä
-  user: Käyttäjä
+  user: 
+    one: Käyttäjä
+    other: Käyttäjät
   dismissed: Poistettu
   welcome: "Tervetuloa %{user}!"
   sign_in: Kirjaudu
@@ -18,6 +20,7 @@ fi:
   workid: Työnumero
   confirmation: "Oletko varma?"
   new_job: "Uusi työmerkintä"
+  new_user: Uusi käyttäjä
   delete_order: "Poista työmääräys"
   edit_order: "Muokkaa työmääräystä"
   activerecord:
@@ -31,6 +34,9 @@ fi:
       job: 
         one: tuntimerkintä
         other: tuntimerkinnät
+      user:
+        one: käyttäjä
+        other: käyttäjät
     attributes:
       order:
         title: Otsikko
@@ -42,6 +48,14 @@ fi:
         salary: Palkka
       job:
         date: Päivämäärä
+      user:
+        name: Nimi
+        username: Käyttäjänimi
+        gcal: Google ID
+        email: Sähköpostiosoite
+        password: Salasana
+        password_confirmation: Salasanan vahvistus
+        address: Osoite
   date:
     abbr_day_names:
     - su

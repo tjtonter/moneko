@@ -1,27 +1,24 @@
 .container
-  %h3 Työt
-  %h3 
-    Etsi rekisteristä
-    %small#job-form-toggle [Näytä]
-  = form_tag user_jobs_path(current_user), method: :get, id: "job-search" do
-    %fieldset
-      .form-group
-        = label_tag :year, "Vuosi", class: "col-sm-2"
-        = select_year Date.today, start_year: Time.now.year, end_year: 2013
-      .form-group
-        = label_tag :month, "Kuukausi", class: "col-sm-2"
-        = select_month Date.today
-      .form-group
+  %h3= t :jobs
+  = form_tag user_jobs_path(params[:user_id]), method: :get, class: "form-inline" do
+    .form-group
+      = select_year Date.today, {start_year: Time.now.year, end_year: 2013},
+        {class: "form-control"}
+    .form-group
+      = select_month Date.today, {}, {class: "form-control"}
+    .form-group
+      = label_tag :part do
         = radio_button_tag :part, '1..15', checked: true
-        = label_tag :part, "1..15", class: "col-sm-2"
-      .form-group
+        1..15
+    .form-group
+      = label_tag :part do
         = radio_button_tag :part , '15..-1'
-        = label_tag :part, "15..", class: "col-sm-2"
-      .form-group
-        = label_tag :format, "Formaatti", class: "col-sm-2"
-        = select_tag :format, options_for_select(%w[html pdf], "html")
-      .form-group
-        = submit_tag "Rajaa", name: nil, class: "col-sm-offset-2 btn btn-info btn-sm"
+        15..
+    .form-group
+      = select_tag :format, options_for_select(%w[pdf html], "pdf"),
+        {class: "form-control"}
+    .form-group
+      = submit_tag "Hae", class: "btn btn-primary"
 
   = render "table"
   = render "shared/modal"
