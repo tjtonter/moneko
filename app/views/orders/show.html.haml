@@ -1,63 +1,65 @@
-.page-header
-  %h1= @order.title
-  %small= "Työ on tilassa #{I18n.t @order.status}, luotu #{time_ago_in_words @order.created_at} sitten, 
-    päivitetty #{time_ago_in_words @order.updated_at} sitten."
-%p
-  %strong= t :workid
-  %br
-  %span.label.label-success=@order.number
-%p
-  %strong= t 'activerecord.attributes.order.description'
-  %br
-  =@order.description
-%p
-  %strong= t :worker, count: @order.users.count
-  - @order.users.each do |user|
-    %h4= user.name
-%p
-  %strong= t :duration 
-  %br
-  #{l @order.begin_at.to_date}
-  \-- #{@order.recurring? && @order.until_at ? (l @order.until_at) : (l @order.end_at.to_date)}
-  #{@order.begin_at.strftime("%H:%M")} -- #{@order.end_at.strftime("%H:%M")}
-%p
-  %strong= t :recurring
-  %br
-  - if @order.recurring?
-    = @order.converted_schedule
-  -else
-    = t :not_recurring
-%p
-  %strong= t 'activerecord.attributes.order.salary'
-  %br
-  = "#{@order.salary} €"
-%p
-  = link_to (t :new_job), new_user_job_path(current_user, order_id: @order),
-    class: "btn btn-success btn-sm"
-  = link_to (t :edit_order), edit_order_path(@order), class: "btn btn-primary btn-sm"
-  = link_to (t :delete_order), order_path(@order), 
-    class: "btn btn-danger btn-sm", method: :delete,
-    data: {confirm:(t :confirmation)}
-%table.table.table-striped.table-bordered
-  %thead
-    %tr
-      %th= t :worker, count: 1 
-      %th= t 'activerecord.attributes.job.date'
-      %th= t 'activerecord.attributes.order.description'
-      %th= t :duration
-      %th= t 'activerecord.attributes.order.salary'
-  - if @order.jobs.any?
-    %tbody
-    - @order.jobs.each do |j|
+.container
+  .page-header
+    %h1= @order.title
+    %small= "Työ on tilassa #{I18n.t @order.status}, luotu #{time_ago_in_words @order.created_at} sitten, 
+      päivitetty #{time_ago_in_words @order.updated_at} sitten."
+  %p  
+    = link_to (t :edit_order), edit_order_path(@order), class: "btn btn-primary btn-sm"
+    = link_to (t :delete_order), order_path(@order), 
+      class: "btn btn-danger btn-sm", method: :delete,
+      data: {confirm:(t :confirmation)}
+  %p
+    %strong= t :workid
+    %br
+    %span.label.label-success=@order.number
+  %p
+    %strong= t 'activerecord.attributes.order.description'
+    %br
+    =@order.description
+  %p
+    %strong= t :worker, count: @order.users.count
+    - @order.users.each do |user|
+      %h4= user.name
+  %p
+    %strong= t :duration 
+    %br
+    #{l @order.begin_at.to_date}
+    \-- #{@order.recurring? && @order.until_at ? (l @order.until_at.to_date) : (l @order.end_at.to_date)}
+    #{@order.begin_at.strftime("%H:%M")} -- #{@order.end_at.strftime("%H:%M")}
+  %p
+    %strong= t :recurring
+    %br
+    - if @order.recurring?
+      = @order.converted_schedule
+    -else
+      = t :not_recurring
+  %p
+    %strong= t 'activerecord.attributes.order.salary'
+    %br
+    = "#{@order.salary} €"
+  %p
+    = link_to (t :new_job), new_user_job_path(current_user, order_id: @order),
+      class: "btn btn-success btn-sm"
+  %table.table.table-striped.table-bordered
+    %thead
       %tr
-        %td= j.user.name
-        %td= l j.date
-        %td= j.description
-        %td= j.duration
-        %td= number_to_currency j.salary
-    %th Yhteenveto
-    %td
-    %td
-    %th= @order.jobs.sum('duration')
-    %th= number_to_currency @order.jobs.sum('salary')
+        %th= t :worker, count: 1 
+        %th= t 'activerecord.attributes.job.date'
+        %th= t 'activerecord.attributes.order.description'
+        %th= t :duration
+        %th= t 'activerecord.attributes.order.salary'
+    - if @order.jobs.any?
+      %tbody
+      - @order.jobs.each do |j|
+        %tr
+          %td= j.user.name
+          %td= l j.date
+          %td= j.description
+          %td= j.duration
+          %td= number_to_currency j.salary
+      %th Yhteenveto
+      %td
+      %td
+      %th= @order.jobs.sum('duration')
+      %th= number_to_currency @order.jobs.sum('salary')
 

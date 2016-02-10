@@ -12,13 +12,15 @@
     .input-group.date.col-xs-12.col-sm-4.timeinput
       %span.input-group-addon
         %span.glyphicon.glyphicon-time
-      = f.time_field :begin, placeholder: "Alkuaika", class: 'form-control'
+      = f.time_field :begin, placeholder: "Alkuaika", type: 'text',
+        class: 'form-control'
       %p.help-block#begin_error
   .form-group
     .input-group.date.col-xs-12.col-sm-4.timeinput
       %span.input-group-addon
         %span.glyphicon.glyphicon-time
-      = f.time_field :end, placeholder: "Loppuaika", class: 'form-control'
+      = f.time_field :end, placeholder: "Loppuaika", type: 'text',
+        class: 'form-control'
       %p.help-block#end_error
   .form-group      
     .input-group.col-xs-12.col-sm-4

@@ -27,9 +27,9 @@
   .form-group
     - User::ROLES.each do |r|
       .col-sm-offset-2.col-sm-5
-        .checkbox
+        .radio
           %label
-            = check_box_tag "user[roles][#{r}]", r, @user.roles.include?(r), {:name => "user[roles][]" }
+            = radio_button_tag "user[roles][#{r}]", r, @user.roles.include?(r), {:name => "user[roles][]" }
             = I18n.t r
   .form-group
     .col-sm-offset-2.col-sm-5

@@ -1,6 +1,5 @@
 class Task < ActiveRecord::Base
   require 'google/apis/calendar_v3'
-  require 'google/api_client/client_secrets'
   belongs_to :user
   belongs_to :order
   before_create :gcal_event_add
@@ -22,7 +21,6 @@ class Task < ActiveRecord::Base
     )
     @client.authorization.fetch_access_token!
     @client
-    raise @client.to_yaml
   end
 
   def gcal_event_add
@@ -68,9 +66,6 @@ class Task < ActiveRecord::Base
         )
         puts "Removed event."
       end
-    end
-
-    def google_apiclient
     end
 
     def gcal_event_insert(client, order, user)

@@ -21,7 +21,7 @@ class OrdersController < ApplicationController
       @order.description = @order.offer.contents
     end
     @order.until_at ||= @order.end_at
-    @users = User.all
+    @users = User.where.not(roles_mask: 4)
     @remote = true
     respond_to do |format|
       format.html { render layout: !request.xhr? }
@@ -77,7 +77,7 @@ class OrdersController < ApplicationController
 
   def edit
     @order = Order.find(params[:id])  
-    @users = User.all
+    @users = User.where.not(roles_mask: 4)
     @remote= false
   end
   

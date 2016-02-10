@@ -162,10 +162,10 @@ ready = ->
       right: 'month,agendaWeek,agendaDay'
     }
     weekMode: 'variable'
-    droppable: true
-    drop: eventdrop
-    eventDrop: eventmove
-    eventResize: eventresize
+    #droppable: true
+    #drop: eventdrop
+    #eventDrop: eventmove
+    #eventResize: eventresize
     select: eventselect2
     timezone: "Europe/Helsinki"
     }
