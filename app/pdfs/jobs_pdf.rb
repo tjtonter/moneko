@@ -26,7 +26,7 @@ class JobsPdf < Prawn::Document
         j.order.title+" "+j.description, 
         j.begin.strftime("%H:%M"), 
         j.end.strftime("%H:%M"), 
-        j.duration, 
+        j.as_hours, 
         j.salary
       ]
     end
