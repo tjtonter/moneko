@@ -1,5 +1,8 @@
 ---
 fi:
+  admin: Ylläpitäjä
+  user: Käyttäjä
+  dismissed: Poistettu
   welcome: "Tervetuloa %{user}!"
   sign_in: Kirjaudu
   logout: Kirjaudu ulos
@@ -25,6 +28,9 @@ fi:
       order:
         one: Työmääräys
         other: Työmääräykset
+      job: 
+        one: tuntimerkintä
+        other: tuntimerkinnät
     attributes:
       order:
         title: Otsikko
