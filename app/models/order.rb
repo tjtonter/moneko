@@ -3,7 +3,7 @@ class Order < ActiveRecord::Base
   include Rails.application.routes.url_helpers
   STATUSES = ["waiting", "active", "complete", "billed"]
   belongs_to :offer
-  after_update :touch_tasks
+  #after_update :touch_tasks
   has_many :jobs, :dependent => :destroy
   has_many :tasks, :dependent => :destroy
   has_many :users, :through => :tasks
