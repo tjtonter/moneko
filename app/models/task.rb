@@ -1,5 +1,6 @@
 class Task < ActiveRecord::Base
   require 'google/apis/calendar_v3'
+  require 'google/api_client/client_secrets'
   belongs_to :user
   belongs_to :order
   before_create :gcal_event_add
