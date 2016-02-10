@@ -11,7 +11,6 @@ $web-font-path: "https://fonts.googleapis.com/css?family=News+Cycle:400,700" !de
   font-size: 18px;
   font-family: $font-family-sans-serif;
   font-weight: $headings-font-weight;
-  margin-bottom: 0px;
   &-default {
 
     .badge {
@@ -28,13 +27,16 @@ $web-font-path: "https://fonts.googleapis.com/css?family=News+Cycle:400,700" !de
     }
   }
 }
-
 .navbar-brand {
   font-family: Arial !important;
   font-size: 1.7em;
   font-weight: $headings-font-weight;
   text-transform: uppercase;
   color: orange !important;
+  a {
+    text-decoration: none;
+    color: orange;
+  }
 }
 
 // Buttons ====================================================================
