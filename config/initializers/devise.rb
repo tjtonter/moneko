@@ -1,7 +1,7 @@
 Devise.setup do |config|
   config.secret_key = '38501c30fd5d0b02cbe6c3cf1ab94d894f51fa31a3eb6b83f984683853f247a610a9cc82b607eaf04e36141c1ec47e2978fa7ab80592023d045b9be5b317c1cc'
 
-  config.mailer_sender = 'please-change-me-at-config-initializers-devise@example.com'
+  config.mailer_sender = 'admin@176.9.169.237'
 
   require 'devise/orm/active_record'
   require 'omniauth-google-oauth2'

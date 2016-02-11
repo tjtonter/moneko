@@ -1,6 +1,6 @@
 Moneko::Application.routes.draw do
   constraints(:host => /176.9.169.237/) do 
-    match "/(*path)" => redirect {|params, req| "http://static.237.169.9.176.clients.your-server.de/#{params[:path]}"}, :via => [:get, :post]
+    match "/(*path)" => redirect {|params, req| "http://static.237.169.9.176.clients.your-server.de:3000/#{params[:path]}"}, :via => [:get, :post]
   end
 
   root to: 'homepages#front'

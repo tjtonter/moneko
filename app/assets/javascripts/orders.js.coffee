@@ -27,8 +27,8 @@ fetch_events = (start, end, timezone, callback) ->
             event = {
               id: order.id
               title: order.title
-              start: date.toString()
-              end: d2.toString()
+              start: date.toISOString()
+              end: d2.toISOString()
               url: Routes.order_path(order.id)
             }
             events.push event
@@ -41,7 +41,8 @@ fetch_events = (start, end, timezone, callback) ->
             url: Routes.order_path(order.id)
           }
           events.push event
-      callback events
+      console.log events
+      callback(events)
   })
 
 eventmove = (event,delta,revertFunc) ->
