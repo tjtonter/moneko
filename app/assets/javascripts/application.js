@@ -9,6 +9,7 @@
 //= require jquery_nested_form
 //= require recurring_select
 //= require recurring_select/fi
+//= require fullcalendar
 //= require js-routes
 //= require_tree .
 
