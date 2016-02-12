@@ -10,6 +10,7 @@
 //= require recurring_select
 //= require recurring_select/fi
 //= require fullcalendar
+//= require fullcalendar/lang/fi
 //= require js-routes
 //= require_tree .
 

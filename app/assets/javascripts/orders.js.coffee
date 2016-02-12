@@ -151,10 +151,10 @@ disable_rules = () ->
 ready = ->
   $('#order_recurring').on('click', disable_rules)
   $('#all_orders_cal').fullCalendar({
+    lang: 'fi'
     editable: true
     selectable: true
     selectHelper: true
-    firstDay: 1
     events: fetch_events
     height: 700
     header: {

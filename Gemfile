@@ -40,7 +40,7 @@ gem 'prawn'
 gem 'prawn-rails'
 
 # Use jquery as the JavaScript library
-gem 'jquery-rails', '~>2.3.0'
+gem 'jquery-rails'
 
 # Pagination
 gem 'will_paginate'
@@ -57,7 +57,7 @@ gem 'coffee-rails', '~> 4.0.0'
 # See https://github.com/sstephenson/execjs#readme for more supported runtimes
 gem 'therubyracer', platforms: :ruby
 
-gem 'fullcalendar-rails'
+gem 'fullcalendar-rails', '2.6.0.0'
 
 # gem 'therubyracer', platforms: :ruby
 gem 'momentjs-rails', '~> 2.9.0'
