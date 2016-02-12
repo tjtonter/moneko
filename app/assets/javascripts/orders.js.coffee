@@ -27,8 +27,8 @@ fetch_events = (start, end, timezone, callback) ->
             event = {
               id: order.id
               title: order.title
-              start: date.toISOString()
-              end: d2.toISOString()
+              start: moment(date).format()
+              end: moment(d2).format()
               url: Routes.order_path(order.id)
             }
             events.push event

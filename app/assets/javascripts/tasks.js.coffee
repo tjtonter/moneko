@@ -42,8 +42,8 @@ fetch_events = (start, end, timezone, callback) ->
             event = {
               id: order.id
               title: order.title
-              start: date.toString()
-              end: d2.toString()
+              start: moment(date).format()
+              end: moment(d2).format()
               url: Routes.new_user_job_path(id, order_id: order.id,job: { date: date})
             }
             events.push event
