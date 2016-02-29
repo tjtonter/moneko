@@ -1,42 +1,33 @@
 class Task < ActiveRecord::Base
+  require 'googleauth'
   require 'google/apis/calendar_v3'
   belongs_to :user
   belongs_to :order
-  before_create :gcal_event_add
-  before_destroy :gcal_event_delete
-  after_touch :gcal_event_update
-  GOOGLE_ID = "445337145466-rgarqo6icknoop3n195t5prauovs5ecp.apps.googleusercontent.com"
-  GOOGLE_EMAIL = "445337145466-rgarqo6icknoop3n195t5prauovs5ecp@developer.gserviceaccount.com"
   
   private
-  def get_google_token
-    @client = Google::APIClient.new(application_name: 'Moneko', application_version: '0.1')
-    key = Google::APIClient::KeyUtils.load_from_pkcs12('moneko.p12', 'notasecret')
-    @client.authorization = Signet::OAuth2::Client.new(
-      :token_credential_uri => 'https://accounts.google.com/o/oauth2/token',
-      :audience => 'https://accounts.google.com/o/oauth2/token',
-      :scope => 'https://www.googleapis.com/auth/calendar',
-      :issuer => GOOGLE_EMAIL, 
-      :signing_key => key
-    )
-    @client.authorization.fetch_access_token!
-    @client
-  end
-
-  def gcal_event_add
-      if self.user.gcal? && self.order
-        @client = google_apiclient
-        service = @client.discovered_api('calendar', 'v3')
-        puts "Adding event to #{self.user.name} calendar #{self.user.gcal}"
-        @result = @client.execute(
-          api_method: service.events.insert,
-          parameters: {'calendarId' => self.user.gcal},
-          body: JSON.dump(self.order.as_event),
-          headers: {'Content-Type' => 'application/json'}
-        )
-       self.gcalid = @result.data.id
-       puts "Createdd task #{@result.data.id}"
+    def get_calendar
+      calendar = Google::Apis::CalendarV3::CalendarService.new
+      scope = ['https://www.googleapis.com/auth/calendar']
+      calendar.authorization = Google::Auth.get_application_default(scope)
+      calendar.fetch_access_token!
+      calendar
+    end
+    def gcal_event_add
+      if !self.user.gcal?
+        return nil
       end
+      @client = google_apiclient
+      service = @client.discovered_api('calendar', 'v3')
+      puts "Adding event to #{self.user.name} calendar #{self.user.gcal}"
+      @result = @client.execute(
+        api_method: service.events.insert,
+        parameters: {'calendarId' => self.user.gcal},
+        body: JSON.dump(self.order.as_event),
+        headers: {'Content-Type' => 'application/json'}
+      )
+      self.gcalid = @result.data.id
+      puts "Created task #{@result.data.id}"
+      
     end
 
     def gcal_event_update

@@ -9,11 +9,11 @@
     .form-group
       = label_tag :part do
         = radio_button_tag :part, '1..15', checked: true
-        1..15
+        1-15
     .form-group
       = label_tag :part do
-        = radio_button_tag :part , '15..-1'
-        15..
+        = radio_button_tag :part , '16..-1'
+        16...
     .form-group
       = select_tag :format, options_for_select(%w[pdf html], "pdf"),
         {class: "form-control"}

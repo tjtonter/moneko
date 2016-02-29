@@ -1,9 +1,12 @@
+include IceCube
+require 'googleauth'
+require 'google/apis/calendar_v3'
 class Order < ActiveRecord::Base
-  include IceCube
-  include Rails.application.routes.url_helpers
   STATUSES = ["waiting", "active", "complete", "billed"]
   belongs_to :offer
-  #after_update :touch_tasks
+  after_create :insert_google_calendar_event
+  after_update :update_google_calendar_event
+  after_destroy :delete_google_calendar_event
   has_many :jobs, :dependent => :destroy
   has_many :tasks, :dependent => :destroy
   has_many :users, :through => :tasks
@@ -24,7 +27,7 @@ class Order < ActiveRecord::Base
   def rule=(new_schedule)
     if RecurringSelect.is_valid_rule?(new_schedule) && new_schedule != "{}"
       rule = RecurringSelect.dirty_hash_to_rule(new_schedule)
-      #rule.until self.until_at
+      rule.until self.until_at
       write_attribute(:rule, rule.to_hash)
       write_attribute(:ical, rule.to_ical)
     else
@@ -47,26 +50,63 @@ class Order < ActiveRecord::Base
       the_schedule
     end
   end
+
   def as_event
-    event = {
-      'summary' => self.title,
-      'description' => self.description,
-      'start' => {
-        'dateTime' => self.begin_at.to_datetime.rfc3339,
-        'timeZone' => self.begin_at.time_zone.name
+    event = Google::Apis::CalendarV3::Event.new(
+      summary: self.title,
+      description: self.description,
+      start: {
+        date_time: self.begin_at.to_datetime.rfc3339,
+        time_zone: self.begin_at.time_zone.name
       },
-      'end' => {
-        'dateTime' => self.end_at.to_datetime.rfc3339,
-        'timeZone' => self.end_at.time_zone.name
-      }
-    }
+      end: {
+        date_time: self.end_at.to_datetime.rfc3339,
+        time_zone:  self.end_at.time_zone.name
+      },
+      attendees: self.users.map{|user| Hash[:email, user.email]}
+    )
     if self.recurring?
-      event['recurrence'] = ['RRULE:'+self.converted_schedule.to_ical]
+      event.recurrence = ["RRULE:#{self.ical}"]
     end
-    puts "AS EVENT: "+event.to_s
-    return event 
+    event 
   end
 
+  def get_calendar
+    calendar = Google::Apis::CalendarV3::CalendarService.new
+    scope = ['https://www.googleapis.com/auth/calendar']
+    auth = Google::Auth.get_application_default(scope)
+    auth.fetch_access_token!
+    calendar.authorization = auth
+    calendar
+  end
+  
+  def insert_google_calendar_event
+    begin
+      calendar = get_calendar
+      result = calendar.insert_event('primary', self.as_event)
+      self.gid = result.id
+      self.save
+    rescue
+    end 
+  end
+
+  def update_google_calendar_event
+    begin
+      calendar = get_calendar
+      result = calendar.update_event('primary', self.gid, self.as_event)
+      puts result
+    rescue
+    end
+  end
+
+  def delete_google_calendar_event(gid=self.gid)
+    begin
+      calendar = get_calendar
+      result = calendar.delete_event('primary', gid)
+      puts result
+    rescue
+    end
+  end
   protected
     def end_does_not_equal_begin
       @errors.add(:end_at, "ei voi olla sama kuin alkuaika") if self.end_at == self.begin_at

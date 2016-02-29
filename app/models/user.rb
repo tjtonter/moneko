@@ -21,12 +21,14 @@ class User < ActiveRecord::Base
   end
   
   def self.find_for_google_oauth2(access_token, signed_in_resource=nil)
+    puts access_token.to_yaml
     data = access_token.info
     user = User.find_by(email: data.email)
     if user
       user.provider = access_token.provider
       user.uid = access_token.uid
       user.token = access_token.credentials.token
+      user.refresh_token ||= access_token.credentials.refresh_token
       user.save
       user
     else
