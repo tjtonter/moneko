@@ -5,10 +5,13 @@ Devise.setup do |config|
 
   require 'devise/orm/active_record'
   require 'omniauth-google-oauth2'
-  config.omniauth :google_oauth2, Rails.application.secrets.secret_token,
-    Rails.application.secrets.secret_key_base,
-    { access_type: "offline", approval_prompt: "", 
-      scope: 'userinfo.email,calendar' }
+  config.omniauth :google_oauth2, 
+    Rails.application.secrets.google_id,
+    Rails.application.secrets.google_secret, { 
+    access_type: "offline", 
+    approval_prompt: "", 
+    scope: 'userinfo.email,calendar' 
+  }
   config.authentication_keys = [ :login ]
   config.case_insensitive_keys = [ :email ]
   config.strip_whitespace_keys = [ :email ]
