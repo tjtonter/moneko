@@ -25,7 +25,8 @@ gem 'ice_cube'
 gem 'recurring_select'
 
 # Google API gem
-gem 'google-api-client', '0.9'
+gem 'google-api-client', '0.9.2'
+gem 'googleauth'
 gem 'omniauth'
 gem 'omniauth-google-oauth2'
 
