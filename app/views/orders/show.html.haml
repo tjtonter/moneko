@@ -16,7 +16,7 @@
   %p
     %strong= t 'activerecord.attributes.order.description'
     %br
-    =@order.description
+    = simple_format @order.description
   %p
     %strong= t :worker, count: @order.users.count
     - @order.users.each do |user|
