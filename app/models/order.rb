@@ -54,7 +54,7 @@ class Order < ActiveRecord::Base
   def as_event
     event = Google::Apis::CalendarV3::Event.new(
       summary: self.title,
-      description: "#{self.description}, Palkka: #{self.salary}",
+      description: "#{self.description}\nPalkka: #{self.salary}",
       start: {
         date_time: self.begin_at.to_datetime.rfc3339,
         time_zone: self.begin_at.time_zone.name
